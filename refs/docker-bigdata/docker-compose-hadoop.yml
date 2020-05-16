@@ -1,0 +1,49 @@
+
+version: '3.3'
+
+services:
+
+  bigdata-hadoop1:
+    container_name: bigdata-hadoop1
+    build:
+      context: ./services/hadoop/2.7
+    image: yinfuyuan/hadoop:2.7.6
+    hostname: bigdata-hadoop1
+    ports:
+      - 50070:50070
+    environment:
+      HDFS_CLUSTER_MASTER: "true"
+      HADOOP_CLUSTER_SLAVES: bigdata-hadoop1,bigdata-hadoop2,bigdata-hadoop3
+      HDFS_FS_DEFAULTFS: hdfs://bigdata-hadoop1:8020
+      HDFS_DFS_NAMENODE_SECONDARY_HTTP_ADDRESS: bigdata-hadoop3:50090
+      YARN_RESOURCEMANAGER_HOSTNAME: bigdata-hadoop2
+
+  bigdata-hadoop2:
+    container_name: bigdata-hadoop2
+    build:
+      context: ./services/hadoop/2.7
+    image: yinfuyuan/hadoop:2.7.6
+    hostname: bigdata-hadoop2
+    ports:
+      - 8088:8088
+    environment:
+      YARN_CLUSTER_MASTER: "true"
+      HADOOP_CLUSTER_SLAVES: bigdata-hadoop1,bigdata-hadoop2,bigdata-hadoop3
+      HDFS_FS_DEFAULTFS: hdfs://bigdata-hadoop1:8020
+      HDFS_DFS_NAMENODE_SECONDARY_HTTP_ADDRESS: bigdata-hadoop3:50090
+      YARN_RESOURCEMANAGER_HOSTNAME: bigdata-hadoop2
+
+  bigdata-hadoop3:
+    container_name: bigdata-hadoop3
+    build:
+      context: ./services/hadoop/2.7
+    image: yinfuyuan/hadoop:2.7.6
+    hostname: bigdata-hadoop3
+    ports:
+      - 19888:19888
+    environment:
+      HISTORY_CLUSTER_MASTER: "true"
+      HADOOP_CLUSTER_SLAVES: bigdata-hadoop1,bigdata-hadoop2,bigdata-hadoop3
+      HDFS_FS_DEFAULTFS: hdfs://bigdata-hadoop1:8020
+      HDFS_DFS_NAMENODE_SECONDARY_HTTP_ADDRESS: bigdata-hadoop3:50090
+      YARN_RESOURCEMANAGER_HOSTNAME: bigdata-hadoop2

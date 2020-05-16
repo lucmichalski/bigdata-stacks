@@ -1,0 +1,18 @@
+
+version: '3.3'
+
+services:
+
+  bigdata-phpmyadmin1:
+    container_name: bigdata-phpmyadmin1
+    image: phpmyadmin/phpmyadmin:4.7
+    hostname: bigdata-phpmyadmin1
+    external_links:
+      - bigdata-mysql1
+    ports:
+      - 80:80
+    environment:
+      PMA_ARBITRARY: 1
+      PMA_HOST: bigdata-mysql1
+      PMA_USER: bigdata
+      PMA_PASSWORD: bigdata
