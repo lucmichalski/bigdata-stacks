@@ -1,0 +1,55 @@
+version: '3.1'
+
+services:
+  couch1:
+    container_name: couchdb.one
+    hostname: couchdb.one
+    image: couch_cluster:latest
+    networks:
+      - couch
+    ports:
+      - 15984:5984
+    restart: always
+    volumes:
+      - ..\scripts:/tmp
+      - .\couch1data:/opt/couchdb/data:Z
+    environment:
+      NODENAME: couchdb.one
+      COUCHDB_USER: couchdb
+      COUCHDB_PASSWORD: bouchdc
+  couch2:
+    container_name: couchdb.two
+    hostname: couchdb.two
+    image: couch_cluster:latest
+    networks:
+      - couch
+    ports:
+      - 25984:5984
+    restart: always
+    volumes:
+      - ..\scripts:/tmp
+      - .\couch2data:/opt/couchdb/data:Z
+    environment:
+      NODENAME: couchdb.two
+      COUCHDB_USER: couchdb
+      COUCHDB_PASSWORD: bouchdc
+  couch3:
+    container_name: couchdb.three
+    hostname: couchdb.three
+    image: couch_cluster:latest
+    networks:
+      - couch
+    ports:
+      - 35984:5984
+    restart: always
+    volumes:
+      - ..\scripts:/tmp
+      - .\couch3data:/opt/couchdb/data:Z
+    environment:
+      NODENAME: couchdb.three
+      COUCHDB_USER: couchdb
+      COUCHDB_PASSWORD: bouchdc
+
+networks:
+  couch:
+    driver: bridge

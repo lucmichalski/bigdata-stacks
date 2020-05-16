@@ -1,0 +1,18 @@
+version: '3.1'
+
+services:
+
+  cluster:
+    container_name: 7dbs_redis_clusterer
+    image: redis:5.0.5-alpine
+    command: /usr/local/bin/redis-cluster.sh
+    volumes:
+      - ./redis-cluster.sh:/usr/local/bin/redis-cluster.sh
+    networks:
+      redis_net:
+        ipv4_address: 173.17.0.101
+
+
+networks:
+  redis_net:
+    external: true

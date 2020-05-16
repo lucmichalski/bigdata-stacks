@@ -1,0 +1,33 @@
+version: '3.1'
+
+services:
+  db:
+    container_name: 7dbs_dynamo_db
+    image: amazon/dynamodb-local:1.11.477
+    restart: always
+    ports:
+      - 8000:8000
+    networks:
+      dynamo_net:
+        ipv4_address: 173.106.0.11
+
+  web:
+    container_name: 7dbs_dynamo_web
+    build:
+      context: ./dynamo_admin
+    image: dynamodb-admin:0.3.11
+    restart: always
+    environment:
+      - AWS_SECRET_ACCESS_KEY=dummy
+      - AWS_ACCESS_KEY_ID=dummy
+      - AWS_REGION=eu-west-1
+      - DYNAMO_ENDPOINT=http://db:8000
+    ports:
+      - 8086:8001
+    networks:
+      dynamo_net:
+        ipv4_address: 173.106.0.12
+
+networks:
+  dynamo_net:
+    external: true
