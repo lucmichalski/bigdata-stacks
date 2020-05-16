@@ -1,0 +1,107 @@
+version: "2"
+services:
+
+  zookeeper-1:
+    container_name: zookeeper-1    
+    networks: ["vnet"]
+    hostname: zookeeper-1.vnet
+    image: smizy/zookeeper:3.4-alpine
+    environment:
+      - SERVICE_2181_NAME=zookeeper
+      - SERVICE_2888_IGNORE=true
+      - SERVICE_3888_IGNORE=true
+      
+    command: -server 1 1 vnet
+
+  namenode-1:
+    container_name: namenode-1
+    networks: ["vnet"]
+    hostname: namenode-1.vnet
+    image: smizy/hadoop-base:2.7.4-alpine 
+    expose: ["8020"]
+    ports:  ["50070"]
+    environment:
+      - SERVICE_8020_NAME=namenode
+      - SERVICE_50070_IGNORE=true
+      - HADOOP_ZOOKEEPER_QUORUM=zookeeper-1.vnet:2181 
+      - HADOOP_HEAPSIZE=1000
+      - HADOOP_NAMENODE_HA=
+      
+    entrypoint: entrypoint.sh
+    command: namenode-1
+
+  datanode-1:
+    container_name: datanode-1
+    networks: ["vnet"]
+    hostname: datanode-1.vnet
+    image: smizy/hadoop-base:2.7.4-alpine
+    expose: ["50010", "50020", "50075"]
+    environment:
+      - SERVICE_50010_NAME=datanode
+      - SERVICE_50020_IGNORE=true
+      - SERVICE_50075_IGNORE=true
+      - HADOOP_ZOOKEEPER_QUORUM=zookeeper-1.vnet:2181 
+      - HADOOP_HEAPSIZE=1000
+      - HADOOP_NAMENODE_HA=
+      
+    entrypoint: entrypoint.sh
+    command: datanode
+
+  resourcemanager-1:
+    container_name: resourcemanager-1
+    networks: ["vnet"]
+    hostname: resourcemanager-1.vnet
+    image: smizy/hadoop-base:2.7.4-alpine
+    expose: ["8030-8033"]
+    ports:  ["8088"]
+    environment:
+      - SERVICE_8088_NAME=resourcemanager
+      - SERVICE_8030_IGNORE=true
+      - SERVICE_8031_IGNORE=true
+      - SERVICE_8032_IGNORE=true
+      - SERVICE_8033_IGNORE=true
+      - HADOOP_ZOOKEEPER_QUORUM=zookeeper-1.vnet:2181 
+      - HADOOP_NAMENODE_HA=
+      - YARN_HEAPSIZE=1000
+      
+    entrypoint: entrypoint.sh
+    command: resourcemanager-1
+
+  historyserver-1:
+    container_name: historyserver-1
+    networks: ["vnet"]
+    hostname: historyserver-1.vnet
+    image: smizy/hadoop-base:2.7.4-alpine
+    expose: ["10020"]
+    ports:  ["19888:19888"]
+    environment:
+      - SERVICE_19888_NAME=historyserver
+      - SERVICE_10020_IGNORE=true
+      - HADOOP_ZOOKEEPER_QUORUM=zookeeper-1.vnet:2181 
+      - HADOOP_HEAPSIZE=1000
+      - HADOOP_NAMENODE_HA=
+      
+    entrypoint: entrypoint.sh
+    command: historyserver-1
+
+  nodemanager-1:
+    container_name: nodemanager-1
+    networks: ["vnet"]
+    hostname: nodemanager-1.vnet
+    image: smizy/hadoop-base:2.7.4-alpine
+    expose: ["8040-8042"]
+    environment:
+      - SERVICE_8042_NAME=nodemanager
+      - SERVICE_8040_IGNORE=true
+      - SERVICE_8041_IGNORE=true
+      - HADOOP_ZOOKEEPER_QUORUM=zookeeper-1.vnet:2181 
+      - HADOOP_NAMENODE_HA=
+      - YARN_HEAPSIZE=1000
+      
+    entrypoint: entrypoint.sh
+    command: nodemanager
+
+networks:
+  vnet:
+    external:
+      name: vnet 
