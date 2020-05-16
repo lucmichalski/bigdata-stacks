@@ -1,0 +1,48 @@
+# https://circleci.com/docs/configuration#
+general:
+  build_dir: "3.4"
+
+# https://circleci.com/docs/docker
+machine:
+  environment:
+    VERSION: "3.4.10"
+    BUILD_DATE: $(date -u +"%Y-%m-%dT%H:%M:%SZ")
+    VCS_REF: ${CIRCLE_SHA1:0:7}
+    TAG: ${VERSION}-alpine
+    TAG_SHORT: 3.4-alpine
+    BATS_VER: 0.4.0
+  services:
+    - docker
+
+dependencies:
+  cache_directories:
+    - "~/deps"
+  pre:
+    - if [[ ! -e ~/deps/bats_v${BATS_VER}.tar.gz ]]; then mkdir -p ~/deps; curl -sSL -o ~/deps/bats_v${BATS_VER}.tar.gz https://github.com/sstephenson/bats/archive/v${BATS_VER}.tar.gz; fi
+    - tar -xf ~/deps/bats_v${BATS_VER}.tar.gz
+    - sudo bats-${BATS_VER}/install.sh /usr/local
+  override:
+    - docker info
+    - docker version
+    - make all
+
+test:
+  override:
+    - docker inspect smizy/zookeeper:${TAG}
+    - make test
+
+# https://circleci.com/docs/configuration#deployment
+# https://circleci.com/docs/environment-variables
+deployment:
+  master:
+    branch: master
+    owner: smizy
+    commands:
+      - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
+      - docker tag smizy/zookeeper:${TAG} smizy/zookeeper
+      - docker tag smizy/zookeeper:${TAG} smizy/zookeeper:${TAG_SHORT}
+      - docker push smizy/zookeeper:${TAG}
+      - docker push smizy/zookeeper:${TAG_SHORT}
+      - docker push smizy/zookeeper:latest
+      - docker logout
+      - curl -X POST 'https://hooks.microbadger.com/images/smizy/zookeeper/qxHGCqKcI_P_sS8Ek0I8Ck9wEl8='
