@@ -1,0 +1,8 @@
+version: '2'
+
+services:
+  zookeeper:
+    image: pkeropen3/zookeeper_alpine:3.4.6
+    hostname: zk
+    ports:
+      - "2181:2181"

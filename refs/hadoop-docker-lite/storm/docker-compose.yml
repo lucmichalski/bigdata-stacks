@@ -1,0 +1,22 @@
+version: '2'
+
+services:
+  nimbus:
+    image: pkeropen3/storm-nimbus_debian:0.10.0
+    ports:
+      - "49773:3773"
+      - "49772:3772"
+      - "49627:6627"
+      - "22"
+
+  supervisor:
+    image: pkeropen3/storm-supervisor_debian:0.10.0
+    ports:
+      - "8000"
+      - "22"
+
+  ui:
+    image: pkeropen3/storm-ui_debian:0.10.0
+    ports:
+      - "49080:8080"
+      - "22"

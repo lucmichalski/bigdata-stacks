@@ -1,0 +1,43 @@
+<configuration>
+    <property>
+        <name>hbase.cluster.distributed</name>
+        <value>true</value>
+    </property>
+    <property>
+    	<name>hbase.rootdir</name>
+    	<value>hdfs://10.17.0.3:9000/hbase</value>
+    </property>
+    <property>
+        <name>hbase.master.port</name>
+        <value>60000</value>
+    </property>
+    <property>
+        <name>hbase.master.info.port</name>
+        <value>60010</value>
+    </property>
+    <property>
+        <name>hbase.regionserver.port</name>
+        <value>60020</value>
+    </property>
+    <property>
+        <name>hbase.regionserver.info.port</name>
+        <value>60030</value>
+    </property>
+
+    <property>
+        <name>hbase.regionserver.ipc.address</name>
+        <value>0.0.0.0</value>
+    </property>
+    <property>
+	<name>hbase.zookeeper.quorum</name>
+	<value>zk:2181</value>
+    </property>
+	<property>
+		<name>hbase.rest.port</name>
+		<value>8070</value>
+	</property>
+	<property>
+		<name>hbase.rest.info.port</name>
+		<value>8090</value>
+	</property>
+</configuration>
