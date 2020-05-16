@@ -7,4 +7,11 @@ https://github.com/pkeropen/hadoop-docker-lite
 https://github.com/ziedYazidi/Kafka-Spark-HBase-Sentiment-Analysis
 https://github.com/yinfuyuan/docker-bigdata
 https://github.com/senx/warp10-docker
-
+https://github.com/smizy/docker-apache-drill
+https://github.com/smizy/docker-hbase
+https://github.com/smizy/docker-hadoop-base
+https://github.com/smizy/docker-cassandra
+https://github.com/smizy/docker-couchdb
+https://github.com/smizy/docker-mesos
+https://github.com/smizy/docker-zookeeper
+https://github.com/ly16/GooglePlay-Web-Crawler
