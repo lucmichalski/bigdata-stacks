@@ -1,0 +1,56 @@
+
+version: '3.3'
+
+services:
+
+  bigdata-hive1:
+    container_name: bigdata-hive1
+    build:
+      context: ./services/hive/2.3
+    image: yinfuyuan/hive:2.3.3
+    hostname: bigdata-hive1
+    ports:
+      - 50070:50070
+      - 8088:8088
+      - 19888:19888
+    external_links:
+      - bigdata-mysql1
+    environment:
+      HIVE_CLUSTER: "true"
+      HDFS_MASTER: "true"
+      YARN_MASTER: "true"
+      HISTORY_MASTER: "true"
+      HDFS_FS_DEFAULTFS: hdfs://bigdata-hive1:9000
+      HDFS_SLAVES: bigdata-hive2,bigdata-hive3
+      HDFS_DFS_REPLICATION: 2
+      YARN_RESOURCEMANAGER_HOSTNAME: bigdata-hive1
+
+  bigdata-hive2:
+    container_name: bigdata-hive2
+    build:
+      context: ./services/hive/2.3
+    image: yinfuyuan/hive:2.3.3
+    hostname: bigdata-hive2
+    external_links:
+      - bigdata-mysql1
+    environment:
+      HIVE_CLUSTER: "true"
+      HDFS_FS_DEFAULTFS: hdfs://bigdata-hive1:9000
+      HDFS_SLAVES: bigdata-hive2,bigdata-hive3
+      HDFS_DFS_REPLICATION: 2
+      YARN_RESOURCEMANAGER_HOSTNAME: bigdata-hive1
+
+  bigdata-hive3:
+    container_name: bigdata-hive3
+    build:
+      context: ./services/hive/2.3
+    image: yinfuyuan/hive:2.3.3
+    hostname: bigdata-hive3
+    external_links:
+      - bigdata-mysql1
+    environment:
+      HIVE_CLUSTER: "true"
+      HDFS_FS_DEFAULTFS: hdfs://bigdata-hive1:9000
+      HDFS_SLAVES: bigdata-hive2,bigdata-hive3
+      HDFS_DFS_REPLICATION: 2
+      YARN_RESOURCEMANAGER_HOSTNAME: bigdata-hive1

@@ -1,0 +1,185 @@
+
+version: '3.3'
+
+services:
+
+  bigdata-zookeeper1:
+    container_name: bigdata-zookeeper1
+    image: zookeeper:3.4.12
+    hostname: bigdata-zookeeper1
+    environment:
+      ZOO_MY_ID: 1
+      ZOO_SERVERS: server.1=0.0.0.0:2888:3888 server.2=bigdata-zookeeper2:2888:3888 server.3=bigdata-zookeeper3:2888:3888
+
+  bigdata-zookeeper2:
+    container_name: bigdata-zookeeper2
+    image: zookeeper:3.4.12
+    hostname: bigdata-zookeeper2
+    environment:
+      ZOO_MY_ID: 2
+      ZOO_SERVERS: server.1=bigdata-zookeeper1:2888:3888 server.2=0.0.0.0:2888:3888 server.3=bigdata-zookeeper3:2888:3888
+
+  bigdata-zookeeper3:
+    container_name: bigdata-zookeeper3
+    image: zookeeper:3.4.12
+    hostname: bigdata-zookeeper3
+    environment:
+      ZOO_MY_ID: 3
+      ZOO_SERVERS: server.1=bigdata-zookeeper1:2888:3888 server.2=bigdata-zookeeper2:2888:3888 server.3=0.0.0.0:2888:3888
+
+  bigdata-hadoop1:
+    container_name: bigdata-hadoop1
+    image: yinfuyuan/hadoop:2.7.6
+    hostname: bigdata-hadoop1
+    ports:
+      - 50070:50070
+      - 8088:8088
+      - 19888:19888
+    environment:
+      HADOOP_CLUSTER: "true"
+      HDFS_MASTER: "true"
+      YARN_MASTER: "true"
+      HISTORY_MASTER: "true"
+      FS_DEFAULTFS: hdfs://bigdata-hadoop1:9000
+      SLAVES: bigdata-hadoop2,bigdata-hadoop3
+      DFS_REPLICATION: 2
+      YARN_RESOURCEMANAGER_HOSTNAME: bigdata-hadoop1
+
+  bigdata-hadoop2:
+    container_name: bigdata-hadoop2
+    image: yinfuyuan/hadoop:2.7.6
+    hostname: bigdata-hadoop2
+    environment:
+      HADOOP_CLUSTER: "true"
+      FS_DEFAULTFS: hdfs://bigdata-hadoop1:9000
+      SLAVES: bigdata-hadoop2,bigdata-hadoop3
+      DFS_REPLICATION: 2
+      YARN_RESOURCEMANAGER_HOSTNAME: bigdata-hadoop1
+
+  bigdata-hadoop3:
+    container_name: bigdata-hadoop3
+    image: yinfuyuan/hadoop:2.7.6
+    hostname: bigdata-hadoop3
+    environment:
+      HADOOP_CLUSTER: "true"
+      FS_DEFAULTFS: hdfs://bigdata-hadoop1:9000
+      SLAVES: bigdata-hadoop2,bigdata-hadoop3
+      DFS_REPLICATION: 2
+      YARN_RESOURCEMANAGER_HOSTNAME: bigdata-hadoop1
+
+  bigdata-hbase1:
+    container_name: bigdata-hbase1
+    image: yinfuyuan/hbase:2.0.0
+    hostname: bigdata-hbase1
+    links:
+      - bigdata-zookeeper1
+      - bigdata-zookeeper2
+      - bigdata-zookeeper3
+    ports:
+      - 16010:16010
+    environment:
+      HBASE_CLUSTER: "true"
+      HDFS_MASTER: "true"
+      HDFS_FS_DEFAULTFS: hdfs://bigdata-hbase1:9000
+      HDFS_SLAVES: bigdata-hbase2,bigdata-hbase3
+      HDFS_DFS_REPLICATION: 2
+      HBASE_ROOTDIR: hdfs://bigdata-hbase1:9000/hbase
+      HBASE_CLUSTER_DISTRIBUTED: "true"
+      HBASE_MASTER: "true"
+      HBASE_BACKUP_MASTER: bigdata-hbase2
+      HBASE_REGION_SERVERS: bigdata-hbase2,bigdata-hbase3
+      HBASE_ZOOKEEPER_QUORUM: bigdata-zookeeper1,bigdata-zookeeper2,bigdata-zookeeper3
+
+  bigdata-hbase2:
+    container_name: bigdata-hbase2
+    image: yinfuyuan/hbase:2.0.0
+    hostname: bigdata-hbase2
+    links:
+      - bigdata-zookeeper1
+      - bigdata-zookeeper2
+      - bigdata-zookeeper3
+    environment:
+      HBASE_CLUSTER: "true"
+      HDFS_FS_DEFAULTFS: hdfs://bigdata-hbase1:9000
+      HDFS_SLAVES: bigdata-hbase2,bigdata-hbase3
+      HDFS_DFS_REPLICATION: 2
+      HBASE_ROOTDIR: hdfs://bigdata-hbase1:9000/hbase
+      HBASE_CLUSTER_DISTRIBUTED: "true"
+      HBASE_BACKUP_MASTER: bigdata-hbase2
+      HBASE_REGION_SERVERS: bigdata-hbase2,bigdata-hbase3
+      HBASE_ZOOKEEPER_QUORUM: bigdata-zookeeper1,bigdata-zookeeper2,bigdata-zookeeper3
+
+  bigdata-hbase3:
+    container_name: bigdata-hbase3
+    image: yinfuyuan/hbase:2.0.0
+    hostname: bigdata-hbase3
+    links:
+      - bigdata-zookeeper1
+      - bigdata-zookeeper2
+      - bigdata-zookeeper3
+    environment:
+      HBASE_CLUSTER: "true"
+      HDFS_FS_DEFAULTFS: hdfs://bigdata-hbase1:9000
+      HDFS_SLAVES: bigdata-hbase2,bigdata-hbase3
+      HDFS_DFS_REPLICATION: 2
+      HBASE_ROOTDIR: hdfs://bigdata-hbase1:9000/hbase
+      HBASE_CLUSTER_DISTRIBUTED: "true"
+      HBASE_BACKUP_MASTER: bigdata-hbase2
+      HBASE_REGION_SERVERS: bigdata-hbase2,bigdata-hbase3
+      HBASE_ZOOKEEPER_QUORUM: bigdata-zookeeper1,bigdata-zookeeper2,bigdata-zookeeper3
+
+  bigdata-kafka1:
+    container_name: bigdata-kafka1
+    image: yinfuyuan/kafka:1.1.0-alpine
+    hostname: bigdata-kafka1
+    links:
+      - bigdata-zookeeper1
+      - bigdata-zookeeper2
+      - bigdata-zookeeper3
+    environment:
+      KAFKA_CLUSTER: "true"
+      BROKER_ID: 1
+      LISTENERS: PLAINTEXT://bigdata-kafka1:9092
+      ADVERTISED_LISTENERS: PLAINTEXT://bigdata-kafka1:9092
+      ZOOKEEPER_CONNECT: bigdata-zookeeper1:2181,bigdata-zookeeper2:2181,bigdata-zookeeper3:2181
+
+  bigdata-kafka2:
+    container_name: bigdata-kafka2
+    image: yinfuyuan/kafka:1.1.0-alpine
+    hostname: bigdata-kafka2
+    links:
+      - bigdata-zookeeper1
+      - bigdata-zookeeper2
+      - bigdata-zookeeper3
+    environment:
+      KAFKA_CLUSTER: "true"
+      BROKER_ID: 2
+      LISTENERS: PLAINTEXT://bigdata-kafka2:9092
+      ADVERTISED_LISTENERS: PLAINTEXT://bigdata-kafka2:9092
+      ZOOKEEPER_CONNECT: bigdata-zookeeper1:2181,bigdata-zookeeper2:2181,bigdata-zookeeper3:2181
+
+  bigdata-mysql1:
+    container_name: bigdata-mysql1
+    image: mysql:5.7.19
+    hostname: bigdata-mysql1
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: bigdata
+      MYSQL_PASSWORD: bigdata
+      MYSQL_DATABASE: bigdata
+
+  bigdata-phpmyadmin1:
+    container_name: bigdata-phpmyadmin1
+    image: phpmyadmin/phpmyadmin:4.7
+    hostname: bigdata-phpmyadmin1
+    links:
+      - bigdata-mysql1
+    ports:
+      - 80:80
+    environment:
+      PMA_ARBITRARY: 1
+      PMA_HOST: bigdata-mysql1
+      PMA_USER: bigdata
+      PMA_PASSWORD: bigdata
