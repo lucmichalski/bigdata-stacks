@@ -1,0 +1,8 @@
+https://github.com/usmanatron/docker-7Databases
+https://github.com/chinphing/hbase-monitor
+https://github.com/mathsigit/hbase-on-docker
+https://github.com/scil/docker-janusgraph-hbase
+https://github.com/luhuiwang/nosql
+https://github.com/pkeropen/hadoop-docker-lite
+https://github.com/ziedYazidi/Kafka-Spark-HBase-Sentiment-Analysis
+https://github.com/yinfuyuan/docker-bigdata
