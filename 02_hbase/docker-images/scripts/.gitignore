@@ -1,0 +1,8 @@
+# Scripts from 7dbs code files
+basic_xml_parsing.rb
+create_wiki_schema.rb
+generate_wiki_links.rb
+import_from_wikipedia.rb
+mapreduce_links.rb
+put_multiple_columns.rb
+thrift_example.rb   

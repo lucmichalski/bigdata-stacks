@@ -1,0 +1,82 @@
+version: '3.1'
+
+services:
+
+  db1:
+    container_name: 7dbs_redis_db1
+    image: redis:5.0.5-alpine
+    restart: always
+    command: redis-server /usr/local/etc/redis/redis.conf
+    volumes:
+      - ./redis.conf:/usr/local/etc/redis/redis.conf
+    networks:
+      redis_net:
+        ipv4_address: 173.17.0.11
+
+  db2:
+    container_name: 7dbs_redis_db2
+    image: redis:5.0.5-alpine
+    restart: always
+    command: redis-server /usr/local/etc/redis/redis.conf
+    volumes:
+      - ./redis.conf:/usr/local/etc/redis/redis.conf
+    networks:
+      redis_net:
+        ipv4_address: 173.17.0.12
+
+  db3:
+    container_name: 7dbs_redis_db3
+    image: redis:5.0.5-alpine
+    restart: always
+    command: redis-server /usr/local/etc/redis/redis.conf
+    volumes:
+      - ./redis.conf:/usr/local/etc/redis/redis.conf
+    networks:
+      redis_net:
+        ipv4_address: 173.17.0.13
+  db4:
+    container_name: 7dbs_redis_db4
+    image: redis:5.0.5-alpine
+    restart: always
+    command: redis-server /usr/local/etc/redis/redis.conf
+    volumes:
+      - ./redis.conf:/usr/local/etc/redis/redis.conf
+    networks:
+      redis_net:
+        ipv4_address: 173.17.0.14
+  db5:
+    container_name: 7dbs_redis_db5
+    image: redis:5.0.5-alpine
+    restart: always
+    command: redis-server /usr/local/etc/redis/redis.conf
+    volumes:
+      - ./redis.conf:/usr/local/etc/redis/redis.conf
+    networks:
+      redis_net:
+        ipv4_address: 173.17.0.15
+  db6:
+    container_name: 7dbs_redis_db6
+    image: redis:5.0.5-alpine
+    restart: always
+    command: redis-server /usr/local/etc/redis/redis.conf
+    volumes:
+      - ./redis.conf:/usr/local/etc/redis/redis.conf
+    networks:
+      redis_net:
+        ipv4_address: 173.17.0.16
+
+  rebrow:
+    container_name: 7dbs_redis_rebrow_cluster
+    image: marian/rebrow
+    restart: always
+    ports:
+      - 8097:5001
+    networks:
+      redis_net:
+        ipv4_address: 173.17.0.21
+
+networks:
+  redis_net:
+    external: true
+
+

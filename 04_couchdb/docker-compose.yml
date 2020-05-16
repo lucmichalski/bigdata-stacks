@@ -1,0 +1,27 @@
+version: '3.1'
+
+services:
+  couch:
+    container_name: 7dbs_couch_db
+    hostname: 7dbs_couch_db
+    image: couchdb:2.3.1
+    ports:
+      - 8084:5984
+    restart: always
+    volumes:
+      - .\scripts:/tmp
+    environment:
+      COUCHDB_USER: couchdb
+      COUCHDB_PASSWORD: bouchdc
+  firstrun:
+    container_name: 7dbs_couch_firstrun
+    build:
+      context: couch-firstrun
+      dockerfile: Dockerfile
+    depends_on:
+      - couch
+    restart: "no"
+    environment:
+      COUCHDB_USER: couchdb
+      COUCHDB_PASSWORD: bouchdc
+      NODENAME: couch-single

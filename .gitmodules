@@ -1,0 +1,3 @@
+[submodule "03_mongodb/cluster/mongo-cluster-docker"]
+	path = 03_mongodb/cluster/mongo-cluster-docker
+	url = https://github.com/senssei/mongo-cluster-docker

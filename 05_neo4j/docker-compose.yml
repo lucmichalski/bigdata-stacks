@@ -1,0 +1,16 @@
+version: '3.1'
+
+services:
+  neo:
+    container_name: 7dbs_neo4j_db
+    hostname: 7dbs_neo4j_db
+    image: neo4j:3.5.8
+    ports:
+      - 8085:7474
+      - 7687:7687
+    restart: always
+    volumes:
+      - .\data:/data
+      - .\logs:/logs
+    environment:
+      NEO4J_AUTH: neo4j/geo4a

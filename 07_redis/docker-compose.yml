@@ -1,0 +1,15 @@
+version: '3.1'
+
+services:
+
+  db:
+    container_name: 7dbs_redis_db
+    image: redis:5.0.5-alpine
+    restart: always
+
+  rebrow:
+    container_name: 7dbs_redis_rebrow
+    image: marian/rebrow
+    restart: always
+    ports:
+      - 8087:5001

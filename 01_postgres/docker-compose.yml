@@ -1,0 +1,19 @@
+version: '3.1'
+
+services:
+
+  db:
+    container_name: 7dbs_postgres_db
+    image: postgres:11.3
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: grespost
+      POSTGRES_DB: 7dbs
+
+  adminer:
+    container_name: 7dbs_postgres_adminer
+    image: adminer:4.7.1
+    restart: always
+    ports:
+      - 8081:8080

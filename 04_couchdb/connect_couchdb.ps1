@@ -1,0 +1,1 @@
+docker exec -it 7dbs_couch_db bash
