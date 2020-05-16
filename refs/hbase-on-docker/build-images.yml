@@ -1,0 +1,24 @@
+version: "2"
+
+services:
+  centos:
+    build:
+      context: ./centos
+    image: mathstana/centos:6.6-jdk8
+
+  hadoop:
+    build:
+      context: ./hadoop
+    image: mathstana/hadoop:2.7.3
+    depends_on:
+      - centos
+
+  hbase:
+    build:
+      context: ./hbase
+      args:
+        - HBASE_VERSION=${HBASE_VERSION}
+    #To see : https://github.com/moby/moby/pull/31352
+    image: mathstana/hbase:${HBASE_VERSION}
+    depends_on:
+      - hadoop

@@ -1,0 +1,50 @@
+version: "2"
+services:
+  slave1:
+    extends:
+      file: common.yml
+      service: slave
+    image: mathstana/hbase:${HBASE_VERSION}
+    container_name: ${NODE_HOST_SLAVE1}
+    hostname: ${NODE_HOST_SLAVE1}
+    entrypoint: /opt/bootstrap.sh SLAVE ${NODE_HOST_MASTER}
+    networks:
+      docker_net:
+        ipv4_address: ${NODE_IP_SLAVE1}
+
+  slave2:
+    extends:
+      file: common.yml
+      service: slave
+    image: mathstana/hbase:${HBASE_VERSION}
+    container_name: ${NODE_HOST_SLAVE2}
+    hostname: ${NODE_HOST_SLAVE2}
+    entrypoint: /opt/bootstrap.sh SLAVE ${NODE_HOST_MASTER}
+    networks:
+      docker_net:
+        ipv4_address: ${NODE_IP_SLAVE2}
+
+  master:
+    extends:
+      file: common.yml
+      service: master
+    image: mathstana/hbase:${HBASE_VERSION}
+    container_name: ${NODE_HOST_MASTER}
+    hostname: ${NODE_HOST_MASTER}
+    depends_on:
+      - slave1
+      - slave2
+    links:
+      - slave1
+      - slave2
+    entrypoint: /opt/bootstrap.sh MASTER ${NODE_HOST_MASTER}
+    networks:
+      docker_net:
+        ipv4_address: ${NODE_IP_MASTER}
+
+networks:
+  docker_net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: "${SUBNET}"
