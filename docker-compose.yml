@@ -1,0 +1,169 @@
+##-----------
+## Use services as required. Comment out unwanted ones.
+##-----------
+version: '2'
+
+services:
+  zookeeper:
+    extends:
+      file: zookeeper/docker-compose.yml
+      service: zookeeper
+    networks:
+      app_net:
+        ipv4_address: 10.17.0.2
+
+  hbase:
+    extends:
+      file: hbase/docker-compose.yml
+      service: hbase
+    links:
+      - zookeeper:zk
+    networks:
+      app_net:
+        ipv4_address: 10.17.0.5
+    extra_hosts:
+      - "nimbus:10.17.0.8"
+      - "supervisor:10.17.0.9"
+      - "hadoop:10.17.0.3"
+      - "pig:10.17.0.4"
+      - "zk:10.17.0.2"
+
+  kafka:
+    extends:
+      file: kafka/docker-compose.yml
+      service: kafka
+    links:
+      - zookeeper:zk
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock 
+    networks:
+      app_net:
+        ipv4_address: 10.17.0.6
+    extra_hosts:
+      - "nimbus:10.17.0.8"
+      - "supervisor:10.17.0.9"
+      - "hadoop:10.17.0.3"
+      - "zk:10.17.0.2"
+   
+
+  kafka-manager:
+    extends:
+      file: kafka/docker-compose.yml
+      service: kafka-manager
+    links:
+      - zookeeper:zk
+      - kafka:kafka
+    networks:
+      app_net:
+        ipv4_address: 10.17.0.7
+   
+  nimbus:
+    extends:
+      file: storm/docker-compose.yml
+      service: nimbus
+    links: 
+      - zookeeper:zk
+    networks:
+      app_net:
+        ipv4_address: 10.17.0.8
+    extra_hosts:
+      - "kafka:10.17.0.6"
+      - "hbase:10.17.0.5"
+      - "hadoop:10.17.0.3"
+      - "zk:10.17.0.2"
+    environment:
+      ZK_PORT_2181_TCP_ADDR: "zk"
+      NIMBUS_PORT_6627_TCP_ADDR: "nimbus"
+
+  supervisor:
+    extends:
+      file: storm/docker-compose.yml
+      service: supervisor
+    links: 
+      - nimbus:nimbus
+      - zookeeper:zk
+    networks:
+      app_net:
+        ipv4_address: 10.17.0.9
+    extra_hosts:
+      - "kafka:10.17.0.6"
+      - "hbase:10.17.0.5"
+      - "hadoop:10.17.0.3"
+      - "zk:10.17.0.2"
+    environment:
+      ZK_PORT_2181_TCP_ADDR: "zk"
+      NIMBUS_PORT_6627_TCP_ADDR: "nimbus"
+    
+  ui:
+    extends:
+      file: storm/docker-compose.yml
+      service: ui
+    links: 
+      - nimbus:nimbus
+      - zookeeper:zk
+    networks:
+      app_net:
+        ipv4_address: 10.17.0.10
+    extra_hosts:
+      - "kafka:10.17.0.6"
+      - "hbase:10.17.0.5"
+      - "hadoop:10.17.0.3"
+      - "zk:10.17.0.2"
+    environment:
+      ZK_PORT_2181_TCP_ADDR: "zk"
+      NIMBUS_PORT_6627_TCP_ADDR: "nimbus"
+
+  hadoop:
+    extends:
+      file: hadoop/docker-compose.yml
+      service: hadoop
+    networks:
+      app_net:
+        ipv4_address: 10.17.0.3
+ 
+  pig:
+    extends:
+      file: hadoop/docker-compose.yml
+      service: pig
+    networks:
+      app_net:
+        ipv4_address: 10.17.0.4
+  
+  sink:
+    extends:
+      file: flume/docker-compose.yml
+      service: sink
+    links: 
+      - zookeeper:zk
+    networks:
+      app_net:
+        ipv4_address: 10.17.0.11
+    extra_hosts:
+      - "kafka:10.17.0.6"
+      - "zk:10.17.0.2"
+      - "source:10.17.0.12"
+
+  source:
+    extends:
+      file: flume/docker-compose.yml
+      service: source
+    links: 
+      - zookeeper:zk
+      - sink:sink
+    networks:
+      app_net:
+        ipv4_address: 10.17.0.12
+    extra_hosts:
+      - "kafka:10.17.0.6"
+      - "zk:10.17.0.2"
+      - "source:10.17.0.12"
+
+
+networks:
+  app_net:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+      - subnet: 10.17.0.0/24
+        gateway: 10.17.0.1

@@ -1,0 +1,26 @@
+version: '2'
+
+services:
+  source:
+    image: pkeropen3/flume_alpine:1.6.0
+    hostname: flume-source
+    ports:
+      - "44444:44444"
+    volumes:
+      - ./fixtures/source.conf:/opt/flume-config/flume.conf
+    environment:
+      - FLUME_AGENT_NAME=docker
+      - FLUME_CONFIG_NAME=source.conf
+    #links:
+    # - "sink:sink"
+
+  sink:
+    image: pkeropen3/flume_alpine:1.6.0
+    hostname: flume-sink
+    volumes:
+     - ./fixtures/sink.conf:/opt/flume-config/flume.conf
+     - ./output:/var/tmp/output
+    environment:
+     - FLUME_AGENT_NAME=docker
+     - FLUME_CONFIG_NAME=sink.conf
+
