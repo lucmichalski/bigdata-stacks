@@ -1,0 +1,70 @@
+version: '2.1'
+services:
+
+# Apache kafka
+  zookeeper:
+    image: wurstmeister/zookeeper
+    container_name: zookeeper
+    ports:
+      - "2181:2181"
+    networks:
+      - cluster_network
+
+  kafka:
+    image: wurstmeister/kafka
+    container_name: kafka
+    # hostname: kafka-docker
+    ports:
+      - "9092"
+    environment:
+      KAFKA_ADVERTISED_HOST_NAME: 172.17.0.1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - cluster_network
+
+# Apache Spark
+  master:
+    image: singularities/spark
+    container_name: spark-master
+    command: start-spark master
+    hostname: master
+    ports:
+      - "6066:6066"
+      - "7070:7070"
+      - "8080:8080"
+      - "50070:50070"
+    networks:
+      - cluster_network
+
+  worker:
+    image: singularities/spark
+    container_name: spark-worker
+    command: start-spark worker master
+    environment:
+      SPARK_WORKER_CORES: 1
+      SPARK_WORKER_MEMORY: 2g
+    links:
+      - master
+    networks:
+      - cluster_network
+
+# Apache Hbase
+  hbase:
+    image: ziedyazidi/hbase
+    container_name: hbase
+    hostname: hbase-docker
+    ports:
+      - "8081:8080"
+      - "2182:2182"
+      - "8085:8085"
+      - "9090:9090"
+      - "9095:9095"
+      - "16010:16010"
+    networks:
+      - cluster_network
+
+networks:
+  cluster_network:
+    name: kafka-spark-hbase
