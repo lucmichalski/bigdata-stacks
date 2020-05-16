@@ -1,0 +1,48 @@
+version: "2.0"
+services:
+  baseeenv:
+    env_file:
+      - ./etc/profile.env
+    tty: true
+    volumes:
+      - ./centos/start-service.sh:/opt/start-service.sh
+      - ./etc/slaves:/opt/hadoop/etc/hadoop/slaves
+      - ./etc/slaves:/opt/hbase/conf/regionservers
+      - ./etc/ready-config.sh:/opt/ready-config.sh
+      - ./etc/bootstrap.sh:/opt/bootstrap.sh
+    extra_hosts:
+      - ${NODE_HOST_MASTER}:${NODE_IP_MASTER}
+      - ${NODE_HOST_SLAVE1}:${NODE_IP_SLAVE1}
+      - ${NODE_HOST_SLAVE2}:${NODE_IP_SLAVE2}
+  master:
+    extends: baseeenv
+    ports:
+      - "50070:50070"
+      #Yran port
+      - "8088:8088"
+      # AM port
+      - "8042:8042"
+      # Historyserver port
+      - "19888:19888"
+      # HBase port
+      - "${HBASE_PORT_010}:${HBASE_PORT_010}"
+      - "${HBASE_PORT_030}:${HBASE_PORT_030}"
+    expose:
+      - "50010"
+      - "50020"
+      - "50070"
+      - "50075"
+      - "50090"
+      - "8020"
+      - "9000"
+      - "10020"
+      - "19888"
+      - "8030"
+      - "8031"
+      - "8033"
+      - "8040"
+      - "49707"
+      - "2122"
+      - "2181"
+  slave:
+    extends: baseeenv
