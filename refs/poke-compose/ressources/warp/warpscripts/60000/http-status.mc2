@@ -1,0 +1,37 @@
+// HTTP Status alerting script.
+// This script emit a boolean serie foreach 'http.response.status' series.
+// The boolean value depend of the last N values
+// [ 200 200 200 ] -> true
+// [ 200 500 200 ] -> true
+// [ 500 500 500 ] -> false
+
+3 'N' STORE // Last N values used to compute score
+
+'D.ypWT5yBiwOc8SW2Xjh4Y1YcDrt8Lh3XXh47rA5QnhzWl9LirFNgI7vof_LLz6CJj.CfQnMKX2v3Rx5IzVVgHxpjUr_eywumT6z53H4VqjBhmHUFc9Avk' 'RTOKEN' STORE
+'B8QYS.Ae6Y0eFXSNcDixZeQkoirCcgPbXJ55RcD1J5lQR6yq90lchfODYD9yO2Zq_UdCGJFYHWAw1nMGXJRD5Mm6XZjCHU_G_eppddmmBL7"' 'WTOKEN' STORE
+
+NOW 'NOW' STORE
+
+[ $RTOKEN 'http.response.status' {} $NOW 5 m ] FETCH
+
+<% DROP // Drop index
+  'gts' STORE
+
+  $gts SORT VALUES REVERSE // Get GTS values - last first
+  0 'c' STORE  // Counter used to store non 200
+  DUP SIZE 0 SWAP $N MIN 1 - // Range from 0 to min(N, VALUES.length)
+  <%
+    2 PICK SWAP GET // Get code
+    <% DUP 200 < SWAP 300 >= OR %>
+      <% $c 1 + 'c' STORE %> // Increment c if non 200
+    IFT
+  %> FOR
+  DROP
+  
+  // Create an alert GTS
+  NEWGTS 'alert.http.status' RENAME
+  $gts LABELS RELABEL
+  [ $NOW NaN NaN NaN $c $N < ] ADDVALUE
+%> LMAP
+
+$WTOKEN UPDATE
