@@ -1,0 +1,15 @@
+data/namenode
+data/datanode
+data/historyserver
+.DS_Store
+env
+target
+.idea
+.idea/*
+*.iml
+.ipynb_checkpoints
+.local
+logs/*
+.cache
+databases/postgres
+databases/sqlite
