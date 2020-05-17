@@ -1,0 +1,34 @@
+# docker-compose -f ./DC_vigie.yml up -d
+
+version: "3.3"
+services:
+
+  vigie:
+    container_name: VIGIE-DEV_debug
+    image: vigie:${TAG}
+    restart: "no"
+    volumes:
+      - type: bind
+        source: ../../dev/config/vigieconf_demo.toml
+        target: /app/config/vigie.toml
+        read_only: true
+      - type: bind
+        source: ../../dev/var
+        target: /app/var/
+        read_only: true
+      - type: bind
+        source: ../../dev/test
+        target: /app/test/
+        read_only: true
+    expose:
+        - 80
+        - 9000
+#     networks:
+#       - vigie
+#       - web
+
+# networks:
+#   web:
+#     external: true
+#   vigie:
+#     driver: bridge

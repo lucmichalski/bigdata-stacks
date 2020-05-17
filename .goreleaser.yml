@@ -1,0 +1,106 @@
+project_name: vigie
+
+env:
+  - GO111MODULE=on
+
+before:
+  hooks:
+    - go mod download
+    - go generate
+
+builds:
+  - binary: vigie
+
+    main: ./main.go
+    env:
+      - CGO_ENABLED=0
+    ldflags:
+      - -s -w -X github.com/vincoll/vigie/cmd/vigie/version.LdVersion={{ .Version }} -X github.com/vincoll/vigie/cmd/vigie/version.LdBuildDate={{.Date}} -X github.com/vincoll/vigie/cmd/vigie/version.LdGitCommit={{.ShortCommit}}
+
+    goos:
+      - linux
+      - darwin
+      - windows
+    goarch:
+      - amd64
+      - arm
+      - arm64
+    goarm:
+      - 7
+      - 6
+
+# ARCHIVE GITHUB ---------------
+
+archives:
+  - id: vigie
+    name_template: '{{ .ProjectName }}_v{{ .Version }}_{{ .Os }}_{{ .Arch }}{{ if .Arm }}v{{ .Arm }}{{ end }}'
+    format: tar.gz
+    format_overrides:
+      - goos: windows
+        format: zip
+    files:
+      - README.md
+      - CHANGELOG.md
+
+checksum:
+  name_template: "{{ .ProjectName }}_v{{ .Version }}_checksums.txt"
+
+changelog:
+  skip: true
+
+# RELEASE GITHUB ---------------
+
+release:
+
+  github:
+    owner: vincoll
+    name: vigie
+
+  # If set to true, will not auto-publish the release.
+  # Default is false.
+  draft: true
+
+  # If set to auto, will mark the release as not ready for production
+  # in case there is an indicator for this in the tag e.g. v1.0.0-rc1
+  # If set to true, will mark the release as not ready for production.
+  # Default is false.
+  prerelease: true
+
+  name_template: "{{.Tag}}"
+
+  disable: true
+
+# DOCKER ---------------
+
+dockers:
+  # You can have multiple Docker images.
+  - # GOOS of the built binary that should be used.
+    goos: linux
+    # GOARCH of the built binary that should be used.
+    goarch: amd64
+    # GOARM of the built binary that should be used.
+    goarm: ''
+    # Name templates of the built binaries that should be used.
+    binaries:
+      - vigie
+    # Templates of the Docker image names.
+    image_templates:
+      - "vincoll/{{ .ProjectName }}:latest"
+      - "vincoll/{{ .ProjectName }}:{{ .Version }}"
+      - "vincoll/{{ .ProjectName }}:{{ .Major }}"
+      - "vincoll/{{ .ProjectName }}:{{ .Major }}.{{ .Minor }}"
+      - "vincoll/{{ .ProjectName }}:{{ .Major }}.{{ .Minor }}.{{ .Patch }}"
+    # Skips the docker push. Could be useful if you also do draft releases.
+    # If set to auto, the release will not be pushed to the docker repository
+    # in case there is an indicator for prerelease in the tag e.g. v1.0.0-rc1
+    # Defaults to false.
+    skip_push: false
+    # Path to the Dockerfile (from the project root).
+    dockerfile: ./build/release/Dockerfile.goreleaser
+    # Template of the docker build flags.
+    build_flag_templates:
+      - "--label=maintainer=Vincent Collard <vincent.collard@protonmail.com>"
+      - "--label=version={{.Version}}"
+      - "--label=app={{.ProjectName}}"
+      - "--label=vcs=https://github.com/vincoll/{{ .ProjectName }}"
+      - "--label=vcs-ref={{ .FullCommit }}"

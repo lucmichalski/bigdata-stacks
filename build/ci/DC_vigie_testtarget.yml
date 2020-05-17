@@ -1,0 +1,18 @@
+# docker-compose -f ./DC_vigie_testtarget.yml up -d
+
+version: "3.3"
+services:
+
+  httpbin:
+    container_name: VIGIE-CI_httpbin
+    image: kennethreitz/httpbin:latest
+    restart: "no"
+    ports:
+        - "6080:80"
+
+  webserver:
+    container_name: VIGIE-CI_web
+    image: httpd:alpine
+    restart: "no"
+    ports:
+      - "6081:80"

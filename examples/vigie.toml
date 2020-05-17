@@ -1,0 +1,224 @@
+# Vigie Config Example
+# https://raw.githubusercontent.com/Vincoll/vigie/master/examples/vigie.toml
+
+apiversion = 0.5
+
+###########################
+# Host
+###########################
+
+[host]
+  # Information about the host.
+  # This will help you to indentified this Vigie
+
+  # Vigie Name
+  # Default : Resolve hostname
+  # Format : string
+  name = ""
+  # Vigie URL
+  # Needed to add alert link to this Vigie
+  # Default : Resolve hostname
+  # Format : Complete URL eg (https://fqdn)
+  url = ""
+  # Host Tags
+  # List of key value descriptor for this Vigie
+  # Default : Empty
+  # Format : string = "string
+  [host.tags]
+  #  key1 = "val1"
+
+###########################
+# Git
+###########################
+
+[git]
+  # Import Tests and Variables from a Git Repo
+  # Vigie will clone this repo, then import it as usual
+  # by adding the destination in [testfiles].included
+  # Git clone is without the repo parent name folder
+  
+  # Enable the clone
+  # Default : false
+  # Format :  bool
+  clone = true
+  # Repo link
+  # Default : ""
+  # Format : "https://domain.tld/repo"
+  repo = "https://github.com/Vincoll/vigie-demo-test"
+  # Destination path  of the cloned repo 
+  # Default : "/tmp/vigie"
+  # Format :  "string"
+  path = "/tmp/vigie"
+
+###########################
+# Testfiles
+###########################
+
+[testfiles]
+  # Paths List of testfiles
+  # Searching for files is done in depth.
+  # Dir path and file path are both valid
+  # Default : [""]
+  # Format ["string", "string", ...]
+  included = ["/tmp/vigie/test/"]
+
+  # Paths or files to exclude (can be contained in included path)
+  # Default : [""]
+  # Format ["string", "string", ...]
+  excluded = [""]
+
+###########################
+# Variables
+###########################
+
+[variables]
+  # Paths List of variables files
+  # Searching for files is done in depth.
+  # Dir path and file path are both valid
+  # Default : [""]
+  # Format ["string", "string", ...]
+  included = ["/tmp/vigie/var/"]
+
+###########################
+# API config
+###########################
+
+[api]
+  # Activate the API
+  # Default : true
+  # Format : bool
+  enable = true
+  # API exposed port
+  # Default : 80
+  # Format : int 
+  port = 6680
+
+###########################
+# Log config
+###########################
+
+[log]
+  # Activate the log through stdout
+  # Default : true
+  # Format : bool
+  stdout = true
+  # Log into a file
+  # Default : false
+  # Format : bool
+  logfile = false
+  # Log level
+  # Default : info
+  # Valid values : "info","warn","error",debug,"trace"
+  level = "info"
+  # File to write logs into
+  # Default : ""
+  # Format : string
+  filePath = "/tmp/vigie.log"
+
+###########################
+# InfluxDB config
+###########################
+
+[influxdb]
+  # Activate the write to influxDB
+  # Default : false
+  # Format : bool
+  enable = false
+  # Address of influxDB 
+  # Default : ""
+  # Format : "http://fqdn:port" 
+  addr = "http://influxdb:8086"
+  # InfluxDB user 
+  # Default : ""
+  # Format : string
+  user = "user"
+  # InfluxDB user password 
+  # Default : ""
+  # Format : string
+  password = "user"
+  # InfluxDB database 
+  # Default : ""
+  # Format : string
+  database = "vigie"
+
+###########################
+# Warp10 config
+###########################
+
+[warp10]
+  # Activate the write to influxDB
+  # Default : false
+  # Format : bool
+  enable = false
+  # Address of warp10
+  # Default : ""
+  # Format : "http://fqdn:port"
+  addr = "http://warp10:8080"
+  # Warp10 token
+  # Default : ""
+  # Format : string
+  token = "writeToken"
+  # warp10 metric prefix
+  # Default : ""
+  # Format : string
+  prefix = ""
+
+###########################
+# Alerting config
+###########################
+
+[alerting]
+  # Activate the built-in alerting of Vigie
+  # Default : false
+  # Format : bool
+  enable = true
+  # Interval at wich new errors are evaluated and trigger a notification (if any changes)
+  # That's means if at T0 Errors are evaluated, and a probe fails at T0 +1s, you will be warn at T0 +10s
+  # with the default interval check.
+  # Default : "10s"
+  # Format : duration string from rfc3339
+  interval = "3s"
+  # Reminder is an interval that necessarily triggers a notification describing the current state of the X Vigie state.
+  # (Endorse also the function of DeadMenSwitch)
+  # Default : "4h"
+  # Format : duration string from rfc3339
+  reminder = "4h"
+  [alerting.email]
+    # Recipient ot the alert
+    # Default : ""
+    # Format : "name@domain.tld"
+    to = ""
+    # Emitter of the alert
+    # Default : ""
+    # Format: "name@domain.tld"
+    from = ""
+    # SMTP username
+    # Default : ""
+    # Format: "string"
+    username = ""
+    # SMTP password
+    # Default : ""
+    # Format: "string"
+    password = ""
+    # SMTP fqdn
+    # Default : ""
+    # Format: "string"
+    smtp  = ""
+    # SMTP port
+    # Default : 0
+    # Format: int
+    port = 25
+  [alerting.discord]
+    # Discord webhook
+    # Default : ""
+    # Format: "https://discordapp.com/api/webhooks/000000000000000/aaaaaazzzzzzz"
+    webhook = ""
+  [alerting.slack]
+    # Slack webhook
+    # Default : ""
+    # Format: "https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX"
+    webhook = ""
+    # Slack channel (optional) Overload the channel defined when creating the webhook.
+    # Default : ""
+    # Format: string
+    channel = ""
