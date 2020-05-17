@@ -1,0 +1,8 @@
+{
+  "listen": ":2003",
+  "verbose": "false",
+  "batch": "10000",
+  "timeout": "5",
+  "parse": "false",
+}
+
