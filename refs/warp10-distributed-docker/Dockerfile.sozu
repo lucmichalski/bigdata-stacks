@@ -1,0 +1,6 @@
+FROM clevercloud/sozu
+
+RUN mkdir /command_folder
+
+COPY config.toml /etc/sozu/sozu.toml
+CMD ["/sozu", "start"]
