@@ -1,0 +1,44 @@
+---
+version: '3.6'
+services:
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:6.4.2
+    container_name: elasticsearch
+    secrets:
+      - source: jvm.options
+        target: /usr/share/elasticsearch/config/jvm.options
+    ports: ['9200:9200']
+    networks: ['stack']
+    volumes:
+      - 'es_data:/usr/share/elasticsearch/data'
+    healthcheck:
+      test: curl -s https://localhost:9200 >/dev/null; if [[ $$? == 52 ]]; then echo 0; else echo 1; fi
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:6.4.2
+    container_name: kibana
+    #secrets:
+    #  - source: kibana.yml
+    #    target: /usr/share/kibana/config/kibana.yml
+    ports: ['5601:5601']
+    networks: ['stack']
+    depends_on: ['elasticsearch']
+    healthcheck:
+      test: curl -s https://localhost:5601 >/dev/null; if [[ $$? == 52 ]]; then echo 0; else echo 1; fi
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+networks: {stack: {}}
+# use docker volume to persist ES data outside of a container.
+volumes:
+  es_data:
+
+secrets:
+  jvm.options:
+    file: ./config/jvm.options
+  kibana.yml:
+    file: ./config/kibana.yml

@@ -1,0 +1,1 @@
+.es(q=chat, timefield=create_timestamp),.es(q=chat, timefield=create_timestamp, offset=-1y).label("chat previous year").lines(fill=2,width=1)
