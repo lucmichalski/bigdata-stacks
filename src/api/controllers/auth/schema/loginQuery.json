@@ -1,0 +1,17 @@
+{
+  "properties": {
+    "username": {
+      "$ref": "#/definitions/username"
+    },
+    "password": {
+      "$ref": "#/definitions/password"
+    },
+    "type": {
+      "type": "string",
+      "enum": ["bearer"]
+    }
+  },
+  "required": ["username", "password", "type"],
+  "type": "object",
+  "additionalProperties": false
+}

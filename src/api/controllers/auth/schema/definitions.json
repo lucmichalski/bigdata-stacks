@@ -1,0 +1,13 @@
+{
+  "username": {
+    "type": "string",
+    "minLength": 1
+  },
+  "password": {
+    "minLength": 1
+  },
+  "refreshToken": {
+    "type": "string",
+    "minLength": 1
+  }
+}
