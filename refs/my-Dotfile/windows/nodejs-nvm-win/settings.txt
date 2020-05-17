@@ -1,0 +1,7 @@
+root: D:\devtools\nodejs\nvm-win
+arch: 64
+proxy: none
+originalpath: .
+originalversion: 
+node_mirror: https://npm.taobao.org/mirrors/node/
+npm_mirror: https://npm.taobao.org/mirrors/npm/

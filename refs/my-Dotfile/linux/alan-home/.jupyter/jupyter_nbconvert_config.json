@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "Exporter": {
+    "template_path": [
+      ".",
+      "/home/alanding/software/anaconda3/lib/python3.7/site-packages/jupyter_contrib_nbextensions-0.5.0-py3.7.egg/jupyter_contrib_nbextensions/templates",
+      "/home/alanding/software/anaconda3/lib/python3.7/site-packages/jupyter_contrib_nbextensions/templates"
+    ],
+    "preprocessors": [
+      "jupyter_contrib_nbextensions.nbconvert_support.CodeFoldingPreprocessor",
+      "jupyter_contrib_nbextensions.nbconvert_support.PyMarkdownPreprocessor"
+    ]
+  }
+}

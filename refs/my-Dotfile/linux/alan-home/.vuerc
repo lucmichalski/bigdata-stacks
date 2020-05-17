@@ -1,0 +1,34 @@
+{
+  "useTaobaoRegistry": true,
+  "packageManager": "npm",
+  "presets": {
+    "my-first-vue": {
+      "useConfigFiles": true,
+      "plugins": {
+        "@vue/cli-plugin-babel": {
+          "prompts": true
+        },
+        "@vue/cli-plugin-typescript": {
+          "prompts": true,
+          "classComponent": true,
+          "useTsWithBabel": true
+        },
+        "@vue/cli-plugin-pwa": {},
+        "@vue/cli-plugin-eslint": {
+          "prompts": true,
+          "config": "prettier",
+          "lintOn": [
+            "save",
+            "commit"
+          ]
+        },
+        "@vue/cli-plugin-unit-jest": {},
+        "@vue/cli-plugin-e2e-nightwatch": {}
+      },
+      "router": true,
+      "routerHistoryMode": true,
+      "vuex": true,
+      "cssPreprocessor": "stylus"
+    }
+  }
+}

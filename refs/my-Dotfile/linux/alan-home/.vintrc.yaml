@@ -1,0 +1,21 @@
+cmdargs:
+  # Checking more strictly
+  severity: style_problem
+
+  # Enable coloring
+  color: true
+
+  # Enable Neovim syntax
+  env:
+    neovim: true
+
+policies:
+  # Disable a violation
+  # ProhibitImplicitScopeVariable:
+    # enabled: false
+  ProhibitAbbreviationOption:
+    enabled: false
+  ProhibitSetNoCompatible:
+    enabled: false
+  ProhibitUnnecessaryDoubleQuote:
+    enabled: false

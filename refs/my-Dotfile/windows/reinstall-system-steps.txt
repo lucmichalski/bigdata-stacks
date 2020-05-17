@@ -1,0 +1,50 @@
+1, System:
+env var
+font install
+powershell {
+  # oh-my-posh
+  Install-Module posh-git -Scope AllUsers
+  Install-Module oh-my-posh -Scope AllUsers
+  Import-Module oh-my-posh
+  Set-Theme PowerLine
+}
+
+theme
+startup menu
+desktop icons
+
+battary
+input method
+windows defender
+virtual memery
+
+keytweak
+winhotkey disable
+
+D:\
+1£¬devtools:
+autohotkey		reinstall
+everything		reinstall
+youdao 			  dic download
+nodejs        set env; then nvm use [version]
+scoop         set env;
+
+C:\
+1, DevTools:
+MS VS         reinstall 
+MS code       sync settings
+cmder         set env	
+
+2, Daily Software
+PhotoShop		  reinstall
+Tencent: 			reinstall QQ, QQBrowser, QQPCMgr, QQPinyin
+Cuda			    copy
+Bandizip/7z		reinstall
+
+3, office365	reinstall
+
+4, neovim
+git clone git@github.com:alanding1989/SpaceVim.git $HOME\.SpaceVim
+git clone git@github.com:alanding1989/alan-vim.git $HOME\vimfiles
+mklink /D $HOME\AppData\Local\nvim $HOME\.SpaceVim
+mklink /D $HOME\.SpaceVim.d $HOME\vimfiles

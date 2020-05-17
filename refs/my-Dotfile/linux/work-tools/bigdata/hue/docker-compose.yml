@@ -1,0 +1,36 @@
+
+version: '3'
+
+services:
+  cloudera:
+      image: gethue/hue:latest
+      hostname: hue
+      container_name: hue
+      dns: 8.8.8.8
+      ports:
+          - "8888:8888"
+      volumes:
+          - ./desktop/conf/hue.ini:/usr/share/hue/desktop/conf/z-hue.ini
+      depends_on:
+          - "database"
+
+  database:
+      image: mysql:5.7
+      ports:
+          - "33061:3306"
+      command:
+          --init-file /data/application/init.sql
+          --default-authentication-plugin=mysql_native_password
+      volumes:
+          - ./data:/var/lib/mysql
+          - ./init.sql:/data/application/init.sql
+      environment:
+          MYSQL_ROOT_USER: root
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: hue
+          MYSQL_USER: root
+          MYSQL_PASSWORD: root
+      # 如果出现连不上，
+      # 看是不是要修改user表将host改成%，权限问题
+      # 要不就是mysql版本与python驱动不一致，本项目因为是python前端，所以要用5.7版本，要不驱动不一致
+      # Java中mysql5.7 的驱动就是可以用8的版本

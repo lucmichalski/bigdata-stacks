@@ -1,0 +1,280 @@
+内存4G，硬盘50G
+
+1. 安装好linux
+    /boot 200M 
+    /swap 2g 
+    / 剩余
+    
+2. *安装VMTools
+3. 关闭防火墙
+    sudo service iptables stop
+    sudo chkconfig iptables off
+4. 设置静态IP，改主机名
+    #  编辑vim /etc/sysconfig/network-scripts/ifcfg-eth0
+
+    ##########
+        ubuntu vim /etc/network/interfaces
+        本机ip 192.168.31.76
+        配置了静态ip 之后上不了网，无法解决，就先动态用了，所以interfaces文件也没修改
+    ##########
+
+    改成，只适用于 centos 系统
+=================================
+DEVICE=eth0
+TYPE=Ethernet
+ONBOOT=yes
+BOOTPROTO=static
+NAME="eth0"
+IPADDR=192.168.31.100
+PREFIX=24
+GATEWAY=192.168.31.1
+DNS1=192.168.31.1
+=================================
+    编辑vim /etc/sysconfig/network
+    改HOSTNAME=那一行
+    
+5. 配置/etc/hosts
+    vim /etc/hosts
+=============================
+192.168.31.100   hadoop100
+192.168.31.101   hadoop101
+192.168.31.102   hadoop102
+
+
+192.168.1.103   hadoop103
+192.168.1.104   hadoop104
+192.168.1.105   hadoop105
+192.168.1.106   hadoop106
+192.168.1.107   hadoop107
+192.168.1.108   hadoop108
+192.168.1.109   hadoop109
+=============================
+
+6. 创建一个一般用户atguigu，给他配置密码
+    useradd atguigu
+    passwd atguigu
+    
+7. 配置这个用户为sudoers
+    vim /etc/sudoers
+    在root    ALL=(ALL)       ALL
+    添加atguigu    ALL=(ALL)       NOPASSWD:ALL
+    保存时wq!强制保存
+    
+8. *在/opt目录下创建两个文件夹module和software，并把所有权赋给atguigu
+    mkdir /opt/module /opt/software
+    chown atguigu:atguigu /opt/module /opt/software
+    
+9. 关机，快照，克隆
+
+从这里开始要以一般用户登陆
+
+10. 克隆的虚拟机改IP
+
+11. 搞一个分发脚本
+    cd ~
+    vim xsync
+    内容如下：
+=================================================================
+#!/bin/bash
+#1 获取输入参数个数，如果没有参数，直接退出
+pcount=$#
+if ((pcount==0)); then
+    echo no args;
+    exit;
+fi
+
+#2 获取文件名称
+p1=$1
+fname=`basename $p1`
+echo fname=$fname
+
+#3 获取上级目录到绝对路径
+pdir=`cd -P $(dirname $p1); pwd`
+echo pdir=$pdir
+
+#4 获取当前用户名称
+user=`whoami`
+
+#5 循环
+for((host=101; host<104; host++)); do
+    echo ------------------- hadoop$host --------------
+    rsync -av $pdir/$fname $user@hadoop$host:$pdir
+done
+==============================================================
+    
+    chmod +x xsync
+    
+    sudo cp xsync /bin
+    
+    sudo xsync /bin/xsync
+    
+
+12. 配置免密登陆
+
+        1. 生成密钥对
+        ssh-keygen -t rsa 三次回车
+        
+        2. 发送主机公钥到集群
+        ssh-copy-id hadoop102 输入一次密码
+        
+        3. 分别ssh登陆一下所有虚拟机
+        ssh hadoop103
+        exit
+        ssh hadoop104
+        exit
+        
+        4. 把/home/atguigu/.ssh 文件夹发送到集群所有服务器
+        xsync /home/atguigu/.ssh
+        
+   
+13. 在一台机器上安装Java和Hadoop，并配置环境变量，并分发到集群其他机器
+        1. 拷贝文件到/opt/software，两个tar包
+        2. tar -zxf h"+tab" -C /opt/module
+        3. tar -zxf j"+tab" -C /opt/module
+        4. sudo vim /etc/profile
+        在文件末尾添加
+=======================================================
+#JAVA_HOME
+export JAVA_HOME=/opt/module/jdk1.8.0_144
+export PATH=$PATH:$JAVA_HOME/bin
+
+#HADOOP_HOME
+export HADOOP_HOME=/opt/module/hadoop-2.7.2
+export PATH=$PATH:$HADOOP_HOME/bin:$HADOOP_HOME/sbin
+========================================================
+        保存
+        5. source /etc/profile
+        
+        6. sudo xsync /etc/profile
+        
+        7. 在其他机器分别执行source /etc/profile
+
+###所有配置文件都在$HADOOP_HOME/etc/hadoop
+14. 首先配置hadoop-env.sh,yarn-env.sh,mapred-env.sh文件,配置Java_HOME
+    在每个文件第二行添加 export JAVA_HOME=/opt/module/jdk1.8.0_144
+
+15. 配置Core-site.xml
+
+        <!-- 指定HDFS中NameNode的地址 -->
+        <property>
+            <name>fs.defaultFS</name>
+            <value>hdfs://hadoop100:9000</value>
+        </property>
+
+        <!-- 指定Hadoop运行时产生文件的存储目录 -->
+        <property>
+            <name>hadoop.tmp.dir</name>
+            <value>/opt/module/hadoop-2.7.2/data/tmp</value>
+        </property>
+        
+16. 配置hdfs-site.xml
+        <!-- 数据的副本数量 -->
+        <property>
+            <name>dfs.replication</name>
+            <value>3</value>
+        </property>
+        <!-- 指定Hadoop辅助名称节点主机配置 -->
+        <property>
+              <name>dfs.namenode.secondary.http-address</name>
+              <value>hadoop102:50090</value>
+        </property>
+        
+17. 配置yarn-site.xml
+
+        <!-- Site specific YARN configuration properties -->
+        <!-- Reducer获取数据的方式 -->
+        <property>
+                <name>yarn.nodemanager.aux-services</name>
+                <value>mapreduce_shuffle</value>
+        </property>
+
+        <!-- 指定YARN的ResourceManager的地址 -->
+        <property>
+            <name>yarn.resourcemanager.hostname</name>
+            <value>hadoop101</value>
+        </property>
+        <!-- 日志聚集功能使能 -->
+        <property>
+            <name>yarn.log-aggregation-enable</name>
+            <value>true</value>
+        </property>
+
+        <!-- 日志保留时间设置7天 -->
+        <property>
+            <name>yarn.log-aggregation.retain-seconds</name>
+            <value>604800</value>
+        </property>
+
+18. 配置mapred-site.xml
+    <property>
+        <name>mapreduce.framework.name</name>
+        <value>yarn</value>
+    </property>
+    <!-- 历史服务器端地址 -->
+    <property>
+        <name>mapreduce.jobhistory.address</name>
+        <value>hadoop102:10020</value>
+    </property>
+    <!-- 历史服务器web端地址 -->
+    <property>
+        <name>mapreduce.jobhistory.webapp.address</name>
+        <value>hadoop102:19888</value>
+    </property>
+    
+    启动历史服务器：mr-jobhistory-daemon.sh start historyserver
+
+19. 配置Slaves
+    hadoop101
+    hadoop102
+    
+20. 分发配置文件
+    xsync /opt/module/hadoop-2.7.2/etc
+
+
+21. 格式化Namenode 在hadoop100
+    hdfs namenode -format
+
+22. 启动hdfs 
+    start-dfs.sh
+
+23. 在配置了Resourcemanager机器上执行 
+    在Hadoop102上启动start-yarn.sh
+
+24
+    mkdir input
+    vim input/input
+        abc
+        def efg
+        asd
+        
+    hadoop fs -put input /
+    hadoop jar share/hadoop/mapreduce/hadoop-mapreduce-examples-2.7.2.jar wordcount /input /output
+    
+25 关 stop-dfs.sh stop-yarn.sh
+
+26 hadoop-daemon.sh start namenode或datanode
+   yarn-daemon.sh start resourcemanager或nodemanager
+   
+如果集群出了问题
+    stop-dfs.sh
+    stop-yarn.sh
+    cd $HADOOP_HOME
+    rm -rf data logs
+    回到21
+
+
+================================================================================    
+配置集群时间同步
+================================================================================
+--- 与外网时间同步
+
+1. 修改时区
+root 用户
+ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+
+2. 安装ntp
+yum install ntp
+
+3. 启动ntpdate，设置开机自启
+service ntpd start
+chkconfig ntpd on

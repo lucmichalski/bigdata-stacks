@@ -1,0 +1,59 @@
+{
+  "load_extensions": {
+    "nbextensions_configurator/config_menu/main": true,
+    "contrib_nbextensions_help_item/main": true,
+    "latex_envs/latex_envs": true,
+    "collapsible_headings/main": true,
+    "splitcell/splitcell": false,
+    "toc2/main": true,
+    "varInspector/main": true,
+    "scroll_down/main": true,
+    "codefolding/main": true,
+    "comment-uncomment/main": true,
+    "highlighter/highlighter": true,
+    "execution_dependencies/execution_dependencies": true,
+    "hide_input/main": false,
+    "keyboard_shortcut_editor/main": true,
+    "select_keymap/main": true,
+    "vim_binding/vim_binding": true,
+    "code_prettify/autopep8": true,
+    "code_font_size/code_font_size": true,
+    "datestamper/main": true,
+    "hide_input_all/main": true,
+    "init_cell/main": false,
+    "toggle_all_line_numbers/main": true,
+    "execute_time/ExecuteTime": true,
+    "jupyter-js-widgets/extension": true,
+    "nb_conda/main": true,
+    "skill/main": true,
+    "livemdpreview/livemdpreview": true,
+    "snippets/main": true,
+    "scratchpad/main": false,
+    "code_prettify/code_prettify": true,
+    "code_prettify/isort": true,
+    "hinterland/hinterland": true
+  },
+  "latex_envs": {
+    "autoclose": true
+  },
+  "scrollDownIsEnabled": false,
+  "keys": {
+    "command": {
+      "unbind": [
+        "0,0",
+        "shift-v",
+        "q",
+        "l"
+      ],
+      "bind": {
+        "r,r": "jupyter-notebook:confirm-restart-kernel-and-run-all-cells",
+        "l": "vim-binding:toggle-all-line-numbers"
+      }
+    }
+  },
+  "Cell": {
+    "cm_config": {
+      "lineNumbers": true
+    }
+  }
+}

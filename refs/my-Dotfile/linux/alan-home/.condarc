@@ -1,0 +1,7 @@
+channels:
+  - https://mirrors.ustc.edu.cn/anaconda/pkgs/free/
+  - https://mirrors.ustc.edu.cn/anaconda/pkgs/main/
+  - defaults
+show_channel_urls: true
+pkgs_dirs:
+  - /mnt/fun+downloads/linux系统安装/systembackup/repo/python/conda/pkgs

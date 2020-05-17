@@ -1,0 +1,36 @@
+/etc/profile
+.bashrc
+
+# =======================================================
+
+  export BIGDATA_HOME=/home/alanding/software/bigdata
+
+  # Spark
+  export SPARK_HOME=$BIGDATA_HOME/spark
+  export PATH=${SPARK_HOME}/bin:${SPARK_HOME}/sbin:$PATH
+
+  # Hadoop
+  export HADOOP_HOME=$BIGDATA_HOME/hadoop
+  export PATH=${HADOOP_HOME}/bin:${HADOOP_HOME}/sbin:$PATH
+
+  # Hbase
+  export HBASE_HOME=$BIGDATA_HOME/hbase
+  export PATH=${HBASE_HOME}/bin:$PATH
+
+  # Zookeeper
+  export ZOOKEEPER_HOME=$BIGDATA_HOME/zookeeper
+  export PATH=${ZOOKEEPER_HOME}/bin:${ZOOKEEPER_HOME}/sbin:$PATH
+
+  # Kafka
+  export KAFKA_HOME=$BIGDATA_HOME/kafka
+  export PATH=${KAFKA_HOME}/bin:$PATH
+
+  # Java
+  export JAVA_HOME=$BIGDATA_HOME/jdk
+  export JRE_HOME=${JAVA_HOME}/jre
+  export PATH=${JAVA_HOME}/bin:${JRE_HOME}/bin:$PATH
+
+  # Scala
+  export SCALA_HOME=$BIGDATA_HOME/scala
+  export PATH=${SCALA_HOME}/bin:$PATH
+

@@ -1,0 +1,31 @@
+[Desktop Entry]
+FullScreen=false
+
+[MainWindow]
+Height 1080=1052
+State=AAAA/wAAAAD9AAAAAAAAB4AAAAPfAAAABAAAAAQAAAAIAAAACPwAAAABAAAAAgAAAAEAAAAWAG0AYQBpAG4AVABvAG8AbABCAGEAcgEAAAAA/////wAAAAAAAAAA
+ToolBarsMovable=Disabled
+Width 1920=1920
+Window-Maximized 1080x1920=true
+
+[Recent Files]
+File1[$e]=/mnt/work+learn/1. IT互联网/2.计算机基础科普/3.计算机操作系统/操作系统经典书籍/操作系统 精髓与设计原理 第8版 中英文/操作系统 精髓与设计原理 第8版中文.pdf
+File10[$e]=/mnt/work+learn/1. IT互联网/6.大数据/推荐书籍/Kafka技术内幕：图文详解Kafka源码设计与实现 .pdf
+File2[$e]=/mnt/work+learn/1. IT互联网/2.计算机基础科普/1.语言学习/C和C++/cmake实践.pdf
+File3[$e]=/mnt/work+learn/1. IT互联网/2.计算机基础科普/3.计算机操作系统/操作系统经典书籍/操作系统概念-2010.pdf
+File4[$e]=/mnt/work+learn/1. IT互联网/2.计算机基础科普/1.语言学习/C和C++/好Primer c++.pdf
+File5[$e]=/mnt/work+learn/1. IT互联网/2.计算机基础科普/1.语言学习/Scala/Scala实用指南.pdf
+File6[$e]=/mnt/work+learn/1. IT互联网/6.大数据/推荐书籍/Spark技术内幕 ：深入解析Spark内核架构设计与实现原理 ,张安站著 ,P202.pdf
+File7[$e]=/mnt/work+learn/1. IT互联网/2.计算机基础科普/1.语言学习/Scala/基础/快学Scala.pdf
+File8[$e]=/mnt/work+learn/1. IT互联网/6.大数据/推荐书籍/深入理解Spark：核心思想与源码分析-老但有扩展.pdf
+File9[$e]=/mnt/work+learn/1. IT互联网/2.计算机基础科普/1.语言学习/Scala/进阶/Scala集合技术手册.pdf
+Name1[$e]=操作系统 精髓与设计原理 第8版中文.pdf
+Name10[$e]=Kafka技术内幕：图文详解Kafka源码设计与实现 .pdf
+Name2[$e]=cmake实践.pdf
+Name3[$e]=操作系统概念-2010.pdf
+Name4[$e]=好Primer c++.pdf
+Name5[$e]=Scala实用指南.pdf
+Name6[$e]=Spark技术内幕 ：深入解析Spark内核架构设计与实现原理 ,张安站著 ,P202.pdf
+Name7[$e]=快学Scala.pdf
+Name8[$e]=深入理解Spark：核心思想与源码分析-老但有扩展.pdf
+Name9[$e]=Scala集合技术手册.pdf

@@ -1,0 +1,10 @@
+[Desktop Entry]
+Exec="/home/alanding/software/command-line-tools/draw.io-x86_64-12.1.7.appImage" %U
+Name=draw.io
+Name[en_US]=draw.io.desktop
+Terminal=false
+Type=Application
+Icon=/home/alanding/.local/share/applications/draw.io.png
+
+
+

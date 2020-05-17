@@ -1,0 +1,22 @@
+Hadoop fs 命令分类
+
+本地-》HDFS
+    put
+    copyFromLocal
+    moveFromLocal
+    appendToFile
+HDFS-》HDFS
+    cp
+    mv
+    chown
+    chgrp
+    chmod
+    mkdir
+    du
+    df
+    cat
+    
+HFDS-》本地
+    get
+    getmerge
+    copyToLocal

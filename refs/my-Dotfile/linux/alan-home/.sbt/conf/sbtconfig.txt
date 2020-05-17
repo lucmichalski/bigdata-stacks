@@ -1,0 +1,16 @@
+# Set the java args to high
+-Xms512M
+-Xmx1536M
+-Xss2M
+-XX:+CMSClassUnloadingEnabled
+-Duser.language=zh
+
+# Set the extra SBT options
+-Dsbt.global.base=/home/alanding/.sbt
+-Dsbt.boot.directory=/home/alanding/.sbt/boot/
+-Dsbt.repository.config=/home/alanding/.sbt/repositories
+-Dsbt.ivy.home=/home/alanding/.ivy2
+-Dsbt.repository.secure=false
+-Dsbt.override.build.repos=true
+-Dsbt.log.format=true
+-Dfile.encoding=UTF8

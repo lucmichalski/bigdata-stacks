@@ -1,0 +1,10 @@
+[Desktop Entry]
+Exec="/home/alanding/software/command-line-tools/Postman/app/Postman"
+Name=Postman
+Terminal=false
+Type=Application
+Icon=/home/alanding/software/command-line-tools/Postman/app/resources/app/assets/icon.png
+
+Name[en_US]=Postman.desktop
+
+

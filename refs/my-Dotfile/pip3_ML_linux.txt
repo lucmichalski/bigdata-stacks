@@ -1,0 +1,101 @@
+# 通用模块
+pip
+setuptools
+Pygments
+jupyter
+jupyter_contrib_nbextensions
+notedown
+
+asciinema
+psutil
+removebg
+pillow
+chardet
+fn
+
+
+# vim相关
+python-language-server
+pynvim
+pyvim
+vim-vint
+neovim-remote
+msgpack-python
+Send2Trash
+# sexpdata
+# websocket-client
+
+
+# 测试、代码检测
+jedi
+yapf
+autopep8
+isort
+pylint
+flake8
+mypy
+mccabe
+rope
+
+ipdb
+pytest
+pytest-instafail
+pytest-bdd
+#pytest-konira
+pytest-cov
+pytest-pep8
+pytest-flake8
+pytest-xdist
+pytest-benchmark
+when-changed
+watchdog
+coverage
+
+
+# 性能分析、优化
+memory_profiler
+# line_profiler git源码安装
+objgraph
+numba
+
+
+# 文档
+Sphinx
+sphinx_rtd_theme
+cookiecutter
+recommonmark
+
+
+# 数据库
+mysql-connector
+aiomysql
+pymysql
+sqlalchemy
+dataset
+pymongo
+mongoengine
+
+
+# 机器学习
+seaborn
+scikit-learn
+xgboost
+lightgbm
+rise
+pydot
+h5py
+wordcloud
+jieba
+pyspark
+
+git+https://github.com/google/vimdoc
+tensorflow-gpu
+https://download.pytorch.org/whl/cpu/torch-1.0.1.post2-cp37-cp37m-linux_x86_64.whl
+torchvision
+keras
+
+
+# cpp辅助
+clang
+scan-build
+

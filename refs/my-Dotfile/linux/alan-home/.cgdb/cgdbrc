@@ -1,0 +1,12 @@
+set ignorecase
+set ts=4
+set wso=vertical
+set eld=shortarrow
+set hls
+
+map <F6> :step<cr>
+map <F7> :next<cr>
+map <F8> :until<cr>
+map <F9> :continue<cr>
+map <F10> :run<cr>
+map <F11> :finish<cr>

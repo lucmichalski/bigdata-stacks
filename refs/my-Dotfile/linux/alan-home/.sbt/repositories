@@ -1,0 +1,15 @@
+[repositories]
+local
+maven-local: file:///home/alanding/.m2/repository
+
+aliyun nexus: https://maven.aliyun.com/nexus/content/groups/public
+
+
+sbt-releases-repo: https://repo.typesafe.com/typesafe/ivy-releases/,[organization]/[module]/(scala_[scalaVersion]/)(sbt_[sbtVersion]/)[revision]/[type]s/[artifact](-[classifier]).[ext]
+
+sbt-plugins-repo: https://repo.scala-sbt.org/scalasbt/sbt-plugin-releases/, [organization]/[module]/(scala_[scalaVersion]/)(sbt_[sbtVersion]/)[revision]/[type]s/[artifact](-[classifier]).[ext]
+  
+maven-central: https://repo1.maven.org/maven2/
+
+sonatype-snapshots: https://oss.sonatype.org/content/repositories/snapshots
+

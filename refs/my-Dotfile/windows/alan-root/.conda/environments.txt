@@ -1,0 +1,2 @@
+D:\devtools\python\Anaconda3\envs\py27
+D:\devtools\python\Anaconda3\envs\py36

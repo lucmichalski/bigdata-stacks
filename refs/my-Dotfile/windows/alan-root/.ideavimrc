@@ -1,0 +1,239 @@
+"================================================================================
+" Ideavim config
+"================================================================================
+
+
+" basic
+set number relativenumber
+set showmode
+set hlsearch incsearch gdefault
+set ignorecase smartcase
+set clipboard+=unnamedplus
+set clipboard+=unnamed
+set undolevels=1000
+set history=1000
+set scrolloff=2
+set sidescrolloff=5
+set visualbell
+set timeoutlen=350
+set ttimeoutlen=50
+
+"================================================================================
+" Mappings 
+"================================================================================
+let mapleader = ';'
+
+
+nnoremap <leader>r :source ~/.ideavimrc<CR>
+
+noremap - q
+noremap q <nop>
+noremap s <nop>
+
+" all mode init
+noremap <bs>  %
+noremap <c-a> ^
+noremap <c-e> $
+
+" insert mode
+inoremap <c-b> <c-[>:action EditorLeft<cr>a
+inoremap <c-l> <c-[>:action EditorRight<cr>a
+inoremap <c-a> <esc>^i
+inoremap <c-e> <esc>g_a
+inoremap <c-d> <del>
+inoremap <c-f> <esc>ld$a
+inoremap <c-_> <c-k>
+
+" faster command mode
+cnoremap <c-h> <bs>
+cnoremap <c-b> <left>
+cnoremap <c-l> <right>
+cnoremap <c-a> <home>
+cnoremap <c-e> <end>
+cnoremap <c-d> <del>
+cnoremap <c-_> <c-k>
+cnoremap qw <esc>
+
+" tabn tabp
+nnoremap <leader><tab> gt
+nnoremap <leader>q     gT
+
+" window management
+nnoremap qq :close<cr>
+nnoremap qh :action Exit<cr>
+nnoremap qp :action CloseProject<cr>
+nnoremap qo :action CloseAllEditorsButActive<cr><c-[>
+
+nnoremap sf :action OpenFile<cr><c-[>
+nnoremap sv :vs<cr>
+nnoremap sp :sp<cr>
+nnoremap sl :nohl<cr>
+
+nnoremap <c-w>r :action MoveTabRight<cr>
+nnoremap <c-w>d :action MoveTabDown<cr>
+
+" fast save
+inoremap qw <c-[>:action SaveAll<cr>
+
+" file management
+nnoremap <space>fo    :action OpenFile<cr>
+nnoremap <space>fr    :action RecentFiles<cr>
+nnoremap <space>fp    :action ShowFilePath<cr>
+nnoremap <space>fc    :action ReopenClosedTab<cr>
+nnoremap <space>fn    :action NewFile<cr>
+nnoremap <space>fd    :action NewDir<cr>
+nnoremap <space>fw    :action OpenInBrowser<cr>
+nnoremap <space>ft    :action GotoTest<cr>
+
+
+" edit
+noremap J :action EditorJoinLines<cr>
+
+noremap <space>cc :action CommentByLineComment<cr>
+noremap <space>cl :action CommentByLineComment<cr>
+noremap <space>cp :action CommentByBlockComment<cr>
+
+nnoremap <space>hh :action HighlightUsagesInFile<cr>
+
+nnoremap <tab>o o<ESC>
+nnoremap <tab>p O<ESC>j
+
+noremap  vv V
+nnoremap <leader>aa ggVG
+
+noremap <leader>y "*y
+noremap <leader>Y "*Y
+noremap <leader>p "*p
+noremap <leader>P "*P
+
+" Select blocks after indenting
+xnoremap < <gv
+xnoremap > >gv|
+" Use tab for indenting in visual mode
+xnoremap <Tab>   >gv|
+xnoremap <S-Tab> <gv
+nnoremap > >>_
+nnoremap < <<_
+
+" run
+nnoremap <space>rr :action Run<cr>
+nnoremap <space>rj :action RunClass<cr>
+nnoremap <space>ro :action Rerun<cr>
+nnoremap <space>rk :action RunConfiguration<cr>
+
+" debug
+nnoremap <space>dk :action Resume<CR>
+nnoremap <space>dd :action Debug<cr>
+nnoremap <space>dj :action DebugClass<cr>
+nnoremap <space>dk :action ChooseDebugConfiguration<cr>
+nnoremap <space>do :action StepOver<CR>
+nnoremap <space>di :action SmartStepInto<CR>
+nnoremap <space>de :action EvaluateExpression<CR>
+nnoremap <space>dl :action ViewBreakpoints<CR>
+nnoremap <space>db :action ToggleLineBreakpoint<CR>
+nnoremap <space>dm :action XDebugger.MuteBreakpoints<CR>
+nnoremap <space>df :action FindBugs.CurrentFileAction<CR>
+
+" jump to n/p error
+nnoremap <space>eh :action ShowErrorDescription<CR>
+nnoremap <space>ej :action GotoNextError<CR>
+nnoremap <space>ek :action GotoPreviousError<CR>
+
+
+" search
+nnoremap <space>sg :action SearchEverywhere<cr>
+nnoremap <space>sr :action ReplaceInPath<cr>
+nnoremap <space>su :action FindUsages<cr>
+nnoremap <space>sc :action GotoClass<cr>
+nnoremap <space>sf :action GotoFile<cr>
+nnoremap <space>ss :action GotoSymbol<cr>
+nnoremap <space>sa :action GotoAction<cr>
+nnoremap <space>sp :action SelectInProjectView<cr>
+nnoremap <space>sh :action FileStructurePopup<cr>
+nnoremap <space>sw :action SearchWithGoogle<cr>
+
+nnoremap <space>j :action MethodDown<cr>
+nnoremap <space>k :action MethodUp<cr>
+
+" generate
+nnoremap <space>lgg :action Generate<cr>
+nnoremap <space>lg  :action GenerateGetter<cr>
+nnoremap <space>ls  :action GenerateSetter<cr>
+nnoremap <space>la  :action GenerateGetterAndSetter<cr>
+" code refactoring
+nnoremap <space>lr :action Refactorings.QuickListPopupAction<cr>
+nnoremap <space>lc :action CheckStyleCurrentFileAction<cr>
+" format =
+nnoremap <space>lf :action ReformatCode<cr>
+nnoremap g= ggVG=``
+
+" code navigation
+nnoremap <leader>gg :action GotoDeclaration<cr>
+nnoremap <leader>gi :action GotoImplementation<cr>
+nnoremap <leader>gu :action GotoSuperMethod<cr>
+nnoremap <leader>gd :action GotoTypeDeclaration<cr>
+nnoremap <leader>gm :action MethodHierarchy<cr>
+nnoremap <leader>gt :action TypeHierarchy<cr>
+nnoremap <leader>gc :action CallHierarchy<cr>
+
+
+" git
+nnoremap <space>gi :action Git.Init<cr>
+nnoremap <space>ga :action Git.Add<cr>
+nnoremap <space>gl :action Git.Pull<cr>
+nnoremap <space>gf :action Gitflow.OpenGitflowPopup<cr>
+nnoremap <space>gh :action Github.Open.In.Browser<cr>
+nnoremap <space>gq :action Vcs.QuickListPopupAction<cr>
+nnoremap <space>gk :action VcsShowPrevChangeMarker<cr>
+nnoremap <space>gj :action VcsShowNextChangeMarker<cr>
+
+
+" options
+nnoremap <space>ts :action EditorToggleUseSoftWraps<cr>
+nnoremap <space>tw :action EditorToggleShowWhitespaces<cr>
+
+nnoremap <leader>a :action HideAllWindows<cr>
+
+" built-in navigation to navigated items works better
+" use idea map
+" nnoremap <c-o> :action Back<cr>
+" nnoremap <c-i> :action Forward<cr>
+
+
+" plugins
+set surround
+set multiple-cursors
+nmap <c-m> <A-n>
+nmap <c-x> <A-x>
+nmap <c-q> <ESC>:action $EditorTranslateAction<CR>
+
+nnoremap <leader><leader>f :action KJumpAction<CR>
+nnoremap <leader><leader>l :action KJumpAction.Line<CR>
+nnoremap <leader><leader>w :action KJumpAction.Word0<CR>
+
+" noremap # #zz
+" noremap * *zz
+" noremap w wzz
+" noremap W Wzz
+" noremap e ezz
+" noremap E Ezz
+" noremap b bzz
+" noremap B Bzz
+" noremap H Hzz
+" noremap L Lzz
+" noremap 0 0zz
+" noremap $ $zz
+" noremap ^ ^zz
+" noremap j jzz
+" noremap k kzz
+" noremap G Gzz
+" noremap u uzz
+" noremap ( (zz
+" noremap ) )zz
+" noremap { {zz
+" noremap } }zz
+" noremap [{ [{zz
+" noremap ]} ]}zz
+" noremap <C-f> <C-f>zz
+" noremap <C-b> <C-b>zz
+" noremap gd gdzz
