@@ -1,0 +1,28 @@
+https://mirrors.aliyun.com/cygwin/
+CygWin need to choose:
+
+1,base
+2,boost_build
+3,gcc-core
+4,gcc-g++
+5,gcc-objc
+6,gcc-objc++
+7,gdb
+8,vim
+9,tmux
+10,git
+11,libncurses5-dev
+
+
+manual install
+1,gnu global 
+2,universal-ctags
+
+
+
+External denpendency
+
+  apt-cyg Dependency{
+    gnu/make  https://ftp.gnu.org/gnu/make/
+    gnu/wegt  https://ftp.gnu.org/gnu/wget/
+  }

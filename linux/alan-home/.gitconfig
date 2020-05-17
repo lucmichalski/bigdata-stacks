@@ -1,0 +1,32 @@
+[user]
+	name = alanding
+	email = dw395577197@163.com
+	; email = 395577197@qq.com
+[credential]
+    helper = store
+[color]
+	ui = true
+[alias]
+	unstage = reset HEAD
+	last = log -1
+	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+[merge]
+	tool = vimdiff
+[diff]
+	tool = nvim
+[difftool]
+	prompt = false
+[mergetool]
+  prompt = true
+[core]
+	autocrlf = input
+	quotepath = false
+  editor = nvim
+[gui]
+	encoding = utf-8
+[i18n]
+	commitEncoding = utf-8
+	logOutputEncoding = utf-8
+[svn]
+	pathNameEncoding = utf-8
+

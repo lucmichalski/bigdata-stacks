@@ -1,0 +1,2 @@
+/home/alanding/software/anaconda3
+/home/alanding/software/anaconda3/envs/py37

@@ -1,0 +1,8 @@
+127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4
+::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
+
+# hadoop 集群域名映射
+192.168.31.76    hadoop100
+192.168.31.21    hadoop101
+192.168.31.149   hadoop102
+192.168.31.31    hadoop103

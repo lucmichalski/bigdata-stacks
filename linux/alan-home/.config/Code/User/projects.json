@@ -1,0 +1,23 @@
+[
+	{
+		"name": ".SpaceVim",
+		"rootPath": "/home/alanding/0_Dev/Vim-projects/.SpaceVim",
+		"paths": [],
+		"group": "",
+		"enabled": true
+	},
+	{
+		"name": "vim-weiyixiao",
+		"rootPath": "/home/alanding/0_Dev/Vim-projects/vim-weiyixiao",
+		"paths": [],
+		"group": "",
+		"enabled": false
+	},
+	{
+		"name": "mydotfiles",
+		"rootPath": "/home/alanding/0_Dev/Vim-projects/mydotfiles",
+		"paths": [],
+		"group": "",
+		"enabled": false
+	}
+]

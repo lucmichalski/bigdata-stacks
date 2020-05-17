@@ -1,0 +1,7 @@
+channels:
+  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/conda-forge/
+  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/
+  - defaults
+show_channel_urls: true
+pkgs_dirs:
+  - E:\win-software\IT-tools\repo\python-pkgs\conda

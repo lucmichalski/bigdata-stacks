@@ -1,0 +1,5 @@
+default_context:
+    full_name: "Alan Ding"
+    email: "alanding@163.com"
+    github_username: "alanding1989"
+cookiecutters_dir: "~/.cookiecutters/"

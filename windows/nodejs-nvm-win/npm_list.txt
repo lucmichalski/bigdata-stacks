@@ -1,0 +1,15 @@
+nrm
+yarn
+rimraf
+neovim
+wcwidth
+remark
+remark-cli
+remark-stringify
+bash-language-server
+import-js
+javascript-typescript-langserver
+vscode-css-languageserver-bin
+
+yarn global add prettier
+yarn global add diagnostic-languageserver

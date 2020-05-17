@@ -1,0 +1,47 @@
+# /etc/profile: system-wide .profile file for the Bourne shell (sh(1))
+# and Bourne compatible shells (bash(1), ksh(1), ash(1), ...).
+
+if [ "${PS1-}" ]; then
+  if [ "${BASH-}" ] && [ "$BASH" != "/bin/sh" ]; then
+    # The file bash.bashrc already sets the default PS1.
+    # PS1='\h:\w\$ '
+    if [ -f /etc/bash.bashrc ]; then
+      . /etc/bash.bashrc
+    fi
+  else
+    if [ "`id -u`" -eq 0 ]; then
+      PS1='# '
+    else
+      PS1='$ '
+    fi
+  fi
+fi
+
+if [ -d /etc/profile.d ]; then
+  for i in /etc/profile.d/*.sh; do
+    if [ -r $i ]; then
+      . $i
+    fi
+  done
+  unset i
+fi
+
+
+export JAVA_HOME=/opt/lang-tools/java/jdk
+export PYSPARK_PYTHON=/home/alanding/software/anaconda3/envs/py37/bin/python3.7
+export PATH=/home/alanding/software/anaconda3/envs/py37/bin:$PATH
+
+# Ctags and Gtags
+export PATH=/opt/vim/universal-ctags/bin:$PATH
+
+# .net
+# export PATH=/opt/lang-tools/csharp/:$PATH
+
+# Rust
+export RUSTUP_HOME=/opt/lang-tools/rust/rustup
+export CARGO_HOME=/home/alanding/software/lang-tools/cargo
+export PATH=$CARGO_HOME/bin:$PATH
+export RUST_SRC_PATH=$RUSTUP_HOME/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src
+export RUSTUP_DIST_SERVER=http://mirrors.ustc.edu.cn/rust-static
+export RUSTUP_UPDATE_ROOT=http://mirrors.ustc.edu.cn/rust-static/rustup
+

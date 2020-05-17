@@ -1,0 +1,98 @@
+# 通用工具
+extra-icons
+NyanProgressBar
+IdeaVim
+StringManipulation
+file-path-autocomplete
+KJump
+Rainbow brackets
+GrepConsole
+Translation
+OnlineSeach2
+CodeGlance
+file-watcher
+
+RestfulToolkit
+GsonFormat
+Json2Pojo with Lombok
+Ideolog
+
+
+" git
+GitToolBox
+gitee
+Find Pull Request
+gitignore
+repo
+
+
+" cloud
+kubernetes
+Docker
+TeamCityIntegration
+TeXiFy IDEA
+
+
+# lang
+BashSupport
+markdown
+idea-multimarkdown
+toml
+rst
+PlantUML integration
+
+
+# Java
+mybatisCodeHelper
+jpa-support
+lombok
+GenerateAllSetter
+Maven Helper
+P3c
+findbugs
+google-java-format
+VisualVM Launcher
+Scala
+scalafmt
+
+
+# frontEnd
+react
+ReactSnippets
+NodeJS
+stylus linter
+styled components
+TSReact
+
+Yeoman
+Meteor
+js-karma
+WebComponents
+Jade
+prettierJS
+phoneGap
+node-remote-interpreter
+handlebars
+EJS
+Dart
+cucumberJavaScript
+
+
+intellij-makefile
+RestructuredText Support
+# python
+python-ce
+mypy-plugin
+pylint-plugin
+yapf-pycharm
+python-typing-adder
+livepy
+
+
+# cpp, rust
+Rust
+cppcheck
+Clion-cpplint
+EmmyLua
+xmake
+

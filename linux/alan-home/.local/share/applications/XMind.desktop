@@ -1,0 +1,7 @@
+[Desktop Entry]
+Exec="/home/alanding/.local/share/applications/xmindinit.sh"
+Name=XMind
+Terminal=false
+Type=Application
+Icon=/home/alanding/software/command-line-tools/xmind-8/XMind_amd64/xmind.png
+

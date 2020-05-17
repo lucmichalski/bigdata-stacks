@@ -1,0 +1,13 @@
+
+# disable=SC1090
+# disable=SC2230
+
+# Warning: dls: Don't use ls | grep. Use a glob or a for loop with a condition to allow non-alphanumeric filenames. [SC2010]
+disable=SC2010
+
+# Info: dls: Double quote to prevent globbing and word splitting. [SC2086]
+disable=SC2086
+
+# Info: dls: Use ! grep -q instead of comparing output with [ -z .. ]. [SC2143]
+# disable=SC2143
+

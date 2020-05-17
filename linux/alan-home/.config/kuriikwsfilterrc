@@ -1,0 +1,6 @@
+[General]
+DefaultWebShortcut=
+EnableWebShortcuts=true
+KeywordDelimiter=:
+PreferredWebShortcuts=baidu,wikit,youtube,wikipedia,google
+UsePreferredWebShortcutsOnly=true
