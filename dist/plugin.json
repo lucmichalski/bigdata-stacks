@@ -1,0 +1,41 @@
+{
+  "id": "ovh-warp10-datasource",
+  "type": "datasource",
+  "name": "Warp 10",
+  "metrics": true,
+  "annotations": true,
+  "alerting": false,
+  "info": {
+    "description": "Warp 10™ Platform datasource plugin",
+    "version": "2.1.2",
+    "updated": "2020-01-09",
+    "author": {
+      "name": "ovh",
+      "url": "https://github.com/ovh/ovh-warp10-datasource"
+    },
+    "keywords": [
+      "warp10",
+      "datasource",
+      "geotimeseries",
+      "timeseries"
+    ],
+    "logos": {
+      "small": "assets/warp10-c.png",
+      "large": "assets/warp10-h.png"
+    },
+    "links": [{
+      "name": "GitHub",
+      "url": "https://github.com/ovh/ovh-warp10-datasource"
+    }, {
+      "name": "Warp 10™ Users Google Group",
+      "url": "https://groups.google.com/forum/#!forum/warp10-users"
+    }, {
+      "name": "Warp 10™ Open Source Project Repository",
+      "url": "https://github.com/senx/warp10-platform"
+    }]
+  },
+  "dependencies": {
+    "grafanaVersion": "5.0.4",
+    "plugins": []
+  }
+}
