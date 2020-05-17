@@ -1,0 +1,6 @@
+{
+  "globals": {
+    "filesize": true,
+    "JSURL": true
+  }
+}

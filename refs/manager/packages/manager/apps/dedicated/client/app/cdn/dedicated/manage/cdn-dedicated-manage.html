@@ -1,0 +1,43 @@
+<!-- Loader -->
+<div class="text-center m-5" data-ng-if="$ctrl.loading">
+    <oui-spinner></oui-spinner>
+</div>
+<!-- End of Loader -->
+
+<!-- Section Content -->
+<div data-ng-if="!$ctrl.loading">
+    <oui-page-header heading="{{:: $ctrl.cdn.serviceName }}">
+        <oui-header-tabs>
+            <oui-header-tabs-item
+                text="{{:: 'cdn_tab_statistics' | translate }}"
+                state="app.networks.cdn.dedicated.manage.statistics"
+            ></oui-header-tabs-item>
+            <oui-header-tabs-item
+                text="{{:: 'cdn_tab_ssl' | translate }}"
+                state="app.networks.cdn.dedicated.manage.ssl"
+            ></oui-header-tabs-item>
+            <oui-header-tabs-item
+                text="{{:: 'cdn_tab_logs' | translate }}"
+                state="app.networks.cdn.dedicated.manage.logs"
+            ></oui-header-tabs-item>
+        </oui-header-tabs>
+    </oui-page-header>
+
+    <!-- Tab Content -->
+    <div class="tab-content">
+        <div
+            class="alert"
+            role="alert"
+            data-ng-class="alertType"
+            data-ng-if="message"
+        >
+            <i class="close icon-remove" data-ng-click="message = null"></i>
+            <span data-ng-bind="message"></span>
+        </div>
+
+        <div data-ovh-alert="cdnDedicatedManage"></div>
+
+        <div data-ui-view="cdnView"></div>
+    </div>
+    <!-- End of Tab Content -->
+</div>

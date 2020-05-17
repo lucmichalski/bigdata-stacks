@@ -1,0 +1,81 @@
+export const OBJECT_CONTAINER_TYPE_STATIC = 'static';
+export const OBJECT_CONTAINER_TYPE_PRIVATE = 'private';
+export const OBJECT_CONTAINER_TYPE_PUBLIC = 'public';
+export const OBJECT_CONTAINER_TYPES = [
+  OBJECT_CONTAINER_TYPE_STATIC,
+  OBJECT_CONTAINER_TYPE_PRIVATE,
+  OBJECT_CONTAINER_TYPE_PUBLIC,
+];
+
+export const OBJECT_TYPE_SEALED = 'sealed';
+export const OBJECT_TYPE_UNSEALING = 'unsealing';
+export const OBJECT_TYPE_UNSEALED = 'unsealed';
+export const OBJECT_TYPE_PCA = 'pca';
+export const OBJECT_TYPES = [
+  OBJECT_TYPE_SEALED,
+  OBJECT_TYPE_UNSEALING,
+  OBJECT_TYPE_UNSEALED,
+  OBJECT_TYPE_PCA,
+];
+
+export const CLOUD_PCA_FILE_STATE = {
+  SEALED: 'sealed',
+  UNSEALING: 'unsealing',
+  UNSEALED: 'unsealed',
+};
+
+export const CONTAINER_DEFAULT_USER = 'pca';
+
+export const CONTAINER_DEFAULT_PASSWORD_TENANTNAME = '<tenant_name>';
+export const CONTAINER_DEFAULT_PASSWORD_USERNAME = '<username>';
+export const CONTAINER_DEFAULT_PASSWORD_PASSWORD = '<password>';
+export const CONTAINER_DEFAULT_PASSWORD = [
+  CONTAINER_DEFAULT_PASSWORD_TENANTNAME,
+  CONTAINER_DEFAULT_PASSWORD_USERNAME,
+  CONTAINER_DEFAULT_PASSWORD_PASSWORD,
+].join('.');
+export const CONTAINER_COMMERCIAL_NAME = 'storage-replicated';
+
+export const PUBLIC_CLOUD_PRODUCT_NAME = 'cloud';
+
+export const STORAGE_GATEWAY = {
+  CA: 'gateways.storage.REGION.cloud.ovh.net',
+  EU: 'gateways.storage.REGION.cloud.ovh.net',
+  US: 'gateways.storage.REGION.cloud.ovh.us',
+};
+
+export const X_CONTAINER_HEADERS_REGEX = /^(X-Container|X-Storage)/i;
+
+export const X_AUTH_TOKEN = 'X-Auth-Token';
+export const X_STORAGE_POLICY = 'x-storage-policy';
+export const X_CONTAINER_READ = 'x-container-read';
+export const X_CONTAINER_META_WEB_LISTINGS = 'x-container-meta-web-listings';
+export const X_CONTAINER_READ_PUBLIC_VALUE = '.r:*,.rlistings';
+
+export default {
+  CONTAINER_DEFAULT_USER,
+  CONTAINER_DEFAULT_PASSWORD_TENANTNAME,
+  CONTAINER_DEFAULT_PASSWORD_USERNAME,
+  CONTAINER_DEFAULT_PASSWORD_PASSWORD,
+  CONTAINER_DEFAULT_PASSWORD,
+  CONTAINER_COMMERCIAL_NAME,
+
+  OBJECT_CONTAINER_TYPES,
+
+  OBJECT_TYPE_SEALED,
+  OBJECT_TYPE_UNSEALING,
+  OBJECT_TYPE_UNSEALED,
+  OBJECT_TYPE_PCA,
+  OBJECT_TYPES,
+
+  PUBLIC_CLOUD_PRODUCT_NAME,
+
+  STORAGE_GATEWAY,
+
+  X_AUTH_TOKEN,
+  X_CONTAINER_HEADERS_REGEX,
+  X_CONTAINER_META_WEB_LISTINGS,
+  X_CONTAINER_READ,
+  X_CONTAINER_READ_PUBLIC_VALUE,
+  X_STORAGE_POLICY,
+};

@@ -1,0 +1,10 @@
+{
+  "globals": {
+    "Clipboard": true,
+    "filesize": true,
+    "JSURL": true,
+    "moment": true,
+    "punycode": true,
+    "URI": true
+  }
+}

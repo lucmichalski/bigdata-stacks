@@ -1,0 +1,33 @@
+<div data-ng-repeat="(universe, products) in $ctrl.items track by universe">
+    <h2 data-ng-bind="universe"></h2>
+    <div class="row">
+        <div
+            class="col-md-6 col-xl-4 mb-2"
+            data-ng-repeat="product in products track by product.productName"
+        >
+            <ovh-manager-hub-tile
+                heading="{{:: product.name }}"
+                badge-text="{{:: product.category }}"
+            >
+                <p data-ng-bind=":: product.description"></p>
+                <div class="d-flex flex-row-reverse">
+                    <a
+                        class="oui-link_icon"
+                        data-ng-if="product.order"
+                        data-ng-href="{{:: product.order }}"
+                        data-track-on="click"
+                        data-track-name="{{ $ctrl.formatTracker(universe, product) }}"
+                    >
+                        <span
+                            data-translate="manager_hub_catalog_items_order"
+                        ></span>
+                        <span
+                            aria-hidden="true"
+                            class="oui-icon oui-icon-arrow-right_extra-thin"
+                        ></span>
+                    </a>
+                </div>
+            </ovh-manager-hub-tile>
+        </div>
+    </div>
+</div>

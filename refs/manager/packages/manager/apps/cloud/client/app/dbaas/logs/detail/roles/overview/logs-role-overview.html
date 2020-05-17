@@ -1,0 +1,89 @@
+<oui-modal
+    data-title="{{ ::'logs_role_overview_title' | translate }}"
+    data-on-dismiss="ctrl.cancel()"
+>
+    <dl class="preview-list preview-list_no-margin">
+        <dt
+            class="preview-list__term"
+            data-translate="logs_role_overview_role"
+        ></dt>
+        <dd
+            class="preview-list__definition"
+            data-ng-bind=":: ctrl.role.info.name"
+        ></dd>
+        <dt
+            class="preview-list__term"
+            data-translate="logs_role_overview_description"
+        ></dt>
+        <dd
+            class="preview-list__definition"
+            data-ng-bind=":: ctrl.role.info.description"
+        ></dd>
+        <dt
+            class="preview-list__term"
+            data-translate="logs_role_overview_permissions"
+        ></dt>
+        <dd class="preview-list__definition">
+            <div data-ng-if="ctrl.role.permissions.length > 0">
+                <div data-ng-if="ctrl.permissions.stream.length > 0">
+                    <span class="pl-0 preview-list__list-heading">Stream</span>
+                    <ul>
+                        <li
+                            data-ng-repeat="stream in ctrl.permissions.stream track by $index"
+                        >
+                            {{stream.title}}
+                        </li>
+                    </ul>
+                </div>
+                <div data-ng-if="ctrl.permissions.index.length > 0">
+                    <span class="pl-0 preview-list__list-heading">Index</span>
+                    <ul>
+                        <li
+                            data-ng-repeat="index in ctrl.permissions.index track by $index"
+                        >
+                            {{index.name}}
+                        </li>
+                    </ul>
+                </div>
+                <div data-ng-if="ctrl.permissions.alias.length > 0">
+                    <span class="pl-0 preview-list__list-heading">Alias</span>
+                    <ul>
+                        <li
+                            data-ng-repeat="alias in ctrl.permissions.alias track by $index"
+                        >
+                            {{alias.name}}
+                        </li>
+                    </ul>
+                </div>
+                <div data-ng-if="ctrl.permissions.dashboard.length > 0">
+                    <span class="pl-0 preview-list__list-heading"
+                        >Dashboard</span
+                    >
+                    <ul>
+                        <li
+                            data-ng-repeat="dashboard in ctrl.permissions.dashboard track by $index"
+                        >
+                            {{dashboard.title}}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <span data-ng-if="ctrl.role.permissions.length === 0"> - </span>
+        </dd>
+        <dt
+            class="preview-list__term"
+            data-translate="logs_role_overview_members"
+        ></dt>
+        <dd class="preview-list__definition">
+            <span data-ng-if="ctrl.role.members.length === 0"> - </span>
+            <ul>
+                <li
+                    data-ng-repeat="member in ctrl.role.members track by $index"
+                >
+                    {{member.username}}
+                    <small data-ng-if="member.note">- {{member.note}}</small>
+                </li>
+            </ul>
+        </dd>
+    </dl>
+</oui-modal>
