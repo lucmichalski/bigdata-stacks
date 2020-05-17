@@ -1,0 +1,6 @@
+
+  mysql:
+    image: mysql:${MYSQL_VERSION}
+    env_file: .env
+    ports:
+      - "${DATABASE_BINDED_PORT}:3306"

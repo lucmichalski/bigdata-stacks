@@ -1,0 +1,19 @@
+
+  appdata:
+    image: alpine:latest
+    hostname: "appdata"
+    env_file: .env
+    volumes:
+      - ~/.composer:/var/www/.composer:delegated
+      - ./.warp/docker/config/appdata/startup.sh:/startup.sh
+      - ./.warp/docker/config/bash/.bashrc:/var/www/.bashrc
+      - ./.warp/docker/config/bash/.bashrc:/root/.bashrc
+    command: /bin/sh /startup.sh
+
+  2.2.9-ce:
+    image: summasolutions/magento:2.2.9-ce
+    env_file: .env
+
+  2.3.1-ce:
+    image: summasolutions/magento:2.3.1-ce
+    env_file: .env

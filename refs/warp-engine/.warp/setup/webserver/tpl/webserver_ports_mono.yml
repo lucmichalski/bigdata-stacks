@@ -1,0 +1,2 @@
+      - "${HTTP_BINDED_PORT}:80"
+      - "${HTTPS_BINDED_PORT}:443"

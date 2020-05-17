@@ -1,0 +1,14 @@
+# PHP 5.6
+#zend_extension = /usr/local/lib/php/extensions/no-debug-non-zts-20131226/iocube.so
+
+# PHP 7.0
+#zend_extension = /usr/local/lib/php/extensions/no-debug-non-zts-20151012/iocube.so  
+
+# PHP 7.1
+#zend_extension = /usr/local/lib/php/extensions/no-debug-non-zts-20160303/iocube.so 
+
+# PHP 7.2
+#zend_extension = /usr/local/lib/php/extensions/no-debug-non-zts-20170718/iocube.so
+
+# PHP 7.3
+#zend_extension = /usr/local/lib/php/extensions/no-debug-non-zts-20180731/iocube.so

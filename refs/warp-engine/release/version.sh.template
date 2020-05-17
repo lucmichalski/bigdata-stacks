@@ -1,0 +1,3 @@
+#!/bin/bash
+
+WARP_VERSION="BUILD_VERSION"

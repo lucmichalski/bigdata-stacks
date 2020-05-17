@@ -1,0 +1,12 @@
+
+  redis-session:
+    image: redis:${REDIS_SESSION_VERSION}
+    env_file: .env
+    ports:
+      - "6379"
+    #volumes:
+    #  - "./.warp/docker/volumes/redis-session:/data"
+    #  - ${REDIS_SESSION_CONF}:/usr/local/etc/redis/redis.conf
+    #command: ["redis-server", "/usr/local/etc/redis/redis.conf"]
+    networks:
+      - back

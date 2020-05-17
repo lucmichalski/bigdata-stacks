@@ -1,0 +1,12 @@
+
+  redis-fpc:
+    image: redis:${REDIS_FPC_VERSION}
+    env_file: .env
+    ports:
+      - "6379"
+    #volumes:
+    #  - "./.warp/docker/volumes/redis-fpc:/data"
+    #  - ${REDIS_FPC_CONF}:/usr/local/etc/redis/redis.conf
+    #command: ["redis-server", "/usr/local/etc/redis/redis.conf"]
+    networks:
+      - back

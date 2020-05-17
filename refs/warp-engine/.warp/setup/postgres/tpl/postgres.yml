@@ -1,0 +1,15 @@
+
+  postgres:
+    image: summasolutions/postgres:${POSTGRES_VERSION}
+    env_file: .env
+    ports: 
+      - "${POSTGRES_BINDED_PORT}:5432"
+    environment:
+      POSTGRES_DB: "${POSTGRES_DB}"
+      POSTGRES_USER: "${POSTGRES_USER}"
+      POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
+    volumes:
+      - "./.warp/docker/volumes/postgresql:/var/lib/postgresql/data"
+      - "./.warp/docker/dumps:/dumps"
+    networks:
+      - back

@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>WARP Engine Download Page</title>
+
+    <link rel="shortcut icon" href="https://s3.amazonaws.com/ct.summasolutions.net/favicon.ico" type="image/x-icon" />
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js" integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+" crossorigin="anonymous"></script>
+
+
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300" rel="stylesheet">
+
+    <style>
+    /* Space out content a bit */
+body {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  font-family: 'Open Sans', sans-serif;
+  overflow-x: scroll;
+}
+
+.center {
+    width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 30px;
+    margin-top: 30px;
+    display: block
+}
+
+/* Everything but the jumbotron gets side spacing for mobile first views */
+.header,
+.marketing,
+.footer {
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+/* Custom page header */
+.header {
+  padding-bottom: 20px;
+  border-bottom: 1px solid #e5e5e5;
+}
+/* Make the masthead heading the same height as the navigation */
+.header h3 {
+  margin-top: 0;
+  margin-bottom: 0;
+  line-height: 40px;
+}
+
+/* Custom page footer */
+.footer {
+  padding-top: 19px;
+  color: #777;
+  border-top: 1px solid #e5e5e5;
+}
+
+.footer a {
+    color:rgb(122, 188, 49);
+}
+
+.footer a:hover {
+    color:rgb(66, 102, 25);
+    text-decoration: underline;
+}
+
+.download-icon {
+    font-size: 14pt;
+    color:rgb(122, 188, 49);
+}
+
+a.download-icon:hover {
+    font-size: 14pt;
+    color:rgb(66, 102, 25);
+}
+
+
+.download-version {
+    float: left;
+}
+
+table.table thead tr th.download-icon {
+    font-size: 20pt;
+}
+
+/* <<<< lightbox bootstrap */
+
+#profile-grid { overflow: auto; white-space: normal; }
+#profile-grid .profile { padding-bottom: 40px; }
+#profile-grid .panel { padding: 0 }
+#profile-grid .panel-body { padding: 15px }
+#profile-grid .profile-name { font-weight: bold; }
+#profile-grid .thumbnail {margin-bottom:6px;}
+#profile-grid .panel-thumbnail { overflow: hidden; }
+#profile-grid .img-rounded { border-radius: 4px 4px 0 0;}
+
+/* lightbox bootstrap >>>> */
+
+/* Customize container */
+@media (min-width: 768px) {
+  .container {
+    max-width: 960px;
+  }
+}
+.container-narrow > hr {
+  margin: 30px 0;
+}
+
+/* Main marketing message and sign up button */
+.jumbotron {
+  text-align: center;
+  border-bottom: 0px;
+}
+/*.jumbotron .btn {
+  padding: 14px 24px;
+  font-size: 21px;
+}*/
+
+/* Supporting marketing content */
+.marketing {
+  margin: 40px 0;
+}
+.marketing p + h4 {
+  margin-top: 28px;
+}
+
+.panel {
+  border:0px;
+}
+
+.panel {
+    margin-bottom: 20px;
+    background-color: #fff;
+    border: 0px;
+    border-radius: 0px;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+.panel-default>.panel-heading {
+    background-image: none;
+    filter: none;
+    background-repeat: none;
+    background-color: white;
+}
+
+.panel-default>.panel-heading+.panel-collapse>.panel-body {
+    border-top-color: transparent;
+}
+.panel-group .panel-heading+.panel-collapse>.list-group, .panel-group .panel-heading+.panel-collapse>.panel-body {
+    border-top: 0px;
+}
+
+.panel-body {
+  padding-left: 50px;
+}
+
+.glyphicon-link {color:gray;}
+
+/* Responsive: Portrait tablets and up */
+@media screen and (min-width: 768px) {
+  /* Remove the padding we set earlier */
+  .header,
+  .marketing,
+  .footer {
+    padding-right: 0;
+    padding-left: 0;
+  }
+  /* Space out the masthead */
+  .header {
+    margin-bottom: 30px;
+  }
+  /* Remove the bottom border on the jumbotron for visual effect */
+  .jumbotron {
+    border-bottom: 0;
+    background-color: #ffffff;
+  }
+}
+    </style>
+  </head>
+  <body>
+
+    <div class="container">
+        <div class="header clearfix">
+          <a href="https://www.summasolutions.net" title="Summa Solutions SRL" target="_blank">
+            <img src="https://s3.amazonaws.com/summa-core-team/images/summa_logo_horizontal_rgb.jpg" width="120">
+          </a>
+        </div>
+  
+        <div class="jumbotron">
+          <h1>WARP Engine</h1>
+          <p class="lead">Download latest version of warp-engine a service helper to speeding up! your development infraestructure</p>
+          <p>
+              <a class="btn btn-success" href="./warp" role="button"><i class="fas fa-cloud-download-alt"></i>&nbsp;Download</a>
+          </p>
+          <p>&nbsp;</p>
+          <h4>Command line install</h4>
+          <h5 style="text-align: left;">Run the following command in your root project folder:</h5>
+        <pre>curl -L -o warp http://ct.summasolutions.net/warp-engine/warp && chmod 755 warp</pre>
+        <p>&nbsp;</p>
+        <h4>Command line update</h4>
+        <h5 style="text-align: left;">Run the following command in your root project folder:</h5>
+        <pre>curl -L -o warp http://ct.summasolutions.net/warp-engine/warp && chmod 755 warp && ./warp update</pre>
+        </div>
+        <h2>Getting started</h2>
+        <div>
+          <p>After download the <code>warp</code> binary file, you should initialize your dockerized infraestrucutre running the following command: </p>
+          <p><pre>$ ./warp init</pre></p>
+          <p>For further information please run: <code>./warp --help</code></p>
+        </div>
+        <video class="center" loop autoplay muted>
+          <source src="img/movie.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+        <h2>Useful commands</h2>
+        <div>
+          <p>
+            <ul>
+              <li><code>warp --help</code> Shows the warp tool help</li>
+              <li><code>warp [command] --help</code> Shows the specific command help. For instance: warp php --help</li>
+              <li><code>warp info</code> Shows the configured values and useful information for each services</li>
+              <li><code>warp init</code> Initialize the warp framework the first time before to start the project</li>
+              <li><code>warp start</code> Starts the containers</li>
+              <li><code>warp stop</code> Stops the containers</li>
+            </ul>
+          </p>
+        </div>
+        <h2 id="anchorFAQs">FAQ's</h2>
+        <div class="panel-group" id="accordion">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                    <span class="glyphicon glyphicon-link" aria-hidden="true"></span> Requeriments and dependencies
+                </a>
+              </h4>
+            </div>
+            <div id="collapseOne" class="panel-collapse collapse">
+              <div class="panel-body">
+                <p><b>For Linux</b></p>
+                <p>Docker Comunity Edition 18.06+</p>
+                <p>Link to the main distributions</p>
+                <ul>
+                  <li><a href="https://docs.docker.com/install/linux/docker-ce/ubuntu/" target="_blank">Install in Ubuntu</a></li>
+                  <li><a href="https://docs.docker.com/install/linux/docker-ce/centos/" target="_blank">Install in Centos</a></li>
+                  <li><a href="https://docs.docker.com/install/linux/docker-ce/debian/" target="_blank">Install in Debian</a></li>
+                  <li><a href="https://docs.docker.com/install/linux/docker-ce/fedora/" target="_blank">Install in Fedora</a></li>
+                  <li><a href="https://docs.docker.com/install/linux/docker-ce/binaries/" target="_blank">Install with Binaries</a></li>
+                </ul>
+                <p>Docker compose 1.21+</p>
+                <ul>
+                  <li><a href="https://docs.docker.com/compose/install/" target="_blank">Install docker-compose</a></li>
+                </ul>
+                <p><b>For OS X</b></p>
+                <p>Docker Sync 0.5.8+</p>
+                <ul>
+                  <li><a href="http://docker-sync.io/" target="_blank">Install Docker Sync</a></li>
+                </ul>
+                <p>Docker for mac Comunity Edition 18.06+</p>
+                <ul>
+                  <li><a href="https://docs.docker.com/docker-for-mac/" target="_blank">Install Docker for mac</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="panel panel-default">
+              <div class="panel-heading">
+                <h4 class="panel-title">
+                  <a data-toggle="collapse" data-parent="#accordion" href="#collapse5">
+                      <span class="glyphicon glyphicon-link" aria-hidden="true"></span> How to install Docker Sync for Mac
+                  </a>
+                </h4>
+              </div>
+              <div id="collapse5" class="panel-collapse collapse">
+                <div class="panel-body">
+                  <pre>sudo gem install docker-sync</pre>
+                  <p><a href="http://docker-sync.io/" target="_blank">official documentation</a></p>
+                </div>
+              </div>
+            </div>
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+                    <span class="glyphicon glyphicon-link" aria-hidden="true"></span> How to configure Xdebug
+                </a>
+              </h4>
+            </div>
+
+            <div id="collapseTwo" class="panel-collapse collapse">
+              <div class="panel-body">
+                <h4>Configuring xdebug by Browser </h4>
+                <p>1) The first step is to install the <a href="https://confluence.jetbrains.com/display/PhpStorm/Browser+Debugging+Extensions" target="_blank">Browser Toolbar</a> and <strong>enable</strong> listening for PHP Debug Conections</p>
+                <div class="container-fluid">
+                    <div class="row" id="profile-grid">
+                      <div class="col-sm-4 col-xs-12 profile">
+                        <div class="panel panel-default">
+                          <div class="panel-thumbnail">
+                            <a href="#" title="Debug Toolbar" class="thumb">
+                              <img src="img/debugtoolbar.png" class="img-responsive img-rounded" data-toggle="modal" data-target=".modal-profile-lg">
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                <p>2) After that, the server name must be configured in Nginx.</p>
+                <p>To achieve this, please modify the nginx config file (file ended in .conf) setting the server_name attribute.</p>
+                <p>The file can be located running the command <code>warp info</code> in your root project folder with the "Nginx configuration file" flag</p>
+                <div class="container-fluid">
+                  <div class="row" id="profile-grid">
+                    <div class="col-sm-4 col-xs-12 profile">
+                      <div class="panel panel-default">
+                        <div class="panel-thumbnail">
+                          <a href="#" title="Server Name PhpStorm" class="thumb">
+                            <img src="img/nginx-config.jpg" class="img-responsive img-rounded" data-toggle="modal" data-target=".modal-profile-lg">
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <p>3) Now is time to configure the Web Server in PHPStorm IDE</p>
+                <p>Please, go to: File -> Settings->Languages & Frameworks -> PHP -> Servers</p>
+                <p>Add a new Server clicking on the plus (+) button and set the following fields: </p>
+                <p>
+                  <ul>
+                    <li><strong>Name:</strong> Must be the same name configured in Nginx <code>server_name</code> field</li>
+                    <li><strong>Host:</strong> Must be the same value configured in Nginx <code>server_name</code> field</li>
+                    <li><strong>Port:</strong> Should be 80 if you are using HTTP or 443 if you ar using HTTPS</li>
+                    <li><strong>Debbuger:</strong> Choose Xdebug</li>
+                  </ul>
+                </p>
+                <p>After configure those values, check the option <i>Use path mappings</i> and configure the right paths. See the table below</p>
+                <div>
+                    <table class="table">
+                        <thead>
+                          <tr>
+                            <th>File/Directory (Your computer - host)</th>
+                            <th>absolute path on the Servers (inside the container)</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>/path/to/current/project/</td>
+                            <td>/var/www/html/</td>
+                          </tr>
+                          <tr>
+                              <td>/path/to/current/project/pub/</td>
+                              <td>/var/www/html/pub/</td>
+                            </tr>
+                          </tbody>
+                      </table>
+                  </div>
+                <div class="container-fluid">
+                  <div class="row" id="profile-grid">
+                    <div class="col-sm-4 col-xs-12 profile">
+                      <div class="panel panel-default">
+                        <div class="panel-thumbnail">
+                          <a href="#" title="Server Name PhpStorm" class="thumb">
+                            <img src="img/xdebug-server.png" class="img-responsive img-rounded" data-toggle="modal" data-target=".modal-profile-lg">
+                          </a>
+                        </div>
+                      </div>
+                      </div>
+                    </div>
+                </div>
+
+
+                <p>4) Once that the Web Server has been configured, the PHP Web Aplication must be created, so go to Menu: Run -> Edit Configurations</p>
+                <p>Create a new PHP Web Application clicking on the plus (+) button and select the PHP Web Application option, then set the following fields: </p>
+                <p>
+                  <ul>
+                    <li><strong>Name:</strong> Must be the same name configured in Nginx <code>server_name</code> field</li>
+                    <li><strong>Server:</strong> Select the server created on previous step</li>
+                  </ul>
+                </p>
+                <div class="container-fluid">
+                    <div class="row" id="profile-grid">
+                      <div class="col-sm-4 col-xs-12 profile">
+                        <div class="panel panel-default">
+                          <div class="panel-thumbnail">
+                            <a href="#" title="Server Name PhpStorm" class="thumb">
+                              <img src="img/php_web_application.png" class="img-responsive img-rounded" data-toggle="modal" data-target=".modal-profile-lg">
+                            </a>
+                          </div>
+                        </div>
+                        </div>
+                      </div>
+                  </div>
+                <h4>Configuring xdebug by Console (cli)</h4>
+                <p>Using Xdebug by console requires to set PHP_IDE_CONFIG environment var with same <strong>Nginx server_name</strong> value.</p>
+                <p>Open the <code>.env</code> file located in your root project folder and set the value like this sample:</p>
+                <p><pre>PHP_IDE_CONFIG=serverName=magento2.com</pre></p>
+                <p>Where <i>magento2.com</i> is the server_name set previously in Nginx configuration</p>
+                <div class="container-fluid">
+                    <div class="row" id="profile-grid">
+                      <div class="col-sm-4 col-xs-12 profile">
+                        <div class="panel panel-default">
+                          <div class="panel-thumbnail">
+                            <a href="#" title="Server Name PhpStorm" class="thumb">
+                              <img src="img/ServerName.jpg" class="img-responsive img-rounded" data-toggle="modal" data-target=".modal-profile-lg">
+                            </a>
+                          </div>
+                        </div>
+                        </div>
+                      </div>
+                </div>
+                <h4>Configuring the Xdebug php extension (ext-xdebug.ini)</h4>
+                <p>Plase located in your root project folder, execute the command: <code>warp php info</code>, you will see the location of ext-xdebug.ini file.</p>
+                <p>Open the file, for example located in <strong>.warp/docker/config/php/ext-xdebug.ini</strong></p>
+                <p>Finally, make sure to configure your xdebug correctly, the most important options are:</p>
+                <p>
+                  <ul>
+                    <li>xdebug.remote_enable=1</li>
+                    <li>xdebug.remote_port=9000</li>
+                    <li>xdebug.remote_connect_back=0</li>
+                    <li>xdebug.idekey='PHPSTORM'</li>
+                    <li>xdebug.remote_host=172.17.0.1</li>
+                  </ul>
+                </p>
+                <p>The field <code>xdebug.remote_host</code> depends of your Operating System and your local configurations:</p>
+                <p><strong>Linux:</strong> The IP should be grabbed from Docker network interface, ussually called <code>docker0</code></p>
+                <p>You can get it running the command <strong>ifconfig</strong> for instance:</p>
+                <p><pre>
+docker0: flags=4099<UP,BROADCAST,MULTICAST>  mtu 1500
+    <span style="color:red;">inet 172.17.0.1</span>  netmask 255.255.0.0  broadcast 172.17.255.255
+    inet6 fe80::42:49ff:fec6:dfe7  prefixlen 64  scopeid 0x20<link>
+    ether 02:42:49:c6:df:e7  txqueuelen 0  (Ethernet)
+    RX packets 72049  bytes 4443463 (4.4 MB)
+    RX errors 0  dropped 0  overruns 0  frame 0
+    TX packets 82000  bytes 435500419 (435.5 MB)
+    TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+                </pre></p>
+                <p><strong>Mac OS X:</strong> The IP should be <code>xdebug.remote_host=10.254.254.254</code> added as an alias following the next steps:</p>
+                <p>1- Create the alias</p>
+                <pre>sudo ifconfig lo0 alias 10.254.254.254</pre>
+                <p>2- Add the network configuration to OS X launch daemons, to create the alias automatically on system boot process. </p>
+                <pre>sudo curl -o /Library/LaunchDaemons/net.summasolutions.docker_10254_alias.plist http://ct.summasolutions.net/warp-engine/osx/net.summasolutions.docker_10254_alias.plist</pre>
+              </div>
+            </div>
+          </div>
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
+                    <span class="glyphicon glyphicon-link" aria-hidden="true"></span> How to use Composer
+                </a>
+              </h4>
+            </div>
+            <div id="collapseThree" class="panel-collapse collapse">
+              <div class="panel-body">
+                  <p>you can run composer</p>
+                  <pre>warp composer install</pre>
+                  <p>you can use composer inside the container accessing by ssh<p>
+                  <pre>warp php ssh
+composer install</pre>
+              </div>
+            </div>
+          </div>
+          <div class="panel panel-default">
+              <div class="panel-heading">
+                <h4 class="panel-title">
+                  <a data-toggle="collapse" data-parent="#accordion" href="#collapseCronJob">
+                      <span class="glyphicon glyphicon-link" aria-hidden="true"></span> Setting up the Cron Jobs
+                  </a>
+                </h4>
+              </div>
+              <div id="collapseCronJob" class="panel-collapse collapse">
+                <div class="panel-body">
+                  <p><strong>Editing The Crontab File</strong></p>
+                  <p>To check whether you have a crontab file run the following command:</p>
+                  <pre>warp crontab -l</pre>
+                  <p>To create or edit a crontab file run the following command:</p>
+                  <pre>warp crontab -e</pre>
+                  <p>The file that opens has a lot of information but the key part is the example just before the end of the comments section (comments are denoted by lines beginning with #).</p>
+                  <pre># m h dom mon dow command</pre>
+                  <p>Example:</p>
+                  <pre>* * * * * www-data echo "Cron run test" >> /var/www/html/cron.log</pre>
+
+                  <div class="alert alert-warning" role="alert"><strong>Warning:</strong> a blank line is required at the end of this file!</div>
+                </div>
+              </div>
+          </div>
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour">
+                    <span class="glyphicon glyphicon-link" aria-hidden="true"></span> Installing and configuring Grunt
+                </a>
+              </h4>
+            </div>
+            <div id="collapseFour" class="panel-collapse collapse">
+              <div class="panel-body">
+                <p>Step-by-step guide</p>
+                <pre>warp npm install -g grunt-cli
+warp npm install</pre>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--
+        <h2>Older versions</h2>
+        <table class="table">
+          <thead>
+              <tr>
+                  <th>Version</th>
+                  <th></th>
+              </tr>
+          </thead>
+          <tbody>
+            <tr>
+                <th scope="row">2018.10.05</th>
+                <td><a class="download-icon" href="./old/warp_2018.10.05" ><i class="fas fa-cloud-download-alt"></i></a></td>
+            </tr>
+          </tbody>
+        </table>
+        -->
+
+        <!-- .modal-profile -->
+        <div class="modal fade modal-profile" tabindex="-1" role="dialog" aria-labelledby="modalProfile" aria-hidden="true">
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button class="close" type="button" data-dismiss="modal">×</button>
+                <h3 class="modal-title"></h3>
+              </div>
+              <div class="modal-body">
+              </div>
+              <div class="modal-footer">
+                <button class="btn btn-default" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- //.modal-profile -->
+
+        <div>
+          <h2 id="anchorDocs">Documentation</h2>
+          <p>All the information, tutorials and best practises are provided in the <a href="https://summasolutions.github.io/warp-engine/">Documentation</a></p>
+        </div>        
+
+        <footer class="footer">
+          <p>&copy; 2018 <a href="https://www.summasolutions.net" title="Summa Solutions SRL">Summa Solutions SRL.</a></p>
+        </footer>
+      </div> <!-- /container -->
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script>
+      $(document).ready(function() {
+        /* show lightbox when clicking a thumbnail */
+          $('a.thumb').click(function(event){
+            event.preventDefault();
+            var content = $('.modal-body');
+            content.empty();
+              var title = $(this).attr("title");
+              //$('.modal-title').html(title);
+              content.html($(this).html());
+              $(".modal-profile").modal({show:true});
+          });
+        });
+    </script>
+    <!-- Latest compiled and minified JavaScript -->
+  </body>
+</html>

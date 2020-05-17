@@ -1,0 +1,60 @@
+
+  php:
+    image: summasolutions/php:${PHP_70}
+    hostname: "php70-fpm"
+    volumes_from:
+      - appdata
+    env_file: .env
+    depends_on:
+      - appdata
+    user: www-data
+    networks:
+      - back
+
+  php71:
+    image: summasolutions/php:${PHP_71}
+    hostname: "php71-fpm"
+    volumes:
+      - ./.warp/docker/config/php71/php.ini:/usr/local/etc/php/php.ini
+      - ./.warp/docker/config/php71/php-fpm.conf:/usr/local/etc/php-fpm.conf
+      - ./.warp/docker/config/php71/ext-xdebug.ini:/usr/local/etc/php/conf.d/ext-xdebug.ini
+      - ./.warp/docker/config/php71/ext-ioncube.ini:/usr/local/etc/php/conf.d/10-php-ext-ioncube.ini
+      - ./.warp/docker/volumes/php-fpm/logs:/var/log/php-fpm
+      - ./.warp/docker/config/crontab/cronfile:/etc/cron.d/cronfile
+      - ./.warp/docker/config/supervisor/conf.d:/etc/supervisor/conf.d
+      - ./.warp/docker/volumes/supervisor/logs:/var/log/supervisor
+    volumes_from:
+      - appdata
+    env_file: .env
+    environment:
+        XDEBUG_CONFIG: ${XDEBUG_CONFIG}
+        PHP_IDE_CONFIG: ${PHP_IDE_CONFIG}
+    depends_on:
+      - appdata
+    user: www-data
+    networks:
+      - back
+
+  php72:
+    image: summasolutions/php:${PHP_72}
+    hostname: "php72-fpm"
+    volumes:
+      - ./.warp/docker/config/php72/php.ini:/usr/local/etc/php/php.ini
+      - ./.warp/docker/config/php72/php-fpm.conf:/usr/local/etc/php-fpm.conf
+      - ./.warp/docker/config/php72/ext-xdebug.ini:/usr/local/etc/php/conf.d/ext-xdebug.ini
+      - ./.warp/docker/config/php72/ext-ioncube.ini:/usr/local/etc/php/conf.d/10-php-ext-ioncube.ini
+      - ./.warp/docker/volumes/php-fpm/logs:/var/log/php-fpm
+      - ./.warp/docker/config/crontab/cronfile:/etc/cron.d/cronfile
+      - ./.warp/docker/config/supervisor/conf.d:/etc/supervisor/conf.d
+      - ./.warp/docker/volumes/supervisor/logs:/var/log/supervisor
+    volumes_from:
+      - appdata
+    env_file: .env
+    environment:
+        XDEBUG_CONFIG: ${XDEBUG_CONFIG}
+        PHP_IDE_CONFIG: ${PHP_IDE_CONFIG}
+    depends_on:
+      - appdata
+    user: www-data
+    networks:
+      - back

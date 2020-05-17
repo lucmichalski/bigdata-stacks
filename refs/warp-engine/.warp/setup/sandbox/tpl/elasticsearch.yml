@@ -1,0 +1,34 @@
+
+  elasticsearch56:
+    image: summasolutions/elasticsearch:${ES_VERSION56}
+    env_file: .env
+    ports:
+      - "9200"
+      - "9300"
+    environment:
+      - "ES_JAVA_OPTS=-Xms${ES_MEMORY} -Xmx${ES_MEMORY}"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - "./.warp/docker/volumes/elasticsearch56:/usr/share/elasticsearch/data"
+    networks:
+      - back
+
+  elasticsearch64:
+    image: summasolutions/elasticsearch:${ES_VERSION64}
+    env_file: .env
+    ports:
+      - "9200"
+      - "9300"
+    environment:
+      - "ES_JAVA_OPTS=-Xms${ES_MEMORY} -Xmx${ES_MEMORY}"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - "./.warp/docker/volumes/elasticsearch64:/usr/share/elasticsearch/data"
+    networks:
+      - back
