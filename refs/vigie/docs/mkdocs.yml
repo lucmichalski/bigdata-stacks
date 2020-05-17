@@ -1,0 +1,95 @@
+site_name: Vigie
+site_description: Vigie Documentation
+site_author: vigie.dev
+site_url: https://docs.vigie.dev
+dev_addr: 0.0.0.0:8000
+
+repo_name: 'GitHub'
+repo_url: 'https://github.com/vincoll/vigie'
+
+docs_dir: 'content'
+
+# https://squidfunk.github.io/mkdocs-material/
+theme:
+  name: 'material'
+  custom_dir: 'theme'
+  language: en
+  include_sidebar: true
+  feature:
+    tabs: false
+  palette:
+    primary: 'blue'
+    accent: 'blue'
+  i18n:
+    prev: 'Previous'
+    next: 'Next'
+
+copyright: "Copyright &copy; 2019-2020 Vigie"
+
+extra_css:
+  - assets/styles/extra.css # Our custom styles
+  - assets/styles/atom-one-light.css # HightlightJS's CSS theme
+
+extra_javascript:
+  - assets/js/hljs/highlight.pack.js # Download from https://highlightjs.org/download/ and enable YAML, TOML and Dockerfile
+  - assets/js/extra.js
+
+plugins:
+  - search
+
+# https://squidfunk.github.io/mkdocs-material/extensions/admonition/
+# https://facelessuser.github.io/pymdown-extensions/
+markdown_extensions:
+  - attr_list
+  - admonition
+  - footnotes
+  - pymdownx.details
+  - pymdownx.inlinehilite
+  - pymdownx.highlight:
+      use_pygments: false # hljs is used instead of pygment for TOML highlighting support
+  - pymdownx.smartsymbols
+  - pymdownx.superfences
+  - pymdownx.tasklist
+  - pymdownx.snippets:
+      check_paths: true
+#  - markdown_include.include:
+#      base_path: content/includes/
+#      encoding: utf-8
+  - toc:
+      permalink: true
+
+# Page tree
+nav:
+  - 'Welcome': 'index.md'
+  - 'Get Started':
+      - 'Concepts': 'get_started/concepts.md'
+      - 'Quick Start': 'get_started/quick_start.md'
+  - 'Concepts':
+      - 'Overview': 'concepts/overview.md'
+      - 'Tests': 'concepts/tests.md'
+      - 'Probes': 'concepts/probes.md'
+      - 'Assertions': 'concepts/assertions.md'
+      - 'Alerts': 'concepts/alerts.md'
+  - 'Configuration':
+      - 'Overview': 'configuration/overview.md'
+      - 'Modes': 'configuration/modes.md'
+      - 'Configuration': 'configuration/det_config.md'
+  - 'Tests Structure':
+      - 'Overview': 'test_structure/overview.md'
+      - 'Tests': 'test_structure/tests.md'
+      - 'Variables': 'test_structure/variables.md'
+  - 'Probes':
+      - 'Overview': 'probes/overview.md'
+      - 'HTTP': 'probes/http.md'
+      - 'DNS': 'probes/dns.md'
+      - 'ICMP': 'probes/icmp.md'
+      - 'TCP/UDP': 'probes/port.md'
+      - 'X.509': 'probes/x509.md'
+      - 'Hash': 'probes/hash.md'
+  - 'Alerting':
+      - 'Overview': 'alerting/overview.md'
+  - 'User Guides':
+      - 'Overview': 'user_guides/overview.md'
+  - 'API':
+      - 'Overview': 'api/overview.md'
+      - 'Endpoints': 'api/endpoints.md'

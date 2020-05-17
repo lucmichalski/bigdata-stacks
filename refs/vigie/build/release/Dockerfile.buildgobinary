@@ -1,0 +1,29 @@
+# --- Build Go Binary ---
+# ARGS are passed via docker build --build-arg
+
+ARG GO_VERSION
+
+FROM golang:${GO_VERSION}-alpine AS builder
+
+# Other ARGS below because the FROM drops ARGS previously defined
+
+ARG VIGIE_VERSION
+ARG COMMIT
+ARG DATE
+
+# Install dep and tools
+RUN apk add --no-cache git ca-certificates && \
+    update-ca-certificates 2>/dev/null || true
+
+# Compiling from scratch
+RUN mkdir /build
+ADD . /build/
+WORKDIR /build
+
+RUN go mod download
+RUN CGO_ENABLED=0 GOOS=windows GOARCH=amd64 \
+    go build -ldflags \
+        "-X github.com/vincoll/vigie/cmd/vigie/version.LdVersion=${VIGIE_VERSION} \
+         -X github.com/vincoll/vigie/cmd/vigie/version.LdBuildDate=${DATE} \
+         -X github.com/vincoll/vigie/cmd/vigie/version.LdGitCommit=${COMMIT}" \
+         -o /bin/vigie .

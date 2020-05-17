@@ -1,0 +1,12 @@
+apiVersion: 1
+
+providers:
+- name: 'Vigie'
+  orgId: 1
+  folder: ''
+  type: file
+  disableDeletion: false
+  updateIntervalSeconds: 6000 #how often Grafana will scan for changed dashboards
+  editable: true
+  options:
+    path: /etc/grafana/provisioning/dashboards

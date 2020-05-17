@@ -1,0 +1,49 @@
+# Multi-Stage Build
+# (Builder + GoReleaser binary) => Final Image
+
+# --- Build Image ---
+
+FROM alpine:latest AS builder
+
+# Install dep and tools
+RUN apk add --no-cache git libcap ca-certificates && \
+    update-ca-certificates 2>/dev/null || true
+
+# Copy Vigie binary build by GoReleaser
+ADD ./vigie /tmp/vigie
+
+
+# Tweaks for final image
+# Create low privilege user, add cap to the binary (Open Port <1000 and Raw Ntw for ICMP)
+
+RUN addgroup --system --gid 10101 vigie && \
+    adduser --system --uid 10101 --disabled-password --shell /sbin/nologin --no-create-home --gecos "" vigie && \
+    chown -R vigie:vigie /tmp/vigie && \
+    setcap cap_net_raw,cap_net_bind_service=+ep /tmp/vigie
+
+
+# --- Final Image ---
+
+FROM alpine:latest
+
+# Copy CA Certificate
+COPY --from=builder /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/ca-certificates.crt
+# Copy low privilege user
+COPY --from=builder /etc/group /etc/passwd /etc/
+# Copy Vigie binary
+COPY --from=builder /tmp/vigie /
+
+# Specifing the Working Dir for relative configs paths
+WORKDIR /app
+
+# Create Vigie folder structure
+RUN mkdir --parents /app/config /app/var /app/test && \
+    chown vigie:vigie -R /app
+
+USER vigie
+
+EXPOSE 80
+
+# Run the Vigie binary
+ENTRYPOINT ["/vigie"]
+CMD ["run","--config","/app/config/vigie.toml"]

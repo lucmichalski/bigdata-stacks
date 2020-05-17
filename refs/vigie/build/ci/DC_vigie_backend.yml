@@ -1,0 +1,231 @@
+# docker-compose -f ./DC_vigie_test.yml up -d
+
+version: "3.7"
+services:
+
+
+  prometheus:
+    container_name: VIGIE-CI_prometheus
+    image: prom/prometheus:v2.17.0
+    restart: "no"
+    ports:
+      - 6090:9090
+    volumes:
+      - ./configs/prometheus.yml:/etc/prometheus/prometheus.yml
+    command:
+      - '--storage.tsdb.retention=3h'
+      - '--config.file=/etc/prometheus/prometheus.yml'
+
+  grafana:
+    container_name: VIGIE-CI_grafana
+    image: grafana/grafana:6.7.1
+    restart: "no"
+    ports:
+      - 6300:3000
+    links:
+      - prometheus
+      - influxdb
+      - warp10
+    env_file:
+      - ./configs/graf/config.env
+    volumes:
+      - ./configs/graf/provisioning/:/etc/grafana/provisioning/:ro
+  #      - ./configs/graf/provisioning/plugins:/var/lib/grafana/plugins:ro
+#      - ./configs/graf/grafana.ini:/etc/grafana/
+
+# Docker image to forward all traffic to the docker host
+  dockerhost:
+    container_name: VIGIE-CI_dockerhost
+    image: qoomon/docker-host
+    cap_add: [ 'NET_ADMIN', 'NET_RAW' ]
+    restart: "no"
+
+# INFOS
+# https://hub.docker.com/r/grafana/grafana/
+# https://hub.docker.com/r/prom/prometheus/
+
+
+# https://www.influxdata.com/time-series-platform/
+
+  influxdb:
+    # Full tag list: https://hub.docker.com/r/library/influxdb/tags/
+    image: influxdb:1.7-alpine
+    container_name: VIGIE-CI_influxdb
+    restart: "no"
+    ports:
+      # The API for InfluxDB is served on port 8086
+      - 8086:8086
+      - 8082:8082
+      # UDP Port
+      - 8089:8089
+    env_file:
+      - ./configs/tick/influxdb/influxdb.env
+    volumes:
+      - ./configs/tick/influxdb/influxdb.conf:/etc/influxdb/influxdb.conf:ro
+      - ./configs/tick/influxdb/init-vigie.iql:/docker-entrypoint-initdb.d/init-vigie.iql:ro
+   # https://github.com/influxdata/influxdb/blob/master/etc/config.sample.toml
+
+  kapacitor:
+  # Full tag list: https://hub.docker.com/r/library/kapacitor/tags/
+    image: kapacitor:1.5-alpine
+    container_name: VIGIE-CI_kapacitor
+    restart: "no"
+    # Kapacitor requires network access to Influxdb
+    links:
+      - influxdb
+    ports:
+      # The API for Kapacitor is served on port 9092
+      - 9092:9092
+    env_file:
+      - ./configs/tick/kapacitor/kapacitor.env
+    volumes:
+    #   # Mount for kapacitor configuration
+      - ./configs/tick/kapacitor/kapacitor.conf:/etc/kapacitor/kapacitor.conf:ro
+      - ./configs/tick/kapacitor/alerts:/var/lib/kapacitor/tasks:ro
+    #   # Mount for kapacitor data directory
+    #   - ./configs/tick/kapacitor/data:/var/lib/kapacitor
+    #   - ./configs/tick/kapacitor/config/:/etc/kapacitor/
+
+  chronograf:
+    # Full tag list: https://hub.docker.com/r/library/chronograf/tags/
+    image: chronograf:1.7.10-alpine
+    container_name: VIGIE-CI_chronograf
+    restart: "no"
+    links:
+      # Chronograf requires network access to InfluxDB and Kapacitor
+      - influxdb
+      - kapacitor
+    ports:
+      # The WebUI for Chronograf is served on port 8888
+      - "8888:8888"
+    depends_on:
+      - kapacitor
+      - influxdb
+    env_file:
+      - ./configs/tick/chronograf/chronograf.env
+    volumes:
+      # Path to directory of canned dashboards, sources, Kapacitor connections, and organizations.
+      - ./configs/tick/chronograf/resources:/usr/share/chronograf/resources
+
+  influxdb2:
+    # https://quay.io/repository/influxdb/influxdb?tab=tags
+    # Post config is made by the Makefile with docker exec
+    image: quay.io/influxdb/influxdb:2.0.0-beta
+    container_name: VIGIE-CI_influxdb2
+    restart: "no"
+    ports:
+      # The API for InfluxDB is served on port 8086
+      - 9999:9999
+
+  warp10:
+    # https://github.com/senx/warp10-docker
+    # https://www.warp10.io/content/03_Documentation/02_Installation/02_Docker
+    image: warp10io/warp10:2.5.0-ci
+    container_name: VIGIE-CI_warp10
+    restart: "no"
+    environment:
+      - IN_MEMORY=false
+    ports:
+      - 16080:8080
+      - 16081:8181
+
+  # CONSUL
+
+  consul-agent-1: &consul-agent
+    image: consul:latest
+    networks:
+      - consul-demo
+    command: "agent -retry-join consul-server-bootstrap -client 0.0.0.0"
+
+  consul-agent-2:
+    <<: *consul-agent
+
+  consul-agent-3:
+    <<: *consul-agent
+
+  consul-server-1: &consul-server
+    <<: *consul-agent
+    command: "agent -server -retry-join consul-server-bootstrap -client 0.0.0.0"
+
+  consul-server-2:
+    <<: *consul-server
+
+  consul-server-bootstrap:
+    <<: *consul-agent
+    ports:
+      - "8400:8400"
+      - "8500:8500"
+      - "8600:8600"
+      - "8600:8600/udp"
+    command: "agent -server -bootstrap-expect 3 -ui -client 0.0.0.0"
+
+
+  # ETCD
+
+  etcd-1:
+    container_name: etcd1
+    image: quay.io/coreos/etcd:v3.4.7
+    entrypoint: /usr/local/bin/etcd
+    command:
+      - '--name=etcd-1'
+      - '--initial-advertise-peer-urls=http://etcd-1:2380'
+      - '--listen-peer-urls=http://0.0.0.0:2380'
+      - '--listen-client-urls=http://0.0.0.0:2379'
+      - '--advertise-client-urls=http://etcd-1:2379'
+      - '--initial-cluster-token=etcd-cluster'
+      - '--heartbeat-interval=250'
+      - '--election-timeout=1250'
+      - '--initial-cluster=etcd-1=http://etcd-1:2380,etcd-2=http://etcd-2:2380,etcd-3=http://etcd-3:2380'
+      - '--initial-cluster-state=new'
+    ports:
+      - 2379:2379
+    volumes:
+      - etcd1:/etcd_data
+
+  etcd-2:
+    container_name: etcd2
+    image: quay.io/coreos/etcd:v3.4.7
+    entrypoint: /usr/local/bin/etcd
+    command:
+      - '--name=etcd-2'
+      - '--initial-advertise-peer-urls=http://etcd-2:2380'
+      - '--listen-peer-urls=http://0.0.0.0:2380'
+      - '--listen-client-urls=http://0.0.0.0:2379'
+      - '--advertise-client-urls=http://etcd-2:2379'
+      - '--initial-cluster-token=etcd-cluster'
+      - '--heartbeat-interval=250'
+      - '--election-timeout=1250'
+      - '--initial-cluster=etcd-1=http://etcd-1:2380,etcd-2=http://etcd-2:2380,etcd-3=http://etcd-3:2380'
+      - '--initial-cluster-state=new'
+    ports:
+      - 22379:2379
+    volumes:
+      - etcd2:/etcd_data
+
+  etcd-3:
+    container_name: etcd3
+    image: quay.io/coreos/etcd:v3.4.7
+    entrypoint: /usr/local/bin/etcd
+    command:
+      - '--name=etcd-3'
+      - '--initial-advertise-peer-urls=http://etcd-3:2380'
+      - '--listen-peer-urls=http://0.0.0.0:2380'
+      - '--listen-client-urls=http://0.0.0.0:2379'
+      - '--advertise-client-urls=http://etcd-3:2379'
+      - '--initial-cluster-token=etcd-cluster'
+      - '--heartbeat-interval=250'
+      - '--election-timeout=1250'
+      - '--initial-cluster=etcd-1=http://etcd-1:2380,etcd-2=http://etcd-2:2380,etcd-3=http://etcd-3:2380'
+      - '--initial-cluster-state=new'
+    ports:
+      - 32379:2379
+    volumes:
+      - etcd3:/etcd_data
+
+volumes:
+  etcd1:
+  etcd2:
+  etcd3:
+
+networks:
+  consul-demo:

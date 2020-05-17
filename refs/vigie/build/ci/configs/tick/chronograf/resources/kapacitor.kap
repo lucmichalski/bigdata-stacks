@@ -1,0 +1,8 @@
+{
+  "id": 10000,
+  "srcID": 10000,
+  "name": "Kapacitor Vigie",
+  "url": "http://kapacitor:9092",
+  "active": true,
+  "organization": "example_org"
+}

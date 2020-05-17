@@ -1,0 +1,14 @@
+# Misc
+*.out
+.directory
+
+# IDE
+.vscode/
+.idea/
+
+# Folders
+./release/
+bin/
+dev
+dist/
+docs/site/
