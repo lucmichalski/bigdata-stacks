@@ -1,0 +1,27 @@
+// HTTP Response Time alerting script.
+// This script emit a boolean serie foreach 'http.response.time' series.
+// The boolean value depend of the threshold percentage
+
+// If response time is greater than the (mean_reponse_time * threshold), emits boolean to GTS.
+
+'D.ypWT5yBiwOc8SW2Xjh4Y1YcDrt8Lh3XXh47rA5QnhzWl9LirFNgI7vof_LLz6CJj.CfQnMKX2v3Rx5IzVVgHxpjUr_eywumT6z53H4VqjBhmHUFc9Avk' 'RTOKEN' STORE
+'B8QYS.Ae6Y0eFXSNcDixZeQkoirCcgPbXJ55RcD1J5lQR6yq90lchfODYD9yO2Zq_UdCGJFYHWAw1nMGXJRD5Mm6XZjCHU_G_eppddmmBL7"' 'WTOKEN' STORE
+NOW 'NOW' STORE
+1.5 'THRESHOLD' STORE
+
+[ $RTOKEN 'http.response.time' { } $NOW 30 m ] FETCH
+
+<% DROP
+    'gts' STORE
+    [ $gts bucketizer.mean $NOW 0 1 ] BUCKETIZE 
+    VALUES 0 GET 0 GET 'mean' STORE
+    
+    [ $gts $mean TODOUBLE $THRESHOLD TODOUBLE * mapper.ge 0 0 0 ] MAP
+    VALUES 0 GET SIZE 'count' STORE
+    
+    NEWGTS 'alert.http.time' RENAME
+    $gts LABELS RELABEL
+    [ $NOW NaN NaN NaN $count 0 == ] ADDVALUE
+%> LMAP
+
+$WTOKEN UPDATE

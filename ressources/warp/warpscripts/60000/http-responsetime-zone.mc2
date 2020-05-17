@@ -1,0 +1,31 @@
+// HTTP Response Time per Zone alerting script.
+// This script emit a boolean serie foreach 'alert.http.time.zone' series.
+
+'D.ypWT5yBiwOc8SW2Xjh4Y1YcDrt8Lh3XXh47rA5QnhzWl9LirFNgI7vof_LLz6CJj.CfQnMKX2v3Rx5IzVVgHxpjUr_eywumT6z53H4VqjBhmHUFc9Avk' 'RTOKEN' STORE
+'B8QYS.Ae6Y0eFXSNcDixZeQkoirCcgPbXJ55RcD1J5lQR6yq90lchfODYD9yO2Zq_UdCGJFYHWAw1nMGXJRD5Mm6XZjCHU_G_eppddmmBL7"' 'WTOKEN' STORE
+'zone' 'BY' STORE
+
+0.1 'THRESHOLD' STORE
+
+[ $RTOKEN 'alert.http.time' { } $NOW 300 m ] FETCH
+
+[ SWAP bucketizer.last $NOW 0 1 ] BUCKETIZE
+
+DUP
+[ SWAP [ $BY ] reducer.count ] REDUCE 'count' STORE
+
+[ SWAP mapper.todouble 0 0 0 ] MAP
+
+[ SWAP [ $BY ] reducer.sum ] REDUCE 'count_true' STORE
+
+[ $count_true $count [ $BY ] op.div ] APPLY // compute success ratio
+
+<% DROP // drop index
+    DUP LABELS $BY GET 'zone' STORE
+    VALUES 0 GET 'success_ratio' STORE
+    NEWGTS 'alert.http.time.' $BY '' 2 APPEND RENAME
+    { $BY $zone } RELABEL
+    [ $NOW NaN NaN NaN 1 $THRESHOLD - $success_ratio <= ] ADDVALUE
+%> LMAP
+
+$WTOKEN UPDATE

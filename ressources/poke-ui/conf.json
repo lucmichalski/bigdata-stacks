@@ -1,0 +1,4 @@
+{
+    "warpEndpoint": "http://localhost:8081/api/v0",
+    "pokeApiEndpoint": "http://localhost:9000"
+}
