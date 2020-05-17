@@ -1,0 +1,36 @@
+# sozu proxy test config file
+
+command_socket = "/command_folder/sock"
+saved_state    = "/state.json"
+log_level      = "info"
+log_target     = "stdout"
+#log_target     = "udp://127.0.0.1:9876"
+#log_target     = "tcp://127.0.0.1:9876"
+command_buffer_size = 16384
+worker_count = 2
+handle_process_affinity = false
+max_connections = 500
+max_buffers = 500
+buffer_size = 16384
+#ctl_commands_timeout = 1000
+
+[metrics]
+address = "127.0.0.1"
+port = 8125
+
+[http]
+address = "sozu"
+port = 80
+#answer_404 = "./404.html"
+#answer_503 = "./503.html"
+
+[applications]
+[applications.ingress]
+hostname   = "sozu"
+path_begin = "/api/v0/update"
+backends  = [ "ingress:8080" ]
+
+[applications.egress]
+hostname   = "sozu"
+path_begin = "/api/v0/exec"
+backends  = [ "egress:8080" ]
