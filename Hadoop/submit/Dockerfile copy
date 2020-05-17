@@ -1,0 +1,32 @@
+FROM bde2020/hadoop-base:2.0.0-hadoop3.2.1-java8
+
+ENV TERM linux
+ENV DEBIAN_FRONTEND noninteractive
+
+ENV TERM_USER user 
+
+RUN echo "force-unsafe-io" > /etc/dpkg/dpkg.cfg.d/02apt-speedup \
+    && echo "Acquire::http {No-Cache=True;};" > /etc/apt/apt.conf.d/no-cache \
+    && apt-get update \
+    && apt-get install -y \
+        curl \
+        ca-certificates \
+        openssh-server \
+        wget \
+        sudo \
+        tree
+
+COPY WordCount.jar /opt/hadoop/applications/WordCount.jar
+
+ENV JAR_FILEPATH="/opt/hadoop/applications/WordCount.jar"
+ENV CLASS_TO_RUN="WordCount"
+ENV PARAMS="/input /output"
+
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod a+x /entrypoint.sh
+
+VOLUME /etc/ssh/host_keys
+#CMD ["/run.sh"]
+
+ENTRYPOINT [ "/entrypoint.sh" ]
+EXPOSE 22
