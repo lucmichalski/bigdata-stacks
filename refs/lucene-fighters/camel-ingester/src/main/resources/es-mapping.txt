@@ -1,0 +1,88 @@
+DELETE wikipedia-fr
+
+PUT wikipedia-fr
+{
+    "settings" : {
+        "index" : {
+            "number_of_shards" : 1, 
+            "number_of_replicas" : 0
+        }
+    }
+}
+
+PUT wikipedia-fr/_mapping/_doc
+{
+  "properties": {
+    "category": {
+      "type": "text",
+      "analyzer": "french",
+      "fields": {
+        "keyword": {
+          "type": "keyword"
+        }
+      }
+    },
+    "create_timestamp": {
+      "type": "date"
+    },
+    "external_link": {
+      "type": "keyword"
+    },
+    "heading": {
+      "type": "text",
+      "analyzer": "french",
+      "fields": {
+        "keyword": {
+          "type": "keyword"
+        }
+      }
+    },
+    "id": {
+      "type": "keyword"
+    },
+    "incoming_links": {
+      "type": "long"
+    },
+    "outgoing_link": {
+      "type": "keyword"
+    },
+    "popularity_score": {
+      "type": "float"
+    },
+    "template": {
+      "type": "text",
+      "analyzer": "french",
+      "fields": {
+        "keyword": {
+          "type": "keyword"
+        }
+      }
+    },
+    "text": {
+      "type": "text",
+      "analyzer": "french"
+    },
+    "text_bytes": {
+      "type": "long"
+    },
+    "timestamp": {
+      "type": "date"
+    },
+    "title": {
+      "type": "text",
+      "analyzer": "french"
+    },
+    "version": {
+      "type": "long"
+    },
+    "wikibase_item": {
+      "type": "text",
+      "analyzer": "french",
+      "fields": {
+        "keyword": {
+          "type": "keyword"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,47 @@
+POST wikipedia-fr/_search
+{
+  "size": 0,
+  "aggs": {
+    "date-histo": {
+      "date_histogram": {
+        "field": "create_timestamp",
+        "interval": "1y",
+        "time_zone": "Europe/Berlin",
+        "min_doc_count": 1
+      },
+      "aggs": {
+        "per-heading": {
+          "terms": {
+            "field": "heading",
+            "size": 5,
+            "order": {
+              "_count": "desc"
+            }
+          }
+        }
+      }
+    }
+  },
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "query_string": {
+            "query": "title:Scoubidou",
+            "analyze_wildcard": true,
+            "default_field": "*"
+          }
+        },
+        {
+          "range": {
+            "create_timestamp": {
+              "gte": 946681219528,
+              "lte": 1541970799528,
+              "format": "epoch_millis"
+            }
+          }
+        }
+      ]
+    }
+  }
+}

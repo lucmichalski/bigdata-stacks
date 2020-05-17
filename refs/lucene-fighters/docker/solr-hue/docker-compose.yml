@@ -1,0 +1,66 @@
+version: '3.2'
+
+networks:
+  hue:
+    driver: bridge
+
+services:
+  zookeeper:
+    hostname: zookeeper
+    container_name: zookeeper
+    image: 'bitnami/zookeeper:latest'
+    environment:
+      - ALLOW_ANONYMOUS_LOGIN=yes
+    networks:
+      - hue
+    ports:
+      - "2181:2181"
+    volumes:
+      - ./zookeeper:/bitnami/zookeeper
+
+  solr:
+    image: solr:7.5-alpine
+    container_name: solr
+    ports:
+      - "8983:8983"
+      - "8993:8993"
+    networks:
+      - hue
+    links:
+      - zookeeper
+    depends_on:
+      - zookeeper
+    volumes:
+      - ./solr-home:/opt/solr/server/solr
+    entrypoint:
+      - docker-entrypoint.sh
+      - solr
+      - start
+      - -c
+      - -f
+      - -m
+      - 2g
+      - -z
+      - zookeeper:2181
+      - -h
+      - solr
+      - -a
+      - -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=8993
+
+  hue:
+    image: gethue/hue:latest
+    hostname: hue
+    container_name: hue
+    ports:
+     - "8888:8888"
+    networks:
+      - hue
+    links:
+      - solr
+      - zookeeper
+    command: ./build/env/bin/hue runserver_plus 0.0.0.0:8888
+    volumes:
+      - ./hue.ini:/hue/desktop/conf/hue.ini
+
+volumes: 
+  nifi-conf:

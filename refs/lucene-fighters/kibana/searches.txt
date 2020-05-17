@@ -1,0 +1,156 @@
+GET wikipedia-fr/_search
+{
+  "query": {
+    "bool": {
+      "should": [
+        {
+          "match": {
+            "text": "Scoubidou"
+          }
+        },
+        {
+          "match": {
+            "title": "Scoubidou"
+          }
+        },
+        {
+          "match": {
+            "heading": "Scoubidou"
+          }
+        },
+        {
+          "match": {
+            "category": "Scoubidou"
+          }
+        }
+      ]
+    }
+  }
+}
+
+GET wikipedia-fr/_search
+{
+  "query": {
+    "bool": {
+      "should": [
+        {
+          "bool": {
+            "should": [
+              {
+                "match": {
+                  "text": "Scoubidou"
+                }
+              },
+              {
+                "match": {
+                  "title": "Scoubidou"
+                }
+              },
+              {
+                "match": {
+                  "heading": "Scoubidou"
+                }
+              },
+              {
+                "match": {
+                  "category": "Scoubidou"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "bool": {
+            "should": [
+              {
+                "match": {
+                  "text": "série"
+                }
+              },
+              {
+                "match": {
+                  "title": "série"
+                }
+              },
+              {
+                "match": {
+                  "heading": "série"
+                }
+              },
+              {
+                "match": {
+                  "category": "série"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}
+
+GET wikipedia-fr/_search
+{
+  "query": {
+    "bool": {
+      "should": [
+        {
+          "bool": {
+            "should": [
+              {
+                "match": {
+                  "text": "Scoubidou"
+                }
+              },
+              {
+                "match": {
+                  "content": {
+                    "query": "title",
+                    "boost": 3
+                  }
+                }
+              },
+              {
+                "match": {
+                  "heading": "Scoubidou"
+                }
+              },
+              {
+                "match": {
+                  "category": "Scoubidou"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "bool": {
+            "should": [
+              {
+                "match": {
+                  "text": "série"
+                }
+              },
+              {
+                "match": {
+                  "title": "série"
+                }
+              },
+              {
+                "match": {
+                  "heading": "série"
+                }
+              },
+              {
+                "match": {
+                  "category": "série"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}
