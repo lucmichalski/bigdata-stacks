@@ -34,3 +34,15 @@ https://github.com/ovh/fossil
 https://github.com/ovh/collectd-write-warp10
 https://github.com/dersimn/mqtt2influxdb
 https://github.com/influxdata/telegraf
+https://github.com/chrislusf/gleam
+https://github.com/OneCricketeer/docker-stacks
+https://github.com/jonatasvieira/docker-hadoop-cluster
+https://github.com/stuartshay/HadoopPOC
+https://github.com/alanding1989/my-Dotfile
+https://github.com/ridemouser/spark-demo2
+https://github.com/nvtienanh/docker-hue
+https://github.com/zzmzz/sparksql-docker
+https://github.com/modye/lucene-fighters
+https://github.com/kneefer/LambdaArchitectureTest
+https://github.com/darrenhaken/hbase-spark
+https://github.com/gschmutz/various-demos
