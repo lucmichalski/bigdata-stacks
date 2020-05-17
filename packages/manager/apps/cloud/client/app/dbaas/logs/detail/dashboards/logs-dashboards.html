@@ -1,0 +1,80 @@
+<section class="cui-page__content log-dashboards">
+    <cui-page-content-title
+        text="::'logs_dashboards_title' | translate"
+    ></cui-page-content-title>
+    <p data-translate="logs_dashboards_description"></p>
+    <oui-datagrid rows="ctrl.dashboards.data">
+        <extra-top>
+            <button
+                type="button"
+                class="oui-button oui-button_secondary"
+                data-ng-click="ctrl.add()"
+            >
+                <span class="oui-icon oui-icon-add pr-1" aria-hidden="true"></span> 
+                <span data-translate="logs_dashboards_add"></span>
+            </button>
+            <oui-spinner
+                size="s"
+                data-ng-if="ctrl.delete.loading"
+            ></oui-spinner>
+        </extra-top>
+        <oui-column
+            title="::'logs_dashboards_col_name' | translate"
+            property="info.title"
+            sortable="asc"
+            type="string"
+            searchable
+            filterable
+        ></oui-column>
+        <oui-column
+            title="::'logs_dashboards_col_description' | translate"
+            property="info.description"
+            sortable
+            type="string"
+            searchable
+            filterable
+        ></oui-column>
+        <oui-column
+            title="::'logs_col_last_modified' | translate"
+            property="info.updatedAt"
+            sortable
+            type="date"
+        >
+            {{ $row.info.updatedAt | momentFormat:'L'}}
+        </oui-column>
+        <oui-column
+            title="::'logs_dashboards_col_shared' | translate"
+            property="info.isEditable"
+            sortable
+            type="string"
+        >
+            <span data-ng-if="!$row.info.isEditable"
+                >{{ ::'common_yes' | translate }}</span
+            >
+            <span data-ng-if="$row.info.isEditable"> - </span>
+        </oui-column>
+        <oui-action-menu data-align="end" compact>
+            <oui-action-menu-item
+                text="{{ ::'logs_dashboards_graylog_access' | translate }}"
+                href="{{ctrl.getGraylogUrl($row)}}"
+                external
+            ></oui-action-menu-item>
+            <oui-action-menu-item
+                disabled="!$row.info.isEditable"
+                text="{{ ::'logs_dashboards_duplicate' | translate }}"
+                on-click="ctrl.duplicate($row.info)"
+            ></oui-action-menu-item>
+            <oui-action-menu-item
+                disabled="!$row.info.isEditable"
+                text="{{ ::'common_edit' | translate }}"
+                on-click="ctrl.edit($row.info)"
+            ></oui-action-menu-item>
+            <oui-action-menu-item
+                disabled="!$row.info.isEditable"
+                text="{{ ::'common_delete' | translate }}"
+                on-click="ctrl.showDeleteConfirm($row.info)"
+            ></oui-action-menu-item>
+        </oui-action-menu>
+    </oui-datagrid>
+    <div data-ui-view="logsDashboardsCrud"></div>
+</section>

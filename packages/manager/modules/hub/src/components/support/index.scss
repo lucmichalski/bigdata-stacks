@@ -1,0 +1,27 @@
+.manager-hub-support {
+  @import 'bootstrap4/scss/_functions.scss';
+  @import 'bootstrap4/scss/_variables.scss';
+  @import 'bootstrap4/scss/_mixins.scss';
+  @import 'bootstrap4/scss/_utilities.scss';
+  @import '~@ovh-ux/manager-hub/src/variables.scss';
+
+  h3 {
+    display: inline-block;
+  }
+
+  &_count {
+    @include hub-pill;
+  }
+
+  &_more {
+    float: right;
+    margin-top: 0.25rem;
+  }
+
+  &_illustration {
+    background-image: url('./assets/assistance.png');
+    background-repeat: no-repeat;
+    height: 12rem;
+    background-position: center;
+  }
+}

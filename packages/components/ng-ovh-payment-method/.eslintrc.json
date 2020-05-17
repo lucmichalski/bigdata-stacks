@@ -1,0 +1,14 @@
+{
+  "globals": {
+    "EprotectIframeClient": true,
+    "paypal": true
+  },
+  "overrides": [
+    {
+      "files": ["**/*.md"],
+      "rules": {
+        "no-undef": "off"
+      }
+    }
+  ]
+}

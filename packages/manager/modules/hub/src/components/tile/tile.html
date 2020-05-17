@@ -1,0 +1,42 @@
+<div class="oui-tile ovh-manager-hub-tile">
+    <div class="d-flex justify-content-between" data-ng-if="!$ctrl.hideHeading">
+        <h3>
+            <span data-ng-bind="::$ctrl.heading"></span>
+            <span
+                class="oui-chip ovh-manager-hub-tile__badge"
+                data-ng-bind="$ctrl.badgeText"
+            ></span>
+        </h3>
+        <button
+            class="oui-button oui-button_link oui-button_icon-right hub-button pr-4 text-wrap"
+            type="button"
+            data-ng-if="$ctrl.onClick && !$ctrl.href && !$ctrl.hideAction"
+            data-ng-click="$ctrl.onClick()"
+        >
+            <span
+                class="hub-button__text"
+                data-ng-bind="::$ctrl.buttonText"
+            ></span>
+            <span
+                class="oui-icon oui-icon-arrow-right_extra-thin align-middle ml-0"
+                aria-hidden="true"
+            ></span>
+        </button>
+        <a
+            class="oui-button oui-button_link oui-button_icon-right hub-button pr-4 text-wrap"
+            data-ng-if="$ctrl.href && !$ctrl.hideAction"
+            data-ng-href="{{:: $ctrl.href }}"
+            data-ng-click="$ctrl.onClick()"
+        >
+            <span
+                class="hub-button__text"
+                data-ng-bind="::$ctrl.buttonText"
+            ></span>
+            <span
+                class="oui-icon oui-icon-arrow-right_extra-thin align-middle ml-0"
+                aria-hidden="true"
+            ></span>
+        </a>
+    </div>
+    <div class="oui-tile__body" data-ng-transclude></div>
+</div>

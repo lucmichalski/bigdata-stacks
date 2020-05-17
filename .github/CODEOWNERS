@@ -1,0 +1,17 @@
+# Documentation
+/docs/ @ovh/team-manager-documentation
+
+# Components
+/packages/components/ @ovh/team-manager-dev
+
+# Applications
+/packages/manager/apps/ @ovh/team-manager-dev
+
+# Modules
+/packages/manager/modules/ @ovh/team-manager-dev
+
+# Build / Tooling
+/packages/manager/tools/ @ovh/team-manager-build
+
+# Continuous Integration
+/scripts/ @ovh/team-manager-continuous-integration

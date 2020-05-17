@@ -1,0 +1,77 @@
+<oui-back-button data-on-click="$ctrl.goBack()">
+    <span data-translate="hosting_cdn_order_title"></span>
+</oui-back-button>
+
+<div class="text-center" data-ng-if="$ctrl.loading">
+    <oui-spinner></oui-spinner>
+</div>
+
+<div data-ng-if="!$ctrl.loading">
+    <p data-translate="hosting_cdn_order_description"></p>
+
+    <oui-stepper
+        data-current-index="$ctrl.currentIndex"
+        data-on-finish="$ctrl.checkout()"
+    >
+        <oui-step-form
+            data-header="{{:: 'hosting_cdn_order_step_header_duration' | translate }}"
+            data-editable="$ctrl.isEditable && !$ctrl.checkoutLoading"
+            data-on-focus="$ctrl.resetCart()"
+        >
+            <!-- Durations -->
+            <oui-field>
+                <oui-radio
+                    name="interval"
+                    data-ng-repeat="pricing in ::$ctrl.prices track by $index"
+                    data-model="$ctrl.interval"
+                    data-value="pricing.interval"
+                    data-required
+                >
+                    <span
+                        data-translate="hosting_cdn_order_duration_label"
+                        data-translate-values="{
+                            duration: $ctrl.getDuration(pricing.interval)
+                        }"
+                    >
+                    </span>
+                    <ovh-manager-catalog-price
+                        data-price="pricing.price"
+                        data-tax="pricing.tax"
+                        data-user="$ctrl.user"
+                    >
+                    </ovh-manager-catalog-price>
+                </oui-radio>
+            </oui-field>
+        </oui-step-form>
+        <oui-step-form
+            name="checkout"
+            data-header="{{:: ($ctrl.isOptionFree ? 'hosting_cdn_order_step_header_activation' : 'hosting_cdn_order_step_header_payment') | translate }}"
+            data-submit-text="{{:: ($ctrl.isOptionFree ? 'hosting_cdn_order_submit_activate' : 'hosting_cdn_order_submit_pay') | translate }}"
+            data-cancel-text="{{:: 'hosting_cdn_order_cancel' | translate }}"
+            data-editable="::false"
+            data-description="{{:: ($ctrl.isOptionFree ? 'hosting_cdn_order_step_description_activation' : '') | translate }}"
+            data-loading="$ctrl.checkoutLoading"
+            data-valid="$ctrl.agreeContracts"
+            data-on-focus="$ctrl.prepareCheckout()"
+            data-on-cancel="$ctrl.goBack()"
+            data-prevent-next
+        >
+            <!-- Payment Means -->
+            <ovh-payment-method-choice
+                data-ng-if="::!$ctrl.isOptionFree"
+                data-model="$ctrl.defaultPaymentMethod"
+                data-error-callback="$ctrl.goBackWithError()"
+            >
+            </ovh-payment-method-choice>
+
+            <!-- Contracts -->
+            <ovh-contracts-summary
+                name="agreeContracts"
+                data-ng-if="$ctrl.cart"
+                data-items="$ctrl.cart.contracts"
+                data-model="$ctrl.agreeContracts"
+            >
+            </ovh-contracts-summary>
+        </oui-step-form>
+    </oui-stepper>
+</div>
