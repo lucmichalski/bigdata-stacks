@@ -1,0 +1,116 @@
+version: '2.4'
+
+services:
+  
+  node-master:
+    build:
+      context: .
+      dockerfile: ./master/Dockerfile
+    container_name: master-node
+    hostname: node-master
+    networks:
+      cluster:
+        ipv4_address: 192.1.0.2
+    depends_on:
+      database:
+        condition: service_healthy
+    volumes:
+      - ./hive-scripts:/opt/hive/scripts/
+      - /hadoop/namenode:/opt/hadoop/data/nameNode
+    restart: always
+    ports:
+      - "9000:9000"
+      - "10000:10000"
+    extra_hosts:
+      - "node1:192.1.0.3"
+      - "node2:192.1.0.4"
+
+  node1:
+    build:
+      context: .
+      dockerfile: ./nodes/Dockerfile
+    image: worker-node
+    container_name: data-node1
+    hostname: node1
+    depends_on:
+      - node-master
+    volumes:
+      - /hadoop/datanode1:/opt/hadoop/data/dataNode
+    networks:
+      cluster:
+        ipv4_address: 192.1.0.3
+    extra_hosts:
+      - "node-master:192.1.0.2"
+      - "node2:192.1.0.4"
+
+  node2:
+    image: worker-node
+    container_name: data-node2
+    hostname: node2
+    depends_on:
+      - node-master
+    volumes:
+      - /hadoop/datanode2:/opt/hadoop/data/dataNode
+    networks:
+      cluster:
+        ipv4_address: 192.1.0.4
+    extra_hosts:
+      - "node-master:192.1.0.2"
+      - "node1:192.1.0.2"
+    depends_on: 
+      - node1
+      
+  database:
+      image: mysql:8.0.17
+      hostname: database
+      container_name: mysql
+      networks:
+        cluster:
+          ipv4_address: 192.1.0.5
+      healthcheck:
+        test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost","-u","root","-psecret"]
+        interval: 30s
+        timeout: 1s
+        retries: 20
+      ports:
+          - "13306:3306"
+      command: --init-file /data/application/init.sql
+      volumes:
+          - ./hue/init.sql:/data/application/init.sql
+          - /hadoop/mysql-datadir:/var/lib/mysql
+      environment:
+          MYSQL_ROOT_PASSWORD: secret
+          MYSQL_DATABASE: hue
+          MYSQL_USER: user
+          MYSQL_PASSWORD: secret
+          MYSQL_ROOT_USER: root
+
+  hue:
+      image: gethue/hue:latest
+      hostname: hue
+      container_name: hue_
+      dns: 8.8.8.8
+      command: /bin/bash startup.sh
+      networks:
+        cluster:
+          ipv4_address: 192.1.0.6
+      depends_on:
+        database:
+          condition: service_healthy
+      ports:
+      - "8888:8888"
+      volumes:
+        - ./hue/conf/hue-overrides.ini:/usr/share/hue/desktop/conf/z-hue.ini
+        - ./hue/connection-test.py:/opt/connection-test.py
+        - ./hue/startup.sh:/usr/share/hue/startup.sh
+      extra_hosts:
+        - "database:192.1.0.5"
+        - "node-master:192.1.0.2"
+
+
+networks:
+  cluster:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 192.1.0.0/16
