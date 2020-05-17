@@ -1,0 +1,43 @@
+# To execute this docker-compose yml file use `docker-compose -f <file_name> up`
+# Add the `-d` flag at the end for detached execution
+version: "2"
+services:
+  seleniumhub:
+    image: summasolutions/selenium:hub
+    #image: selenium/hub
+    env_file: .env
+    links:
+      - "web:${VIRTUAL_HOST}"
+    volumes:
+      - /dev/shm:/dev/shm
+      - ./.warp/docker/selenium:/selenium
+    ports:
+      - 4444
+    networks:
+      - back
+
+  firefoxnode:
+    image: selenium/node-firefox
+    environment:
+      HUB_HOST: seleniumhub
+    links:
+      - seleniumhub:hub
+    volumes:
+      - /dev/shm:/dev/shm
+    depends_on:
+      - seleniumhub
+    networks:
+      - back
+
+  chromenode:
+    image: selenium/node-chrome
+    environment:
+      HUB_HOST: seleniumhub
+    links:
+      - seleniumhub:hub
+    volumes:
+      - /dev/shm:/dev/shm
+    depends_on:
+      - seleniumhub
+    networks:
+      - back

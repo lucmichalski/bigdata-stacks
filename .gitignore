@@ -1,0 +1,13 @@
+/.idea
+/.vscode
+/.env
+/.env.sample
+/.self-update-warp
+/docker-compose.yml
+.DS_Store
+/dist/warp*
+*.tar.xz
+.warp/lib/commit.sh
+.warp/lib/version.sh
+**/auth.json
+/deploy

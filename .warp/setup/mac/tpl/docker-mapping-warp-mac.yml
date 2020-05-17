@@ -1,0 +1,20 @@
+# Development environment reusing production and just adding mounts for docker-sync
+version: "2"
+services:
+  appdata:
+    volumes:
+      - warp-volume-sync:/var/www/html
+
+      # Host mounts with performance penalty, only put what is necessary here
+      - ./app/code:/var/www/html/app/code:delegated
+      - ./app/design:/var/www/html/app/design:delegated
+      - ./app/etc:/var/www/html/app/etc:delegated
+      #- ./auth.json:/var/www/html/auth.json:delegated
+      #- ./composer.json:/var/www/html/composer.json:delegated
+      #- ./composer.lock:/var/www/html/composer.lock:delegated
+      #- ./pub:/var/www/html/pub:delegated
+      #- ./var/log:/var/www/html/var/log:delegated
+      #- ./var/report:/var/www/html/var/report:delegated
+
+volumes:
+  warp-volume-sync:

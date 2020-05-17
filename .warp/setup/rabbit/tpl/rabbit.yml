@@ -1,0 +1,16 @@
+
+  rabbitmq:
+    image: summasolutions/rabbitmq:${RABBIT_VERSION}
+    env_file: .env
+    hostname: "rabbit"
+    ports: 
+      - "${RABBIT_BINDED_PORT}:15672"
+      - "5672"
+    environment:
+      RABBITMQ_DEFAULT_USER: "${RABBITMQ_DEFAULT_USER}"
+      RABBITMQ_DEFAULT_PASS: "${RABBITMQ_DEFAULT_PASS}"
+    volumes:
+      - "./.warp/docker/volumes/rabbitmq:/var/lib/rabbitmq"
+#     - "./.warp/docker/config/rabbitmq:/etc/rabbitmq/"          
+    networks:
+    - back

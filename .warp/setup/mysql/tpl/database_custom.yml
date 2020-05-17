@@ -1,0 +1,6 @@
+
+  mysql:
+    image: ${DOCKER_PRIVATE_REGISTRY}/${MYSQL_DOCKER_IMAGE}
+    env_file: .env
+    ports:
+      - "${DATABASE_BINDED_PORT}:3306"

@@ -1,0 +1,15 @@
+
+  mysql:
+    image: mysql:${MYSQL_VERSION}
+    hostname: "mysql"
+    env_file: .env
+    ports:
+      - "${DATABASE_BINDED_PORT}:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DATABASE_ROOT_PASSWORD}
+    volumes:
+      - "./.warp/docker/config/mysql/my.cnf:/etc/mysql/my.cnf"
+      - "./.warp/docker/dumps:/dumps"
+      - "${MYSQL_CONFIG_FILE}:/etc/mysql/conf.d"
+    networks:
+      - back

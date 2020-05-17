@@ -1,0 +1,34 @@
+# mandatory since 0.2.x
+version: "2"
+
+# for a simpler example, see the boilerplate at https://github.com/EugenMayer/docker-sync-boilerplate
+options:
+  # optional, default: docker-compose.yml if you like, you can set a custom location (path) of your compose file
+  compose-file-path: 'docker-compose-warp.yml'
+  # optional, default: docker-compose-dev.yml if you like, you can set a custom location (path) of your compose file. Do not set it, if you do not want to use it at all
+  # if its there, it gets used, if you name it explicitly, it HAS to exist
+  compose-dev-file-path: 'docker-compose-warp-mac.yml'
+  # optional, activate this if you need to debug something, default is false
+  verbose: true
+  # can be docker-sync, thor or auto and defines, how the sync will be invoked on the cli. Mostly depending if your are using docker-sync solo, scaffolded or in development ( thor )
+  cli_mode: 'auto'
+  # optional, maximum number of attempts for unison waiting for the success exit status. The default is 5 attempts (1-second sleep for each attempt). Only used in unison.
+  max_attempt: 5
+  # optional, default: pwd, root directory to be used when transforming sync src into absolute path, accepted values: pwd (current working directory), config_path (the directory where docker-sync.yml is found)
+  project_root: 'pwd'
+
+  rsync_image: 'eugenmayer/rsync'
+  unison_image: 'eugenmayer/unison:2.51.2.1'
+  # replace <sync_strategy> with either rsync, unison, native_osx to set a custom image for all sync of this type
+  # <sync_strategy>_image: 'unison'
+
+syncs:
+  warp-volume-sync:
+    src: './'
+    notify_terminal: true
+    sync_strategy: 'native_osx'
+    sync_host_ip: '127.0.0.1'
+    sync_host_port: 10875
+    sync_excludes: ['.warp', '.git', '.docker-sync', '.idea', '.vscode']
+    sync_excludes_type: 'Name'
+    watch_excludes: ['.scss', '.sass', '.gitignore', '.warp', '.vscode']

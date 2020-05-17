@@ -1,0 +1,44 @@
+# Development environment reusing production and just adding mounts for docker-sync
+version: "2"
+services:
+  appdata:
+    volumes:
+      - warp-volume-sync:/var/www/html
+
+      # Host mounts with performance penalty, only put what is necessary here
+      - .:/var/www/html/2.3.1-ce/app/code/${VENDOR_NAME}/${MODULE_NAME}:delegated
+      - .:/var/www/html/2.2.9-ce/app/code/${VENDOR_NAME}/${MODULE_NAME}:delegated
+
+      # performance purpose with host
+      - /var/www/html/2.3.1-ce/app/code/${VENDOR_NAME}/${MODULE_NAME}/.platform
+      - /var/www/html/2.2.9-ce/app/code/${VENDOR_NAME}/${MODULE_NAME}/.platform
+      - /var/www/html/2.3.1-ce/app/code/${VENDOR_NAME}/${MODULE_NAME}/.warp
+      - /var/www/html/2.2.9-ce/app/code/${VENDOR_NAME}/${MODULE_NAME}/.warp
+
+      #- ./auth.json:/var/www/html/auth.json:delegated
+      #- ./composer.json:/var/www/html/composer.json:delegated
+      #- ./composer.lock:/var/www/html/composer.lock:delegated
+      #- ./pub:/var/www/html/pub:delegated
+      #- ./var/log:/var/www/html/var/log:delegated
+      #- ./var/report:/var/www/html/var/report:delegated
+    volumes_from:
+      - 2.2.9-ce
+      - 2.3.1-ce
+
+  2.2.9-ce:
+    volumes:
+      - 2.2.9-ce:/var/www/html/2.2.9-ce:delegated
+
+  2.3.1-ce:
+    volumes:
+      - 2.3.1-ce:/var/www/html/2.3.1-ce:delegated
+
+  mysql:
+    volumes:
+      - warp-mysql-db:/var/lib/mysql
+
+volumes:
+  warp-volume-sync:
+  warp-mysql-db:
+  2.2.9-ce:
+  2.3.1-ce:

@@ -1,0 +1,10 @@
+# Development environment reusing production and just adding mounts for docker-sync
+version: "2"
+services:
+  appdata:
+    volumes:
+      - warp-volume-sync:/var/www/html:nocopy # will be mounted on /var/www/html
+
+volumes:
+  warp-volume-sync:
+    external: true

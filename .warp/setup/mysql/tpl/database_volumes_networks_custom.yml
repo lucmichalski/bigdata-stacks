@@ -1,0 +1,7 @@
+    volumes:
+      - "./.warp/docker/config/mysql/my.cnf:/etc/mysql/my.cnf"
+      - "./.warp/docker/dumps:/dumps"
+      - "${MYSQL_CONFIG_FILE}:/etc/mysql/conf.d"
+      - warp-volume-db:/var/lib/mysql:delegated
+    networks:
+      - back
