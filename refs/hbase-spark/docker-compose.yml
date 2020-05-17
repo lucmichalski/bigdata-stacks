@@ -1,0 +1,50 @@
+version: "3"
+
+services:
+  hadoop:
+    image: sequenceiq/hadoop-docker
+    ports:
+      - "8088:8088"
+    volumes:
+#    Default location of hdfs see: http://stackoverflow.com/questions/29969722/location-of-hdfs-files-in-pseudodistributed-single-node-cluster
+      - hdfs-volume:/tmp/hadoop-root/dfs
+#      - hdfs-volume:/tmp/hadoop-root/dfs/data
+#  hive:
+#    image: mcapitanio/hive
+#    ports:
+#      - "10002:10002"
+  hbase:
+    image: dajobe/hbase
+    volumes:
+      - hbase-volume:/data
+    ports:
+#    REST API
+      - "8080:8080"
+      - "8085:8085"
+      - "9090:9090"
+#      Master UI
+      - "16010:16010"
+    labels:
+      com.shinko.description: "HBase Node"
+    links:
+      - hadoop
+  solr:
+    image: solr
+    ports:
+      - "8983:8983"
+  hue:
+    image: gethue/hue
+    hostname: hue
+    container_name: development_hue
+    command: ./build/env/bin/hue runserver_plus 0.0.0.0:8888
+    ports:
+      - "8888:8888"
+    volumes:
+      - ./infrastructure/hue.ini:/hue/desktop/conf/hue.ini
+    links:
+      - hbase
+      - solr
+      - hadoop
+volumes:
+  hbase-volume:
+  hdfs-volume:
