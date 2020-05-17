@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="/favicon.ico">
+
+    <title>Spring Boot - Twitter Discovery</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/main.css" rel="stylesheet">
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link href="assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/dashboard.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
+    <script src="assets/js/ie-emulation-modes-warning.js"></script>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+<div class="form-group loader">
+    <div class="col-md-12 text-center">
+        <span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>
+    </div>
+</div>
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                    aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="index.html#">Twitter Community Discovery</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="index.html#">Dashboard</a></li>
+                <li><a href="index.html#">Tutorial</a></li>
+                <li><a href="index.html#">GitHub</a></li>
+                <li><a href="index.html#">Help</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12 col-md-12 main">
+            <div class="section row">
+                <h1 class="page-header">Dashboard</h1>
+                <div role="alert" class="text-muted">
+                    <span aria-hidden="true" class="glyphicon glyphicon-info-sign" style=""></span>
+                    New Twitter profiles will be automatically discovered after you've added at least three users with
+                    mutual connections.
+                </div>
+            </div>
+            <div id="dashboard-header" class="row placeholders">
+
+            </div>
+
+            <div class="row placeholders add-profile">
+                <div class="col-md-12 text-center">
+                    <!-- Button trigger modal -->
+                    <button data-target="#myModal" data-toggle="modal" class="btn btn-primary btn-md" type="button">
+                        Add Twitter Profile
+                    </button>
+
+                    <!-- Modal -->
+                    <div aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal fade">
+                        <div role="document" class="modal-dialog">
+                            <form class="modal-content" id="add-profile-form">
+                                <div class="modal-header">
+                                    <button aria-label="Close" data-dismiss="modal" class="close" type="button"><span
+                                            aria-hidden="true">×</span></button>
+                                    <h4 id="myModalLabel" class="modal-title">Add Twitter Profile</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="form-inline">
+                                        <div class="form-group">
+                                            <label class="sr-only" for="twitterHandle">Twitter Handle</label>
+                                            <div class="input-group">
+                                                <div class="input-group-addon">@</div>
+                                                <input type="text" class="form-control" name="twitterHandle"
+                                                       id="twitterHandle" placeholder="Twitter Handle">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button data-dismiss="modal" class="btn btn-default" type="button">Close</button>
+                                    <button type="submit" id="crawlTwitterProfile" class="btn btn-primary">Crawl
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section row">
+                <h2 class="sub-header">Discovered Community Profiles</h2>
+                <p class="text-muted">This leader board is updated on 15 minute intervals as new users are discovered
+                    and PageRank jobs are scheduled. Users that are newly added are indicated by a plus icon on the rank
+                    column. The change column displays an arrow icon that indicates whether a user has risen or fallen
+                    in the rankings since the last PageRank analysis.</p>
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>Rank</th>
+                            <th>Photo</th>
+                            <th class="hidden-xs">Name</th>
+                            <th>Profile</th>
+                            <th class="hidden-xs">Following</th>
+                            <th class="hidden-xs">Followers</th>
+                            <th class="hidden-xs">PageRank</th>
+                            <th class="hidden-xs">Change</th>
+                        </tr>
+                        </thead>
+                        <tbody id="personDataTable"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="assets/js/vendor/jquery.min.js"><\/script>')</script>
+<script src="dist/js/bootstrap.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.4.5/js/bootstrapvalidator.min.js"></script>
+<script src="js/main.js"></script>
+<!-- Just to make our placeholder images work. Don't actually copy the next line! -->
+<script src="assets/js/vendor/holder.min.js"></script>
+<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+<script src="assets/js/ie10-viewport-bug-workaround.js"></script>
+</body>
+</html>
