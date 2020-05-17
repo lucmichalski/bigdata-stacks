@@ -1,0 +1,22 @@
+<configuration>
+	<property>
+		<name>fs.defaultFS</name>
+		<value>hdfs://[NAMENODE_HOST]:8020</value>
+	</property>
+	<property>
+		<name>hadoop.proxyuser.hue.hosts</name>
+		<value>*</value>
+	</property>
+	<property>
+		<name>hadoop.proxyuser.hue.groups</name>
+		<value>*</value>
+	</property>
+	<property>
+		<name>hadoop.proxyuser.Szymon.hosts</name>
+		<value>*</value>
+	</property>
+	<property>
+		<name>hadoop.proxyuser.Szymon.groups</name>
+		<value>*</value>
+	</property>
+</configuration>

@@ -1,0 +1,17 @@
+version: "3"
+services:
+  druid:
+    image: zzswang/druid
+    hostname: druid
+    container_name: development_druid
+    ports:
+      - "3000:8081"
+      - "3001:8082"
+      - "3002:8090"
+
+  # metabase:
+    # image: metabase/metabase
+    # hostname: metabase
+    # container_name: development_metabase
+    # ports:
+      # - "3004:3000"

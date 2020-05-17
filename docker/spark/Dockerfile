@@ -1,0 +1,5 @@
+FROM singularities/spark:2.0
+
+COPY /*.xml $HADOOP_CONF_DIR/
+
+EXPOSE 50010 50075 4040

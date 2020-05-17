@@ -1,0 +1,64 @@
+version: "3"
+services:
+  # hue:
+    # image: gethue/hue:latest
+    # hostname: hue
+    # container_name: development_hue
+    # dns: 8.8.8.8
+    # ports:
+      # - "8888:8888"
+    # volumes:
+      # - ./hue/hue.ini:/hue/desktop/conf/hue.ini
+    # links:
+      # - spark_master:master
+
+  # livy:
+    # image: tobilg/livy
+    # hostname: livy
+    # container_name: livy
+    # ports:
+      # - "8998:8998"
+      
+  spark_master:
+    build:
+      context: ./spark
+    image: local/spark-docker:latest
+    hostname: master
+    container_name: development_spark_master
+    command: start-spark master
+    ports:
+      - "6066:6066"
+      - "7077:7077"
+      - "8020:8020"
+      - "8080:8080"
+      - "50010:50010"
+      - "50070:50070"
+      - "4040:4040"
+      - "14000:14000"
+      - "50075:50075"
+      - "50470:50470"
+      - "10020:10020"
+      - "13562:13562"
+      - "19888:19888"
+    expose:
+      - "8081"
+
+  spark_worker_1:
+    build:
+      context: ./spark
+    image: local/spark-docker:latest
+    hostname: spark_worker_1
+    container_name: development_spark_worker_1
+    command: start-spark worker master
+    depends_on:
+      - spark_master
+    environment:
+      SPARK_WORKER_CORES: 1
+      SPARK_WORKER_MEMORY: 2g
+    links:
+      - spark_master:master
+    ports:
+      - "8081:8081"
+      - "50020:50010"
+    expose:
+      - "50075"
