@@ -1,0 +1,21 @@
+language: go
+
+go:
+  - 1.10.x
+
+# this is necessary for fork builds to work
+go_import_path: github.com/ovh/metronome
+
+before_install:
+  - make init
+
+script:
+  - make dep
+  - make format
+  - make lint
+  - make release
+  - make test
+  - make cover
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
