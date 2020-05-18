@@ -1,0 +1,364 @@
+# See http://help.github.com/ignore-files/ for more about ignoring files.
+/.idea
+ ######## webapp ########
+
+# compiled output
+/webapp/dist
+/webapp/tmp
+
+# dependencies
+/webapp/node_modules
+/webapp/client/node_modules
+/webapp/server/node_modules
+
+# IDEs and editors
+/webapp/client/.idea
+/webapp/server/.idea
+/webapp/.idea
+/webapp/.project
+/webapp/.classpath
+/webapp/.c9/
+/webapp/*.launch
+/webapp/.settings/
+/webapp/*.sublime-workspace
+
+# IDE - VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# misc
+/webapp/.sass-cache
+/webapp/connect.lock
+/webapp/coverage/*
+/webapp/client/public
+/webapp/server/public
+/webapp/server/dist
+/webapp/libpeerconnection.log
+/webapp/npm-debug.log
+/webapp/testem.log
+/webapp/typings
+/webapp.*.log
+
+#System Files
+.DS_Store
+Thumbs.db
+*.log
+
+######## batch spark ########
+/batch/spark/.metadata
+/batch/spark/bin/
+/batch/spark/tmp/
+/batch/spark/target/
+/batch/spark/.idea/
+
+/batch/spark/.classpath
+/batch/spark/.project
+/batch/spark/*.tmp
+/batch/spark/*.bak
+/batch/spark/*.swp
+/batch/spark/*~.nib
+/batch/spark/local.properties
+/batch/spark/.settings/
+/batch/spark/.loadpath
+/batch/spark/.recommenders
+
+# External tool builders
+/batch/spark/.externalToolBuilders/
+
+# Locally stored "Eclipse launch configurations"
+/batch/spark/*.launch
+
+# PyDev specific (Python IDE for Eclipse)
+/batch/spark/*.pydevproject
+
+# CDT-specific (C/C++ Development Tooling)
+/batch/spark/.cproject
+
+# Java annotation processor (APT)
+/batch/spark/.factorypath
+
+# PDT-specific (PHP Development Tools)
+/batch/spark/.buildpath
+
+# sbteclipse plugin
+/batch/spark/.target
+/batch/spark/project/project
+/batch/spark/project/target
+
+# Tern plugin
+/batch/spark/.tern-project
+
+# TeXlipse plugin
+/batch/spark/.texlipse
+
+# STS (Spring Tool Suite)
+/batch/spark/.springBeans
+
+# Code Recommenders
+/batch/spark/.recommenders/
+
+# Scala IDE specific (Scala & Java development for Eclipse)
+/batch/spark/.cache-main
+/batch/spark/.scala_dependencies
+/batch/spark/.worksheet
+
+######## batch hadoop ########
+/batch/hadoop/.metadata
+/batch/hadoop/bin/
+/batch/hadoop/tmp/
+/batch/hadoop/target/
+/batch/hadoop/.idea/
+/batch/hadoop/*.iml
+
+/batch/hadoop/.classpath
+/batch/hadoop/.project
+/batch/hadoop/*.tmp
+/batch/hadoop/*.bak
+/batch/hadoop/*.swp
+/batch/hadoop/*~.nib
+/batch/hadoop/local.properties
+/batch/hadoop/.settings/
+/batch/hadoop/.loadpath
+/batch/hadoop/.recommenders
+
+######## batch flink ########
+/batch/flink/.metadata
+/batch/flink/bin/
+/batch/flink/tmp/
+/batch/flink/target/
+/batch/flink/.idea/
+
+/batch/flink/.classpath
+/batch/flink/.project
+/batch/flink/*.tmp
+/batch/flink/*.bak
+/batch/flink/*.swp
+/batch/flink/*~.nib
+/batch/flink/local.properties
+/batch/flink/.settings/
+/batch/flink/.loadpath
+/batch/flink/.recommenders
+
+# External tool builders
+/batch/flink/.externalToolBuilders/
+
+# Locally stored "Eclipse launch configurations"
+/batch/flink/*.launch
+
+# PyDev specific (Python IDE for Eclipse)
+/batch/flink/*.pydevproject
+
+# CDT-specific (C/C++ Development Tooling)
+/batch/flink/.cproject
+
+# Java annotation processor (APT)
+/batch/flink/.factorypath
+
+# PDT-specific (PHP Development Tools)
+/batch/flink/.buildpath
+
+# sbteclipse plugin
+/batch/flink/.target
+/batch/flink/project/project
+/batch/flink/project/target
+
+# Tern plugin
+/batch/flink/.tern-project
+
+# TeXlipse plugin
+/batch/flink/.texlipse
+
+# STS (Spring Tool Suite)
+/batch/flink/.springBeans
+
+# Code Recommenders
+/batch/flink/.recommenders/
+
+# Scala IDE specific (Scala & Java development for Eclipse)
+/batch/flink/.cache-main
+/batch/flink/.scala_dependencies
+/batch/flink/.worksheet
+
+######## streaming - spark ########
+/streaming/spark/.metadata
+/streaming/spark/bin/
+/streaming/spark/tmp/
+/streaming/spark/target/
+/streaming/spark/.idea/
+
+/streaming/spark/.classpath
+/streaming/spark/.project
+/streaming/spark/*.tmp
+/streaming/spark/*.bak
+/streaming/spark/*.swp
+/streaming/spark/*~.nib
+/streaming/spark/local.properties
+/streaming/spark/.settings/
+/streaming/spark/.loadpath
+/streaming/spark/.recommenders
+
+# External tool builders
+/streaming/spark/.externalToolBuilders/
+
+# Locally stored "Eclipse launch configurations"
+/streaming/spark/*.launch
+
+# PyDev specific (Python IDE for Eclipse)
+/streaming/spark/*.pydevproject
+
+# CDT-specific (C/C++ Development Tooling)
+/streaming/spark/.cproject
+
+# Java annotation processor (APT)
+/streaming/spark/.factorypath
+
+# PDT-specific (PHP Development Tools)
+/streaming/spark/.buildpath
+
+# sbteclipse plugin
+/streaming/spark/.target
+/streaming/spark/project/project
+/streaming/spark/project/target
+
+# Tern plugin
+/streaming/spark/.tern-project
+
+# TeXlipse plugin
+/streaming/spark/.texlipse
+
+# STS (Spring Tool Suite)
+/streaming/spark/.springBeans
+
+# Code Recommenders
+/streaming/spark/.recommenders/
+
+# Scala IDE specific (Scala & Java development for Eclipse)
+/streaming/spark/.cache-main
+/streaming/spark/.scala_dependencies
+/streaming/spark/.worksheet
+
+######## streaming - flink ########
+/streaming/flink/.metadata
+/streaming/flink/bin/
+/streaming/flink/tmp/
+/streaming/flink/target/
+/streaming/flink/.idea/
+
+/streaming/flink/.classpath
+/streaming/flink/.project
+/streaming/flink/*.tmp
+/streaming/flink/*.bak
+/streaming/flink/*.swp
+/streaming/flink/*~.nib
+/streaming/flink/local.properties
+/streaming/flink/.settings/
+/streaming/flink/.loadpath
+/streaming/flink/.recommenders
+
+# External tool builders
+/streaming/flink/.externalToolBuilders/
+
+# Locally stored "Eclipse launch configurations"
+/streaming/flink/*.launch
+
+# PyDev specific (Python IDE for Eclipse)
+/streaming/flink/*.pydevproject
+
+# CDT-specific (C/C++ Development Tooling)
+/streaming/flink/.cproject
+
+# Java annotation processor (APT)
+/streaming/flink/.factorypath
+
+# PDT-specific (PHP Development Tools)
+/streaming/flink/.buildpath
+
+# sbteclipse plugin
+/streaming/flink/.target
+/streaming/flink/project/project
+/streaming/flink/project/target
+
+# Tern plugin
+/streaming/flink/.tern-project
+
+# TeXlipse plugin
+/streaming/flink/.texlipse
+
+# STS (Spring Tool Suite)
+/streaming/flink/.springBeans
+
+# Code Recommenders
+/streaming/flink/.recommenders/
+
+# Scala IDE specific (Scala & Java development for Eclipse)
+/streaming/flink/.cache-main
+/streaming/flink/.scala_dependencies
+/streaming/flink/.worksheet
+
+
+######## streaming - storm ########
+/streaming/storm/.metadata
+/streaming/storm/bin/
+/streaming/storm/tmp/
+/streaming/storm/target/
+/streaming/storm/logs/
+/streaming/storm/.idea/
+
+/streaming/storm/.classpath
+/streaming/storm/.project
+/streaming/storm/*.tmp
+/streaming/storm/*.bak
+/streaming/storm/*.swp
+/streaming/storm/*~.nib
+/streaming/storm/local.properties
+/streaming/storm/.settings/
+/streaming/storm/.loadpath
+/streaming/storm/.recommenders
+
+# External tool builders
+/streaming/storm/.externalToolBuilders/
+
+# Locally stored "Eclipse launch configurations"
+/streaming/storm/*.launch
+
+# PyDev specific (Python IDE for Eclipse)
+/streaming/storm/*.pydevproject
+
+# CDT-specific (C/C++ Development Tooling)
+/streaming/storm/.cproject
+
+# Java annotation processor (APT)
+/streaming/storm/.factorypath
+
+# PDT-specific (PHP Development Tools)
+/streaming/storm/.buildpath
+
+# sbteclipse plugin
+/streaming/storm/.target
+/streaming/storm/project/project
+/streaming/storm/project/target
+
+# Tern plugin
+/streaming/storm/.tern-project
+
+# TeXlipse plugin
+/streaming/storm/.texlipse
+
+# STS (Spring Tool Suite)
+/streaming/storm/.springBeans
+
+# Code Recommenders
+/streaming/storm/.recommenders/
+
+# Scala IDE specific (Scala & Java development for Eclipse)
+/streaming/storm/.cache-main
+/streaming/storm/.scala_dependencies
+/streaming/storm/.worksheet
+
+######## ml ########
+/ml/spark/.idea/
+/ml/spark/venv/
+/ml/spark/tweet_traveling_partners_model

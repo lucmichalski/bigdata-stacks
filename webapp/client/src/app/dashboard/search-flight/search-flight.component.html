@@ -1,0 +1,78 @@
+<div class="search-flight-box">
+  <mat-card>
+    <mat-card-title>Purchase a ticket</mat-card-title>
+    <mat-card-content>
+
+      <form class="search-flight-form" [formGroup]="searchFlightForm" (ngSubmit)="searchFlight()">
+
+        <mat-radio-group formControlName="tripType">
+          <mat-radio-button value="{{tripTypeOptions[1]}}">Round trip</mat-radio-button>
+          <mat-radio-button value="{{tripTypeOptions[0]}}">One way</mat-radio-button>
+        </mat-radio-group>
+
+        <br/>
+        <mat-form-field class="search-flight-full-width" [hideRequiredMarker]="searchFlightForm.value.hideRequired">
+          <input placeholder="Departing from" aria-label="Departing from" #departureAirportInput matInput [matAutocomplete]="autoDepartingFrom"
+            formControlName="departingFrom" required>
+          <!-- [displayWith]="displayDepartingFrom"-->
+          <mat-autocomplete #autoDepartingFrom="matAutocomplete">
+            <!-- *ngFor="let option of departingFromOptions | async" [value]="option" -->
+            <mat-option *ngFor="let airport of filteredAirports | async" [value]="airport.Name" (onSelectionChange)="setDepartureAirport(airport)">
+              <span>{{ airport.Name }}, {{ airport.City }}, {{ airport.Country }}</span>
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+
+        <br/>
+
+        <mat-form-field class="search-flight-full-width" [hideRequiredMarker]="searchFlightForm.value.hideRequired">
+          <input placeholder="Arriving at" aria-label="Arriving at" #arrivalAirportInput matInput formControlName="arrivingAt" [matAutocomplete]="autoArrivingAt"
+            required>
+          <!-- [displayWith]="displayArrivingAtOptions"-->
+          <mat-autocomplete #autoArrivingAt="matAutocomplete">
+            <!-- *ngFor="let option of departingFromOptions | async" [value]="option" -->
+            <mat-option *ngFor="let airport of filteredDestinationAirports | async" [value]="airport.Name" (onSelectionChange)="setArrivalAirport(airport)">
+              <span>{{ airport.Name }}, {{ airport.City }}, {{ airport.Country }}</span>
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+
+        <br/>
+
+        <mat-form-field class="search-flight-full-width" [hideRequiredMarker]="searchFlightForm.value.hideRequired">
+          <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="departureDatePicker" placeholder="Departure date" formControlName="departureDate"
+            required>
+          <mat-datepicker-toggle matSuffix [for]="departureDatePicker"></mat-datepicker-toggle>
+          <mat-datepicker #departureDatePicker></mat-datepicker>
+        </mat-form-field>
+
+        <br/>
+
+        <mat-form-field class="search-flight-full-width" [hideRequiredMarker]="searchFlightForm.value.hideRequired">
+          <input matInput [min]="minDateTo" [max]="maxDateTo" [matDatepicker]="arrivalDatePicker" placeholder="Arrival date" formControlName="arrivalDate"
+            required>
+          <mat-datepicker-toggle matSuffix [for]="arrivalDatePicker"></mat-datepicker-toggle>
+          <mat-datepicker #arrivalDatePicker></mat-datepicker>
+        </mat-form-field>
+
+        <br/>
+
+        <mat-form-field [hideRequiredMarker]="searchFlightForm.value.hideRequired">
+          <mat-select placeholder="Passenger" formControlName="passengerNumber" required>
+            <mat-option *ngFor="let passengerNumber of passengersNumberOptions" [value]="passengerNumber">{{ passengerNumber }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field [hideRequiredMarker]="searchFlightForm.value.hideRequired">
+          <mat-select placeholder="Cabin class" formControlName="cabinClass" required>
+            <mat-option *ngFor="let cabinClass of cabinsClassOptions" [value]="cabinClass">{{ cabinClass }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <br/>
+
+        <button mat-raised-button color="accent" [disabled]="!searchFlightForm.valid">Search</button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

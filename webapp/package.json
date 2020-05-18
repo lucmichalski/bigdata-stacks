@@ -1,0 +1,42 @@
+{
+  "name": "search-flight-webapp",
+  "version": "0.1.0",
+  "description": "flight Patch Test",
+  "main": "index.js",
+  "scripts": {
+    "lint": "cd client && npm run lint && cd ../server && npm run lint",
+    "test": "cd client && npm run test && cd ../server && npm run test",
+    "clear:client": "cd client && rimraf public && cd ..",
+    "clear:server": "cd server && rimraf public dist && cd ..",
+    "build:client": "cd client && npm run build && cd ..",
+    "build:client-prod": "cd client && npm run build:prod && cd ..",
+    "build:server": "cd server && npm run build && cd ..",
+    "start:server": "cd server && nodemon server.js",
+    "start:server-prod": "cd server && node server.js",
+    "copy:public": "copyfiles -u 1 client/public/* server/dist && rimraf client/public",
+    "build:dev": "npm run clear:client && npm run clear:server && npm run build:client && npm run build:server && npm run copy:public",
+    "start:dev": "npm run start:server",
+    "build:prod": "npm run clear:client && npm run clear:server && npm run build:client-prod && npm run build:server && npm run copy:public",
+    "start:prod": "npm run start:server-prod"
+  },
+  "keywords": [
+    "flight",
+    "PATCH",
+    "ANGULAR",
+    "TEST",
+    "NODEJS"
+  ],
+  "private": true,
+  "author": "Chabane REFES",
+  "license": "ISC",
+  "devDependencies": {
+    "husky": "1.3.1",
+    "validate-commit-msg": "2.14.0",
+    "copy": "0.3.2",
+    "copyfiles": "2.1.0",
+    "rimraf": "2.6.3"
+  },
+  "dependencies": {
+    "nodemon": "1.18.9"
+  }
+}
