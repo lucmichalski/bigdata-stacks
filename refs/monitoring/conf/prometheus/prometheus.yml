@@ -1,0 +1,138 @@
+########## GLOBAL CONFIG ###########
+
+global:
+  scrape_interval:     30s
+  evaluation_interval: 30s
+  external_labels:
+      monitor: 'global_monitoring'
+rule_files:
+  - 'alert.rules'
+  - 'host.rules'
+
+#####################################
+
+############# ALERTING ##############
+
+alerting:
+  alertmanagers:
+  - scheme: http
+    static_configs:
+    - targets:
+      - "monitoring_alertmanager:9093"
+
+#####################################
+
+######### SWARM MONITORING ##########
+
+scrape_configs:
+  - job_name: 'swarm'
+    scrape_interval: 10s
+    static_configs:
+         - targets: ['monitoring_cadvisor:8080','monitoring_node-exporter:9100']
+
+# PROMETHEUS 
+
+  - job_name: 'prometheus'
+    scrape_interval: 25s
+    static_configs:
+         - targets: ['monitoring_prometheus:9090']
+
+####################################
+
+###########  NETDATA  ##############
+
+  - job_name: 'netdata'
+    metrics_path: '/api/v1/allmetrics'
+    params:
+      format: [prometheus]
+    honor_labels: true
+    scrape_interval: 20s
+    static_configs:
+         - targets: ['monitoring_netdata:19999']
+
+####################################
+
+##########  MEMCACHED  #############
+
+  # - job_name: 'memcached'
+  #   scrape_interval: 20s
+  #   static_configs:
+  #        - targets: ['monitoring_memcached-exporter:9150']
+
+####################################
+
+####### BLACKBOX MONITORING ########
+
+  - job_name: 'blackbox'
+    params:
+      module:
+      - http_2xx
+    scrape_interval: 30s
+    scrape_timeout: 10s
+    metrics_path: /probe
+    scheme: http
+    static_configs:
+      - targets:
+        - http://example.com
+        - http://www.example.com
+        - http://your.web.app
+        - http://your.web.app/check
+    relabel_configs:
+      - source_labels: [__address__]
+        separator: ';'
+        regex: '(.*)'
+        target_label: __param_target
+        replacement: $1
+        action: replace
+
+      - source_labels: [__param_target]
+        separator: ';'
+        regex: (.*)
+        target_label: instance
+        replacement: $1
+        action: replace
+
+      - target_label: __address__
+        replacement: blackbox-exporter:9115  # The blackbox exporter's real hostname:port.
+
+####################################
+
+######## MYSQL MONITORING ##########
+
+#  - job_name: 'database_prod'
+#    static_configs:
+#    - targets:
+#      - 'database_IP:9104'
+#      labels:
+#        alias: mysql_monitoring
+#    params:
+#      collect[]:
+#        - perf_schema.tableiowaits
+#        - perf_schema.indexiowaits
+#        - perf_schema.tablelocks
+#        - info_schema.engine_innodb_status
+#        - info_schema.innodb_metrics
+#        - info_schema.innodb_tablespaces
+#        - info_schema.query_response_time
+#        - info_schema.tables.databases
+
+####################################
+
+######### MYSQL MONITORING #########
+#########  MULTIPLE HOSTS  #########
+
+#  - job_name: 'mysql global status'
+#    static_configs:
+#      - targets: ['mysql_ip_address_000:9104','mysql_ip_address_001:9105']
+#    params:
+#      collect[]:
+#        - perf_schema.tableiowaits
+#        - perf_schema.indexiowaits
+#        - perf_schema.tablelocks
+#        - info_schema.engine_innodb_status
+#        - info_schema.innodb_metrics
+#        - info_schema.innodb_tablespaces
+#        - info_schema.query_response_time
+#        - info_schema.tables.databases
+
+####################################
