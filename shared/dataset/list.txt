@@ -46,3 +46,14 @@ https://github.com/modye/lucene-fighters
 https://github.com/kneefer/LambdaArchitectureTest
 https://github.com/darrenhaken/hbase-spark
 https://github.com/gschmutz/various-demos
+https://github.com/george-j-zhu/docker-spark
+https://github.com/t0xic-m/mahout_docker
+https://github.com/mpolatcan/mahout-docker
+https://github.com/mpolatcan/airflow-docker
+https://github.com/sherifabdlnaby/elastdocker
+https://github.com/Jeskz0rd/monitoring
+https://github.com/freepsw/kafka-monitoring
+https://github.com/devxops/grafana-influxdb-docker
+https://github.com/jwiebalk/splunk-collectd
+https://github.com/carlostse/hadoop-pagerank
+https://github.com/Chabane/bigdata-playground
