@@ -1,0 +1,64 @@
+# Written by Mutlu Polatcan
+# 12.11.2019
+# ------------------------------
+version: "3.6"
+services:
+  airflow-scheduler:
+    image: mpolatcan/airflow:1.10.6-python3.6
+    container_name: airflow-scheduler
+    environment:
+      AIRFLOW_DAEMONS: |
+        scheduler
+    env_file:
+      - airflow_config.env
+    volumes:
+      - ./dags:/home/airflow/airflow/dags
+
+  airflow-worker:
+    image: mpolatcan/airflow:1.10.6-python3.6
+    environment:
+      AIRFLOW_DAEMONS: |
+        worker
+    env_file:
+      - airflow_config.env
+    volumes:
+      - ./dags:/home/airflow/airflow/dags
+
+  airflow-webserver:
+    image: mpolatcan/airflow:1.10.6-python3.6
+    container_name: airflow-webserver
+    environment:
+      AIRFLOW_DAEMONS: |
+        webserver
+    env_file:
+      - airflow_config.env
+    ports:
+      - 8080:8080
+    volumes:
+      - ./dags:/home/airflow/airflow/dags
+
+  celery-flower:
+    image: mpolatcan/airflow:1.10.6-python3.6
+    container_name: celery-flower
+    environment:
+      AIRFLOW_DAEMONS: |
+        flower
+    env_file:
+      - airflow_config.env
+    ports:
+      - 5555:5555
+    volumes:
+      - ./dags:/home/airflow/airflow/dags
+
+  postgres:
+    image: postgres
+    container_name: postgres
+    hostname: postgres
+    environment:
+      POSTGRES_USER: airflow
+      POSTGRES_PASSWORD: airflow
+
+  redis:
+    image: redis
+    container_name: redis
+    hostname: redis
