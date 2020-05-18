@@ -1,0 +1,14 @@
+# Compose file to run Apache Mahout in Docker
+# author: Micha Birklbauer
+
+version: '3'
+
+services:
+  mahout:
+    build: .
+    image: mahout:latest
+    environment:
+      - MAHOUT_HOME=/apache/mahout
+      - MAVEN_HOME=/apache/maven
+      - HADOOP_HOME=/apache/hadoop
+      - SPARK_HOME=/apache/spark
