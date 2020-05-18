@@ -1,0 +1,26 @@
+version: "3"
+services:
+  mahout:
+    image: mpolatcan/mahout:0.13.0-hadoop-3.2.1-java8
+    container_name: mahout
+    hostname: mahout
+    environment:
+      - HADOOP_NODE_TYPE=namenode
+      - DFS_REPLICATION=2
+    ports:
+      - 50070:50070
+      - 50090:50090
+      - 50075:50075
+      - 1988:1988
+      - 8042:8042
+      - 3000:8088
+
+  slave:
+    image: mpolatcan/hadoop:3.2.1-java8
+    environment:
+      - HADOOP_NODE_TYPE=datanode
+      - FS_HOSTNAME=mahout
+      - YARN_RESOURCEMANAGER_HOSTNAME=mahout
+      - DFS_REPLICATION=2
+    links:
+      - mahout
