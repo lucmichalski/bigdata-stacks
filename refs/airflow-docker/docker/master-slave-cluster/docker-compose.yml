@@ -1,0 +1,44 @@
+# Written by Mutlu Polatcan
+# 12.11.2019
+# ------------------------------
+version: "3.7"
+services:
+  airflow-master:
+    image: mpolatcan/airflow:1.10.6-python3.6
+    container_name: airflow-master
+    environment:
+      AIRFLOW_DAEMONS: |
+        scheduler
+        webserver
+        flower
+    env_file:
+      - airflow_config.env
+    ports:
+      - 8080:8080
+      - 5555:5555
+    volumes:
+      - ./dags:/home/airflow/airflow/dags
+
+  airflow-worker:
+    image: mpolatcan/airflow:1.10.6-python3.6
+    environment:
+      AIRFLOW_DAEMONS: |
+        worker
+    env_file:
+      - airflow_config.env
+    volumes:
+      - ./dags:/home/airflow/airflow/dags
+
+  postgres:
+    image: postgres
+    container_name: postgres
+    hostname: postgres
+    environment:
+      POSTGRES_USER: "airflow"
+      POSTGRES_PASSWORD: "airflow"
+
+  redis:
+    image: redis
+    container_name: redis
+    hostname: redis
+
