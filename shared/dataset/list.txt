@@ -57,3 +57,5 @@ https://github.com/devxops/grafana-influxdb-docker
 https://github.com/jwiebalk/splunk-collectd
 https://github.com/carlostse/hadoop-pagerank
 https://github.com/Chabane/bigdata-playground
+https://github.com/adavarski/docker-bigdata-playground
+https://github.com/ly3too/bdplay
