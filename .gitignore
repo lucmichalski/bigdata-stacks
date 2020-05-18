@@ -1,0 +1,16 @@
+.idea
+.env
+
+grafana/defaults.ini
+grafana/var/lib/grafana/*
+!grafana/var/lib/grafana/.gitkeep
+!grafana/var/lib/grafana/plugins
+grafana/etc/provisioning/dashboards/*
+grafana/etc/provisioning/datasources/*
+grafana/etc/provisioning/notifiers/*
+
+
+influxdb/var/lib/influxdb/*
+influxdb/influxdb.conf
+
+nginx/default.conf
