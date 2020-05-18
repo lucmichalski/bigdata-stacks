@@ -1,0 +1,43 @@
+version: '2.2'
+
+services:
+
+  splunk:
+    image: splunk/splunk:latest
+    volumes:
+      - ./splunk/splunk_httpinput/inputs.conf:/opt/splunk/etc/apps/splunk_httpinput/local/inputs.conf:rw
+      - ./splunk/tcp/inputs.conf:/opt/splunk/etc/apps/search/local/inputs.conf:rw
+      - ./splunk/server.conf:/opt/splunk-etc/system/local/server.conf:rw
+    ports:
+      - "8000:8000"
+      - "5000:5000"
+      - "8088:8088"
+    networks:
+      - splunk
+    environment:
+    - SPLUNK_PASSWORD=${SPLUNK_PASSWORD}
+    - SPLUNK_START_ARGS=--accept-license
+    - SPLUNK_LICENSE_URI=Free
+
+  collectd:
+    build:
+      context: collectd/
+    volumes:
+      - collectd-volume:/opt/collectd/var/lib/collectd/rrd
+    ports:
+      - "25826:25826/udp"
+      - "8125:8125/udp"
+    networks:
+      - splunk
+    environment:
+    - SPLUNK_TOKEN=${SPLUNK_TOKEN}
+
+volumes:
+  splunk-volume:
+    driver: local
+  collectd-volume:
+    driver: local
+
+networks:
+  splunk:
+    driver: bridge
