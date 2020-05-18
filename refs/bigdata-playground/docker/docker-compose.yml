@@ -1,0 +1,29 @@
+version: '3.3'
+
+services:
+  webapp: 
+    build: ../webapp
+    container_name: webapp
+    ports:
+      - 3000:3000
+      - 5000:5000
+    networks: ["vnet"]
+    hostname: webapp
+
+  batch-spark: 
+    build: ../batch/spark
+    container_name: batch_spark 
+    networks: ["vnet"]
+    hostname: batch-spark
+
+  streaming-spark: 
+    build: ../streaming/spark
+    container_name: streaming_spark
+    networks: ["vnet"]
+    hostname: streaming-spark
+             
+networks:
+  vnet:
+    external:
+      name: vnet 
+  
