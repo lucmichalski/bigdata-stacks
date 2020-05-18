@@ -1,0 +1,12 @@
+language: go
+
+go:
+  - 1.10.4
+  - 1.11
+
+install:
+  - export GOPATH="${TRAVIS_BUILD_DIR}/src:$GOPATH"
+
+script:
+  - ./build.sh
+
