@@ -1,0 +1,46 @@
+version: '3'
+services:
+  nginx:
+    build: ./nginx
+    image: grafana-influixdb-docker/nginx:1.17.2
+#    volumes:
+#      - "${PWD}/nginx/default.conf:/etc/nginx/conf.d/default.conf:ro"
+    networks:
+      - grafana-influxdb
+    ports:
+      - "${NGINX_HTTP_PORT}:80"
+    restart: always
+    env_file:
+      - .env
+  influxdb:
+    build: ./influxdb
+    image: grafana-influixdb-docker/influxdb:1.5.4
+    volumes:
+#    - "${PWD}/influxdb/influxdb.conf:/etc/influxdb/influxdb.conf:ro"
+    - "${PWD}/influxdb/var/lib/influxdb:/var/lib/influxdb"
+    networks:
+      - grafana-influxdb
+    ports:
+    - "8086:8086"
+    # - 8083:80803
+    restart: always
+    env_file:
+      - .env
+  grafana:
+    build: ./grafana
+    image: grafana-influixdb-docker/grafana:latest
+    volumes:
+#      - "${PWD}/grafana/defaults.ini:/usr/share/grafana/conf/defaults.ini:ro"
+      - "${PWD}/grafana/etc/grafana/provisioning:/etc/grafana/provisioning"
+      - "${PWD}/grafana/var/lib/grafana:/var/lib/grafana"
+      - "${PWD}/grafana/var/log/grafana:/var/log/grafana"
+    networks:
+      - grafana-influxdb
+    ports:
+    - "3000:3000"
+    restart: always
+    env_file:
+      - .env
+networks:
+  grafana-influxdb:
+
