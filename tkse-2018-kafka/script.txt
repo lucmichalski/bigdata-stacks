@@ -1,0 +1,36 @@
+
+================================ Infrastructure ======================================
+
+export tkse-2018_HOST_IP=192.168.69.135
+export SAMPLE_HOME=/mnt/hgfs/git/gschmutz/various-demos/jax-2018-kafka-streams-vs-spark-streaming
+
+cd $SAMPLE_HOME/docker
+cd $SAMPLE_HOME/src
+
+docker-compose up -d
+
+docker-compose logs -f
+
+================================ Kafka Topics ======================================
+
+sudo docker exec -ti tkse-2018-kafka_broker-1_1 bash
+
+kafka-topics --zookeeper zookeeper:2181 --list
+kafka-topics --zookeeper zookeeper:2181 --create --topic sensor-group-1-v1 --partitions 8 --replication-factor 2
+
+================================ Metadata ======================================
+
+mvn schema-registry:register
+
+================================ Console Consumer ======================================
+
+sudo docker exec -ti tkse-2018-kafka_broker-1_1 bash
+
+kafka-console-consumer --bootstrap-server broker-1:9092 --topic sensor-group-1-v1
+
+================================ Avro Console Consumer ======================================
+
+sudo docker exec -ti tkse-2018-schema_registry-1 bash
+
+
+kafka-avro-console-consumer --bootstrap-server borker-1:9092 --topic topic sensor-group-1-v1 --property schema.registry.url=http://localhost:8081

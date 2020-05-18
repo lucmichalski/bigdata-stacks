@@ -1,0 +1,36 @@
+{
+  "type": "record",
+  "name": "GeoFence",
+  "namespace": "com.trivadis.demo.avro.geofence.v1",
+  "fields": [
+    {
+      "name": "id",
+      "type": [
+        "null",
+        "int"
+      ]
+    },
+	{
+	  "name": "name",
+	  "type": [
+		"null",
+		"string"
+	  ]
+	},    
+    {
+      "name": "wkt",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "name": "geohash",
+      "type": [
+        "null",
+        "string"
+      ],
+      "default": null
+    }
+  ]
+}
