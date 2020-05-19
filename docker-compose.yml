@@ -1,0 +1,42 @@
+version: '2'
+networks:
+  smzxnet:
+    ipam:
+      config:
+        - subnet: 172.24.0.0/16  
+services:
+  amb_master:
+    image: "smzx/ambari_server:v1" 
+    container_name: amb_master 
+    hostname: master 
+    privileged: true
+    extra_hosts:
+      - "slave1:172.24.0.3"
+      - "slave2:172.24.0.4"
+    networks: 
+      smzxnet:
+        ipv4_address: 172.24.0.2 
+  amb_agent1:
+    image: "smzx/ambari_agent:v1" 
+    container_name: amb_slave1 
+    hostname: slave1 
+    privileged: true
+    extra_hosts:
+      - "master:172.24.0.2"
+      - "slave1:172.24.0.3"
+      - "slave2:172.24.0.4"
+    networks: 
+      smzxnet:
+        ipv4_address: 172.24.0.3 
+  amb_agent2:
+    image: "smzx/ambari_agent:v1" 
+    container_name: amb_slave2 
+    hostname: slave2 
+    privileged: true
+    extra_hosts:
+      - "master:172.24.0.2"
+      - "slave1:172.24.0.3"
+      - "slave2:172.24.0.4"
+    networks: 
+      smzxnet:
+        ipv4_address: 172.24.0.4 
