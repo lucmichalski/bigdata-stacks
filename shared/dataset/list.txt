@@ -59,3 +59,9 @@ https://github.com/carlostse/hadoop-pagerank
 https://github.com/Chabane/bigdata-playground
 https://github.com/adavarski/docker-bigdata-playground
 https://github.com/ly3too/bdplay
+https://github.com/CleverCloud/telegraf-output-warp10
+https://github.com/Giwi/training-fuel
+https://github.com/ly3too/bdplay
+https://github.com/amarmesic/ambari-hdp-docker
+https://github.com/adoroszlai/ambari-runtime-compose
+https://github.com/shibaiqian/ambari-docker
