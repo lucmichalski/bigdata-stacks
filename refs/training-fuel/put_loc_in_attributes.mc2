@@ -1,0 +1,29 @@
+// @endpoint https://warp.senx.io/api/v0/exec
+'cJcNULymJ3gADtJkxwvmncdsSV1llN6iCSAkJZayFn4OE3I3zAqvjEH6M15akpo9Qq5lo.fo3fHZBOrvZ6ZKaYfxK3HayNA_eo3ELMdDveFvvgaWj7EyUAYp2UTuifLojYv5NhIkkNlW4akfBnuwFjWBq.T5KMJR' 'read' STORE
+'um2QWjPvKcN5Tdkr3qnGFE.39L9V3M.z7RnMIm8nvCApV3S8jAPh7nUCoeLRzu_KnQj.vMCdWUdE6vURQZPc5qsem8U_aHlfX.9s1Y_7MKzy_fCjuJsWj6fnhai8WVWE' 'write' STORE
+
+
+$read AUTHENTICATE 10000000 MAXOPS
+
+[ $read 'data.fuel' { } NOW -1 ] FETCH
+
+<%
+  // Remove list index
+  DROP
+  // Duplicate the GTS
+  DUP
+  [ SWAP <%
+      // Extract lat + lon
+      [ 4 5 ] SUBLIST FLATTEN LIST-> DROP
+      // Convert to HHCode
+      ->HHCODE
+      // Set HHCode as attribute 'loc'
+      {} SWAP 'loc' PUT SETATTRIBUTES
+      // Return NO VALUE
+      0 NaN NaN NaN NULL
+    %> MACROMAPPER 0 0 0 ] MAP
+    // Discard mapped GTS as we do not need it
+    DROP
+%> LMAP
+$write
+META

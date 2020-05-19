@@ -1,0 +1,18 @@
+// @endpoint https://warp.senx.io/api/v0/exec
+@training/dataset1
+[ 
+    $TOKEN 
+    'data.fuel' 
+    { 'cp' '29470' } 
+    [ 2007 11 1 0 0 0 ] TSELEMENTS-> ISO8601 
+    [ 2018 11 30 23 59 59 ] TSELEMENTS-> ISO8601 
+] FETCH 'data' STORE
+
+$data NONEMPTY 'gts' STORE
+[ $gts bucketizer.mean NOW 30 d 0 ] BUCKETIZE 'gts' STORE
+// mean fuel price for all stations
+[ 
+  $gts
+  []           // use all labels
+  reducer.mean.exclude-nulls // mean function
+] REDUCE       // execute reducer

@@ -1,0 +1,73 @@
+{
+  'name' 'WKT2GEOJSON'
+  'desc' 
+  <'
+Converts a WKT String into a GEOJSON map
+  '>
+  'sig' [ [ [ 'wkt:STRING' 'properties:MAP' ] [ 'geojson:MAP' ] ] ] // Signature
+  'params' {
+    // Signature params description
+    'wkt' 'Wkt string representation'
+    'geojson' 'GeoJson Map'
+    'properties' 'Properties to add to the GeoJSON'
+  }
+  'examples' [
+    <'
+'POINT(-4.461822509765624 48.41097247934201)' @senx/geo/WKT2GEOJSON
+    '>
+  ]
+} 'info' STORE
+
+<%
+  !$info INFO
+  SAVE 'context' STORE
+  <%
+   'properties' STORE
+   'wkt' STORE
+    $wkt '(' SPLIT 'splitted' STORE
+    $splitted 0 GET 'shape' STORE
+    <% $shape 'POLYGON' == %> <% 
+        'Polygon' 'type' STORE
+        $splitted 2 GET TRIM ',' SPLIT 'points' STORE
+        [
+            $points <%
+                DROP TRIM
+                ' ' SPLIT <% DROP TRIM '\)\)' '' REPLACEALL TODOUBLE %> LMAP
+            %> LMAP 
+        ]
+        'coordinates' STORE
+    %>
+    <% $shape 'LINESTRING' == %> <% 
+        'LineString' 'type' STORE
+        $splitted 1 GET TRIM ',' SPLIT 'points' STORE
+            $points <%
+                DROP TRIM
+                ' ' SPLIT <% DROP TRIM '\)' '' REPLACEALL TODOUBLE %> LMAP
+            %> LMAP 
+        'coordinates' STORE
+    %>
+    <% $shape 'POINT' == %> <% 
+        'Point' 'type' STORE
+        $splitted 1 GET TRIM 
+        ' ' SPLIT <% DROP TRIM '\)' '' REPLACEALL TODOUBLE %> LMAP
+        'coordinates' STORE
+    %>
+    <% %> 3 SWITCH
+    {
+        'type' 'Feature'
+        'properties' $properties
+        'geometry' {
+            'type' $type
+            'coordinates' $coordinates
+        }
+    }
+  %>
+  <% // catch any exception
+    RETHROW
+  %>
+  <% // finally, restore the context
+    $context RESTORE
+  %> TRY
+%>
+'macro' STORE
+$macro
