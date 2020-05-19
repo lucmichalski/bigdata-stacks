@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+
+<configuration>
+    <property>
+        <name>yarn.resourcemanager.hostname</name>
+        <value>${HOSTNAME_MASTER}</value>
+    </property>
+
+    <property>
+        <name>yarn.nodemanager.resource.memory-mb</name>
+        <value>${YARN_NODE_RES_MEM_MB}</value>
+    </property>
+</configuration>
