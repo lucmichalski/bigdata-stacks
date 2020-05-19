@@ -1,0 +1,16 @@
+// @endpoint https://warp.senx.io/api/v0/exec
+@training/dataset1
+[ 
+    $TOKEN 
+    '~.*' 
+    { 'cp' '29470' 'type' 'gazole' } 
+    [ 2018 11 1 0 0 0 ] TSELEMENTS-> ISO8601 
+    [ 2018 11 30 23 59 59 ] TSELEMENTS-> ISO8601 
+] FETCH 'gts' STORE
+[ 
+  $gts            // gts list from fetch
+  bucketizer.mean // average computing
+  NOW             // align all buckets  
+  0               // bucket span auto  
+  1               // number of buckets
+] BUCKETIZE

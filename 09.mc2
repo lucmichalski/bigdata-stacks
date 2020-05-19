@@ -1,0 +1,28 @@
+// @endpoint https://warp.senx.io/api/v0/exec
+@training/dataset1
+'POLYGON((-4.546966552734374 48.3571615691784,-4.574432373046875 48.41917592250883,-4.478302001953125 48.468368787493915,-4.362945556640624 48.47018983050313,-4.308013916015624 48.427378042075105,-4.319000244140625 48.3580740924711,-4.470062255859374 48.347122734178186,-4.546966552734374 48.3571615691784))'
+'polygon' STORE
+
+// $polygon { 'name' 'area' } @senx/geo/WKT2GEOJSON
+$polygon 0.01 false GEO.WKT
+GEO.REGEXP '~(' SWAP + ')' + 'regexp' STORE
+
+[ $TOKEN 'data.fuel' { 'type' 'gazole' 'loc' $regexp } NOW -1 ] FETCH 'data' STORE
+$data NOW ISO8601 '2019-01-01T00:00:00.000000Z' TIMECLIP
+NONEMPTY 'gts' STORE
+
+[ $gts
+  <%
+    // Extract lat + lon
+    [ 3 7 ] SUBLIST FLATTEN DUP 
+    [ 1 2 ] SUBLIST  LIST-> DROP 
+    48.44153639879369 -4.412679076194762
+    HAVERSINE  'dist' STORE
+    <% $dist 5000.0 > %> // 5 kilometers
+    <%  NULL 4 SET  %> // put null if too far
+    IFT
+  %> MACROMAPPER 0 0 0 
+] MAP NONEMPTY 'gts' STORE
+
+[ $gts bucketizer.min NOW 0 1 ] BUCKETIZE 'gts' STORE
+[ $gts [] reducer.min ] REDUCE
