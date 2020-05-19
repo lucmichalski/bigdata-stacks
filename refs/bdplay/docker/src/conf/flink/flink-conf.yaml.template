@@ -1,0 +1,7 @@
+jobmanager.rpc.address: ${HOSTNAME_MASTER}
+taskmanager.numberOfTaskSlots: ${FLINK_TASKMANAGER_NUM_SLOT}
+blob.server.port: 6124
+jobmanager.rpc.port: 6123
+taskmanager.rpc.port: 6122
+jobmanager.heap.size: ${FLINK_JOBMANAGER_HEAP_SIZE}
+taskmanager.heap.size: ${FLINK_TASKMANAGER_HEAP_SIZE}

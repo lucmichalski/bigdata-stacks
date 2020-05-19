@@ -1,0 +1,48 @@
+version: "3"
+services:
+  zoo1:
+    image: zookeeper
+    restart: always
+    hostname: zoo1
+    ports:
+      - 2181:2181
+    environment:
+      ZOO_MY_ID: 1
+      ZOO_SERVERS: server.1=0.0.0.0:2888:3888;2181
+  master:
+    image: bdplay
+    expose:
+      - "6123"
+    ports:
+      - 6123:6123
+      - 8081:8081
+      - 9000:9000
+      - 9870:9870
+      - 8088:8088
+      - 19888:19888
+      - 10020:10020
+      - 7077:7077
+      - 8082:8082
+      - 9092:9092
+    command: master tail -f /dev/null
+    links:
+      - "zoo1:zoo1"
+    environment:
+      - HOSTNAME_MASTER=master
+      - KAFKA_ZOOKEEPER_CONNECT=zoo1:2181
+      - HADOOP_USER_NAME=bdplay 
+  worker:
+    image: bdplay
+    expose:
+      - "6121"
+      - "6122"
+    depends_on:
+      - master
+    command: worker tail -f /dev/null
+    links:
+      - "master:master"
+      - "zoo1:zoo1"
+    environment:
+      - HOSTNAME_MASTER=master
+      - KAFKA_ZOOKEEPER_CONNECT=zoo1:2181
+      - HADOOP_USER_NAME=bdplay
