@@ -1,0 +1,17 @@
+#VERSION_NUMBER=2.6.3.0-235
+[HDP-2.6.3.0]
+name=HDP Version - HDP-2.6.3.0
+baseurl=http://10.3.0.28/ambari/HDP/centos7/2.6.3.0-235
+gpgcheck=1
+gpgkey=http://10.3.0.28/ambari/HDP/centos7/2.6.3.0-235/RPM-GPG-KEY/RPM-GPG-KEY-Jenkins
+enabled=1
+priority=1
+
+
+[HDP-UTILS-1.1.0.21]
+name=HDP-UTILS Version - HDP-UTILS-1.1.0.21
+baseurl=http://10.3.0.28/ambari/HDP-UTILS
+gpgcheck=1
+gpgkey=http://10.3.0.28/ambari/HDP-UTILS/RPM-GPG-KEY/RPM-GPG-KEY-Jenkins
+enabled=1
+priority=1
